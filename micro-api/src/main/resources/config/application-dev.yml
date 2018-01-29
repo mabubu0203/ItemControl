@@ -1,0 +1,229 @@
+# ----------------------------------------
+# CORE PROPERTIES
+# ----------------------------------------
+banner:
+  charset: UTF-8
+  location: classpath:banner.txt
+# ----------------------------------------
+# LOGGING PROPERTIES
+# ----------------------------------------
+logging:
+  config: classpath:logback-spring.xml
+  file: micro-api.log
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+      springframework: INFO
+  path: /var/log
+
+# ----------------------------------------
+# SPRING PROPERTIES
+# ----------------------------------------
+spring:
+  aop:
+    auto: true
+  beaninfo:
+    ignore: true
+  profiles: dev
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+  info:
+    build:
+      location: classpath:META-INF/build-info.properties
+    git:
+      location: classpath:git.properties
+  main:
+    banner-mode: console
+# ----------------------------------------
+# DATA PROPERTIES
+# ----------------------------------------
+  flyway:
+    baseline-version: 1
+    check-location: false
+    enabled: true
+    encoding: UTF-8
+    locations: classpath:db/migration/mysql
+    #password:
+    sql-migration-prefix: V
+    sql-migration-suffix: .sql
+    url: jdbc:mysql://localhost:3306/ITEMS?useSSL=false
+    user: root
+  liquibase:
+    enabled: false
+  data:
+    jpa:
+      repositories:
+        enabled: true
+    web:
+      pageable:
+        default-page-size: 20
+        page-parameter: page
+        size-parameter: size
+      sort:
+        sort-parameter: sort
+  datasource:
+    continue-on-error: false
+    driverClassName: com.mysql.cj.jdbc.Driver
+    generate-unique-name: false
+    jmx-enabled: false
+    #password:
+    sql-script-encoding: UTF-8
+    url: jdbc:mysql://localhost:3306/ITEMS?useSSL=false
+    username: root
+  h2:
+    console:
+      enabled: false
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    open-in-view: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL57InnoDBDialect
+        id:
+          new_generator_mappings: false
+        format_sql: true
+    show-sql: true
+  jta:
+    enabled: true
+
+# ----------------------------------------
+# INTEGRATION PROPERTIES
+# ----------------------------------------
+
+# ----------------------------------------
+# DEVTOOLS PROPERTIES
+# ----------------------------------------
+  devtools:
+    livereload:
+      enabled: true
+      port: 35219
+    restart:
+      enabled: true
+      poll-interval: 1000
+    quiet-period: 400
+  remote:
+    debug:
+      enabled: false
+      local-port: 8000
+    restart:
+      enabled: false
+      secret-header-name: X-AUTH-TOKEN
+# ----------------------------------------
+# WEB PROPERTIES
+# ----------------------------------------
+server:
+  port: 8085
+  context-path: /ItemsApi
+  servlet:
+    jsp:
+      registered: false
+  ssl:
+    enabled: false
+  tomcat:
+    accesslog:
+      directory: logs
+      enabled: true
+      file-date-format: .yyyy-MM-dd
+      pattern: common
+      prefix: access_log
+      rotate: true
+      suffix: .log
+    uri-encoding: UTF-8
+# ----------------------------------------
+# SECURITY PROPERTIES
+# ----------------------------------------
+security:
+  basic:
+    enabled: false
+  enable-csrf: false
+  headers:
+    cache: false
+    content-type: false
+    frame: false
+    xss: false
+    require-ssl: false
+# ----------------------------------------
+# ACTUATOR PROPERTIES
+# ----------------------------------------
+management:
+  cloudfoundry:
+    enabled: false
+  endpoint:
+    auditevents:
+      enabled: true
+    beans:
+      enabled: true
+    conditions:
+      enabled: true
+    configprops:
+      enabled: true
+    env:
+      enabled: true
+    flyway:
+      enabled: true
+    health:
+      enabled: true
+    heapdump:
+      enabled: true
+    info:
+      enabled: true
+    jmx:
+      enabled: false
+    jolokia:
+      enabled: true
+      path: /jolokia
+      sensitive: true
+    liquibase:
+      enabled: false
+    logfile:
+      enabled: true
+      path: /logfile
+      sensitive: true
+    loggers:
+      enabled: true
+    mappings:
+      enabled: true
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: false
+    scheduledtasks:
+      enabled: false
+    sessions:
+      enabled: false
+    shutdown:
+      enabled: false
+    threaddump:
+      enabled: false
+    trace:
+      enabled: false
+    web:
+      enabled: true
+  health:
+    db:
+      enabled: true
+    defaults:
+      enabled: true
+  info:
+    build:
+      enabled: true
+    defaults:
+      enabled: true
+    env:
+      enabled: true
+    git:
+      enabled: true
+  jolokia:
+    enabled: true
+  security:
+    enabled: false

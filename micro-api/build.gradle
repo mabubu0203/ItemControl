@@ -1,0 +1,45 @@
+plugins {
+
+    id "org.flywaydb.flyway" version "5.0.6"
+}
+flyway {
+    driver = 'com.mysql.cj.jdbc.Driver'
+    user = 'root'
+    url = 'jdbc:mysql://localhost:3306/ITEMS?useSSL=false'
+}
+springBoot {
+    buildInfo()
+}
+dependencies {
+
+    // SpringBoot projects
+    compile("org.springframework.boot:spring-boot-starter-actuator") {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
+    }
+
+    compile("org.springframework.boot:spring-boot-starter-validation") {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
+        exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-el'
+    }
+
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
+    }
+
+    // JDBC Drivers
+    runtime("mysql:mysql-connector-java:$mysqlVersion")
+    // Flyway
+    compile("org.flywaydb:flyway-core:$flywayVersion")
+
+    compile("javax.xml.bind:jaxb-api:2.3.0")
+
+    // SpringFox
+    compile("io.springfox:springfox-swagger2:$springfoxVersion")
+    compile("io.springfox:springfox-swagger-ui:$springfoxVersion")
+
+}
+war {
+    archiveName = 'Api.war'
+}
+mainClassName = 'jp.co.valtech.items.api.ApiApp'
+

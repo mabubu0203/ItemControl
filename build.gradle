@@ -1,0 +1,110 @@
+buildscript {
+    ext {
+        // ソースと実行ファイルのJava バージョン
+        jdkVersion = jdkVersion
+
+        defaultEncoding = defaultEncoding
+
+        // SpringBoot
+        springBootVersion = springbootVersion
+
+        // springfox
+        springfoxVersion = springfoxVersion
+
+        // Others
+        // mySql
+        // mysql-connector-java
+        mysqlVersion = getProperty("mysql.version")
+        // Lombok
+        lombokVersion = getProperty("lombok.version")
+
+        // Flyway
+        flywayVersion = getProperty("flyway.version")
+
+    }
+
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven {
+            url "https://repo.spring.io/snapshot"
+        }
+        maven {
+            url "https://repo.spring.io/milestone"
+        }
+        maven {
+            url "http://repo.spring.io/release"
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("com.github.ben-manes:gradle-versions-plugin:0.17.0")
+        classpath("com.h2database:h2:1.4.191")
+    }
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'application'
+    apply plugin: 'idea'
+    apply plugin: 'war'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'com.github.ben-manes.versions'
+    version = "1.0.0"
+
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+
+    task('default') {
+        dependsOn 'clean', 'test' , 'check', 'build'
+    }
+    dependencies {
+        compile("org.projectlombok:lombok:$lombokVersion")
+    }
+
+    tasks.withType(JavaCompile) {
+        doFirst {
+            it.options.encoding = defaultEncoding
+            sourceCompatibility = jdkVersion
+            targetCompatibility = jdkVersion
+            options.compilerArgs = [
+                    '-Xlint:unchecked', '-Xlint:deprecation',
+                    '--add-modules', 'java.xml.ws.annotation',
+                    '--add-modules', 'java.xml.bind',
+                    '--add-exports', 'java.xml.bind/com.sun.istack.internal=ALL-UNNAMED'
+            ]
+        }
+    }
+
+}
+
+project(':micro-api') {
+    ext.moduleName = 'jp.co.valtech.items.api'
+    dependencies {
+        compile project(':micro-common'), project(':micro-interfaces'), project(':micro-rdb')
+    }
+}
+
+project(':micro-common') {
+    ext.moduleName = 'jp.co.valtech.items.common'
+}
+
+project(':micro-interfaces') {
+    ext.moduleName = 'jp.co.valtech.items.interfaces'
+}
+
+project(':micro-rdb') {
+    ext.moduleName = 'jp.co.valtech.items.rdb'
+    dependencies {
+        compile project(':micro-common')
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = gradleVersion
+}
+

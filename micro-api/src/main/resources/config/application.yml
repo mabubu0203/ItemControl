@@ -1,0 +1,5 @@
+# spring.profiles.activeにデフォルトでアクティブなプロファイルを指定
+spring:
+  profiles:
+    active: dev
+#    active: production

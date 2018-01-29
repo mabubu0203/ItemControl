@@ -1,0 +1,8 @@
+rootProject.name = 'ItemControl'
+include(
+        'micro-api',
+        'micro-common',
+        'micro-interfaces',
+        'micro-rdb'
+)
+
