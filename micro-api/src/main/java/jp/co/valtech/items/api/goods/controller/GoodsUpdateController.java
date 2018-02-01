@@ -1,5 +1,6 @@
 package jp.co.valtech.items.api.goods.controller;
 
+import io.swagger.annotations.Api;
 import jp.co.valtech.items.api.goods.helper.GoodsUpdateHelper;
 import jp.co.valtech.items.interfaces.goods.requests.GoodsUpdateRequest;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsUpdateResponse;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
+@Api(description = "商品を更新します。")
 @Slf4j
 @RestController
 @RequestMapping(
@@ -29,7 +31,7 @@ public class GoodsUpdateController {
     private final GoodsUpdateHelper helper;
 
     /**
-     * 商品をRDBに保存します。
+     * 商品を更新します。
      *
      * @author uratamanabu
      * @version 1.0

@@ -18,7 +18,7 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
  */
 @SpringBootApplication
 @Import(RdbCore.class)
-@EntityScan(basePackageClasses = {ApiApp.class})
+@EntityScan(basePackageClasses = {ApiApp.class, Jsr310JpaConverters.class})
 public class ApiApp extends SpringBootServletInitializer {
 
     /**

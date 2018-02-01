@@ -7,7 +7,6 @@ plugins {
 dependencies {
 
     // SpringBoot projects
-    compile("org.springframework.boot:spring-boot-starter")
     compile("org.springframework.boot:spring-boot-starter-validation") {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
         exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-el'

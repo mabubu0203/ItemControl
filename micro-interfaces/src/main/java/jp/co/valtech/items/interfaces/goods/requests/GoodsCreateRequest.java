@@ -14,7 +14,7 @@ public class GoodsCreateRequest {
 
     @NotNull
     @XmlElement(name = "goods", required = true)
-    @ApiModelProperty(name = "goods", required = true)
+    @ApiModelProperty
     private GoodsReq goods;
 
 }

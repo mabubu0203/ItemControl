@@ -14,6 +14,6 @@ public class GoodsUpdateRequest {
 
     @NotNull
     @XmlElement(name = "goods", required = true)
-    @ApiModelProperty(name = "goods", required = true)
+    @ApiModelProperty
     private GoodsReq goods;
 }

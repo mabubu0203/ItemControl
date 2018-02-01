@@ -1,5 +1,4 @@
 plugins {
-
     id "org.flywaydb.flyway" version "5.0.6"
 }
 flyway {
@@ -27,10 +26,11 @@ dependencies {
     }
 
     // JDBC Drivers
-    runtime("mysql:mysql-connector-java:$mysqlVersion")
+    runtime("mysql:mysql-connector-java")
     // Flyway
-    compile("org.flywaydb:flyway-core:$flywayVersion")
+    compile("org.flywaydb:flyway-core")
 
+    // required jaxb
     compile("javax.xml.bind:jaxb-api:2.3.0")
 
     // SpringFox

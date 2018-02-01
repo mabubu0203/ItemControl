@@ -12,14 +12,6 @@ buildscript {
         springfoxVersion = springfoxVersion
 
         // Others
-        // mySql
-        // mysql-connector-java
-        mysqlVersion = getProperty("mysql.version")
-        // Lombok
-        lombokVersion = getProperty("lombok.version")
-
-        // Flyway
-        flywayVersion = getProperty("flyway.version")
 
     }
 
@@ -55,15 +47,24 @@ allprojects {
 
     repositories {
         mavenCentral()
-        maven { url "https://repo.spring.io/snapshot" }
-        maven { url "https://repo.spring.io/milestone" }
+        jcenter()
+        maven {
+            url "https://repo.spring.io/snapshot"
+        }
+        maven {
+            url "https://repo.spring.io/milestone"
+        }
+        maven {
+            url "http://repo.spring.io/release"
+        }
     }
 
     task('default') {
         dependsOn 'clean', 'test' , 'check', 'build'
     }
     dependencies {
-        compile("org.projectlombok:lombok:$lombokVersion")
+        compile("org.springframework.boot:spring-boot-starter")
+        compile("org.projectlombok:lombok")
     }
 
     tasks.withType(JavaCompile) {

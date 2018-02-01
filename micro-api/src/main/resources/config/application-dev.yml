@@ -70,7 +70,7 @@ spring:
         sort-parameter: sort
   datasource:
     continue-on-error: false
-    driverClassName: com.mysql.cj.jdbc.Driver
+    driverClassName: com.mysql.jdbc.Driver
     generate-unique-name: false
     jmx-enabled: false
     #password:
