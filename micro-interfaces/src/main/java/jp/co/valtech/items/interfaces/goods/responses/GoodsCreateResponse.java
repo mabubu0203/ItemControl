@@ -5,11 +5,14 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Data
 @ToString
+@XmlRootElement(name = "response")
 public class GoodsCreateResponse {
 
     @XmlElement(name = "goods")
     private GoodsRes goods;
+
 }

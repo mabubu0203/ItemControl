@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Data
 @ToString
 @XmlRootElement(name = "response")
-public class GoodsUpdateResponse {
+public class GoodsFindResponse {
 
     @XmlElement(name = "goods")
     private GoodsRes goods;
