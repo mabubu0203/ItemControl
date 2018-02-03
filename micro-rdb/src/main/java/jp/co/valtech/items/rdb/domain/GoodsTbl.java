@@ -41,6 +41,7 @@ public class GoodsTbl implements Serializable {
     @Column(
             name = "ID",
             unique = true,
+            nullable = false,
             length = 10,
             columnDefinition = "BIGINT"
     )
@@ -49,6 +50,7 @@ public class GoodsTbl implements Serializable {
     @Column(
             name = "CODE",
             unique = true,
+            nullable = false,
             length = 10,
             columnDefinition = "VARCHAR"
     )
@@ -56,6 +58,7 @@ public class GoodsTbl implements Serializable {
 
     @Column(
             name = "NAME",
+            nullable = false,
             length = 25,
             columnDefinition = "VARCHAR"
     )
@@ -63,6 +66,7 @@ public class GoodsTbl implements Serializable {
 
     @Column(
             name = "PRICE",
+            nullable = false,
             length = 4,
             columnDefinition = "SMALLINT"
     )

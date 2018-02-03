@@ -17,6 +17,6 @@ public interface GoodsRepository
      * @param code
      * @return
      */
-    public GoodsTbl findByCode(String code);
+    GoodsTbl findByCode(final String code);
 
 }

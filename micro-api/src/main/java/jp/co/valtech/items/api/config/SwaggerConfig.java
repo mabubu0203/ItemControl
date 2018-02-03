@@ -17,7 +17,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import static com.google.common.base.Predicates.or;
-import static springfox.documentation.builders.PathSelectors.regex;
 
 @Configuration
 @EnableSwagger2
@@ -33,6 +32,7 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.any())
                 .paths(paths())
                 .build()
+                .useDefaultResponseMessages(false)
                 .enableUrlTemplating(false)
                 .genericModelSubstitutes(Optional.class)
                 .pathMapping("/")

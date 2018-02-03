@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @ApiModel(description = "商品情報")
 @Data
 @ToString
-@XmlRootElement
+@XmlRootElement(name = "goods")
 public class GoodsReq {
 
     @NotEmpty

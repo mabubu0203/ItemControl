@@ -8,10 +8,12 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @ApiModel(description = "商品情報")
 @Data
 @ToString
+@XmlRootElement(name = "goods")
 public class GoodsRes {
 
     @XmlElement(name = "id")

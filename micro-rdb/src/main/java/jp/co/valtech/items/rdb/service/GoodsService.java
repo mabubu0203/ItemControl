@@ -2,36 +2,46 @@ package jp.co.valtech.items.rdb.service;
 
 import jp.co.valtech.items.rdb.domain.GoodsTbl;
 import jp.co.valtech.items.rdb.repository.GoodsRepository;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
-@Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class GoodsService {
 
-    private GoodsRepository repository;
+    private final GoodsRepository repository;
 
-    public Optional<GoodsTbl> selectId(final GoodsTbl entity) {
-        return repository.findById(entity.getId());
+    public boolean existsById(final long id) {
+        return repository.existsById(id);
     }
 
-    public Optional<GoodsTbl> selectCode(final GoodsTbl entity) {
-        return Optional.ofNullable(repository.findByCode(entity.getCode()));
+    public List<GoodsTbl> findAll() {
+        return repository.findAll();
     }
 
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+    public Optional<GoodsTbl> findByCode(final String code) {
+        return Optional.ofNullable(repository.findByCode(code));
+    }
+
+    public Optional<GoodsTbl> findById(final long id) {
+        return repository.findById(id);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public GoodsTbl insert(final GoodsTbl entity) {
-        return repository.saveAndFlush(entity);
+        repository.saveAndFlush(entity);
+        return repository.getOne(entity.getId());
     }
 
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+    @Deprecated
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public GoodsTbl update(final GoodsTbl entity) {
-        return repository.saveAndFlush(entity);
+        repository.saveAndFlush(entity);
+        return repository.getOne(entity.getId());
     }
 }
