@@ -28,10 +28,13 @@ public class GoodsFindHelper {
             GoodsTbl entity = optionalId.get();
             GoodsRes goodsRes = new GoodsRes();
             goodsRes.setId(entity.getId());
+            goodsRes.setVersion(entity.getVersion());
             goodsRes.setCode(entity.getCode());
             goodsRes.setName(entity.getName());
             goodsRes.setPrice(entity.getPrice());
             goodsRes.setNote(entity.getNote());
+            goodsRes.setCreateDatetime(entity.getCreateDatetime());
+            goodsRes.setUpdateDatetime(entity.getUpdateDatetime());
             GoodsFindResponse response = new GoodsFindResponse();
             response.setGoods(goodsRes);
             return new ResponseEntity<>(response, HttpStatus.OK);

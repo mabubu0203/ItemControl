@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.time.LocalDateTime;
 
 @ApiModel(description = "商品情報")
 @Data
@@ -20,6 +21,10 @@ public class GoodsRes {
     @ApiModelProperty(example = "1")
     private long id;
 
+    @XmlElement(name = "version")
+    @ApiModelProperty(example = "1")
+    private int version;
+
     @Length(min = 1, max = 10)
     @XmlElement(name = "code")
     @ApiModelProperty(example = "AA01")
@@ -30,7 +35,6 @@ public class GoodsRes {
     @ApiModelProperty(example = "明石焼き")
     private String name;
 
-    @Size(min = 1, max = 4)
     @XmlElement(name = "price")
     @ApiModelProperty(example = "200")
     private int price;
@@ -39,5 +43,13 @@ public class GoodsRes {
     @XmlElement(name = "note")
     @ApiModelProperty(example = "タコが入っています。")
     private String note;
+
+    @XmlElement(name = "create_datetime")
+    @ApiModelProperty(example = "2018-02-03T12:14:09.190Z")
+    private LocalDateTime createDatetime;
+
+    @XmlElement(name = "update_datetime")
+    @ApiModelProperty(example = "2018-02-03T12:14:09.190Z")
+    private LocalDateTime updateDatetime;
 
 }

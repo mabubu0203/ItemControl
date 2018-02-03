@@ -1,13 +1,11 @@
 package jp.co.valtech.items.api.goods.helper;
 
 import jp.co.valtech.items.interfaces.definitions.requests.GoodsReq;
-import jp.co.valtech.items.interfaces.definitions.responses.GoodsRes;
 import jp.co.valtech.items.interfaces.goods.requests.GoodsUpdateRequest;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsUpdateResponse;
 import jp.co.valtech.items.rdb.domain.GoodsTbl;
 import jp.co.valtech.items.rdb.service.GoodsService;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,19 +31,20 @@ public class GoodsUpdateHelper {
 
         if (optionalId.isPresent() && !optionalCode.isPresent()) {
             GoodsTbl entity = optionalId.get();
-            entity.setName(goodsReq.getName());
-            entity.setPrice(goodsReq.getPrice());
-            entity.setNote(goodsReq.getNote());
-            service.update(entity);
-            GoodsRes goodsRes = new GoodsRes();
-            goodsRes.setId(entity.getId());
-            goodsRes.setCode(entity.getCode());
-            goodsRes.setName(entity.getName());
-            goodsRes.setPrice(entity.getPrice());
-            goodsRes.setNote(entity.getNote());
-            GoodsUpdateResponse response = new GoodsUpdateResponse();
-            response.setGoods(goodsRes);
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            if (entity.getVersion() == request.getVersion()) {
+                entity.setName(goodsReq.getName());
+                entity.setPrice(goodsReq.getPrice());
+                entity.setNote(goodsReq.getNote());
+                service.update();
+                GoodsUpdateResponse response = new GoodsUpdateResponse();
+                GoodsUpdateResponse.Goods goods = response.new Goods();
+                goods.setId(entity.getId());
+                response.setGoods(goods);
+                return new ResponseEntity<>(response, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(
+                        new GoodsUpdateResponse(), HttpStatus.NOT_FOUND);
+            }
         } else {
             return new ResponseEntity<>(
                     new GoodsUpdateResponse(), HttpStatus.NOT_FOUND);

@@ -29,8 +29,6 @@ public class GoodsReq {
     @ApiModelProperty(example = "明石焼き")
     private String name;
 
-    @NotEmpty
-    @Size(min = 1, max = 4)
     @XmlElement(name = "price", required = true)
     @ApiModelProperty(example = "200")
     private int price;

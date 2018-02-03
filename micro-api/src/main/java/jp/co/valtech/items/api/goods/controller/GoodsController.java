@@ -6,10 +6,12 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import jp.co.valtech.items.api.goods.helper.GoodsCreateHelper;
+import jp.co.valtech.items.api.goods.helper.GoodsDeleteHelper;
 import jp.co.valtech.items.api.goods.helper.GoodsFindHelper;
 import jp.co.valtech.items.api.goods.helper.GoodsGetHelper;
 import jp.co.valtech.items.api.goods.helper.GoodsUpdateHelper;
 import jp.co.valtech.items.interfaces.goods.requests.GoodsCreateRequest;
+import jp.co.valtech.items.interfaces.goods.requests.GoodsDeleteRequest;
 import jp.co.valtech.items.interfaces.goods.requests.GoodsUpdateRequest;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsCreateResponse;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsFindResponse;
@@ -17,6 +19,7 @@ import jp.co.valtech.items.interfaces.goods.responses.GoodsGetResponse;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsUpdateResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -43,6 +46,7 @@ import javax.validation.Valid;
 @Api(description = "商品を扱います。")
 public class GoodsController {
     private final GoodsCreateHelper create;
+    private final GoodsDeleteHelper delete;
     private final GoodsFindHelper find;
     private final GoodsGetHelper get;
     private final GoodsUpdateHelper update;
@@ -78,6 +82,34 @@ public class GoodsController {
     }
 
     /**
+     * 商品を1件削除します。
+     *
+     * @author uratamanabu
+     * @version 1.0
+     * @since 1.0
+     */
+    @DeleteMapping(value = {"/{id}"})
+    @ApiOperation(value = "商品を1件削除します。")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "No Content"),
+            @ApiResponse(code = 404, message = "not found")
+    })
+    public ResponseEntity deleteGoods(
+            @PathVariable(name = "id") @ApiParam(example = "1", value = "削除対象のIDを指定します。") final String id,
+            @RequestBody @Valid final GoodsDeleteRequest request,
+            final BindingResult result
+    ) {
+        if (result.hasErrors()) {
+            for (FieldError err : result.getFieldErrors()) {
+                log.debug("error code = [" + err.getCode() + "]");
+            }
+        }
+
+        log.info("delete");
+        return delete.deleteGoods(id, request);
+    }
+
+    /**
      * 商品を全件取得します。
      *
      * @author uratamanabu
@@ -92,29 +124,10 @@ public class GoodsController {
     public ResponseEntity<GoodsGetResponse> getGoods() {
 
         log.info("get");
-        return getGoods();
+        return get.getGoods();
 
     }
 
-    /**
-     * 商品を1件削除します。
-     *
-     * @author uratamanabu
-     * @version 1.0
-     * @since 1.0
-     */
-    @DeleteMapping(value = {"/{id}"})
-    @ApiOperation(value = "商品を1件削除します。")
-    @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "No Content"),
-            @ApiResponse(code = 404, message = "not found")
-    })
-    public String deleteGoods(
-            @PathVariable(name = "id") @ApiParam(example = "1", value = "削除対象のIDを指定します。") final String id
-    ) {
-        log.info("delete");
-        return "";
-    }
 
     /**
      * 商品を1件取得します。

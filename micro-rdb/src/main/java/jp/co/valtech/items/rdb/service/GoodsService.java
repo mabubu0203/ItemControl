@@ -20,6 +20,11 @@ public class GoodsService {
         return repository.existsById(id);
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void deleteById(final long id) {
+        repository.deleteById(id);
+    }
+
     public List<GoodsTbl> findAll() {
         return repository.findAll();
     }
@@ -38,10 +43,8 @@ public class GoodsService {
         return repository.getOne(entity.getId());
     }
 
-    @Deprecated
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public GoodsTbl update(final GoodsTbl entity) {
-        repository.saveAndFlush(entity);
-        return repository.getOne(entity.getId());
+    public void update() {
+        repository.flush();
     }
 }

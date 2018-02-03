@@ -2,11 +2,7 @@ package jp.co.valtech.items.interfaces.goods.responses;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import jp.co.valtech.items.interfaces.definitions.responses.GoodsRes;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -20,6 +16,18 @@ public class GoodsCreateResponse {
 
     @XmlElement(name = "goods")
     @ApiModelProperty
-    private GoodsRes goods;
+    private Goods goods;
+
+    @ApiModel(description = "商品情報")
+    @Data
+    @ToString
+    @XmlRootElement(name = "goods")
+    public class Goods {
+
+        @XmlElement(name = "id")
+        @ApiModelProperty(example = "1")
+        private long id;
+
+    }
 
 }

@@ -26,10 +26,13 @@ public class GoodsGetHelper {
         for (GoodsTbl entity : entities) {
             GoodsRes goodsRes = new GoodsRes();
             goodsRes.setId(entity.getId());
+            goodsRes.setVersion(entity.getVersion());
             goodsRes.setCode(entity.getCode());
             goodsRes.setName(entity.getName());
             goodsRes.setPrice(entity.getPrice());
             goodsRes.setNote(entity.getNote());
+            goodsRes.setCreateDatetime(entity.getCreateDatetime());
+            goodsRes.setUpdateDatetime(entity.getUpdateDatetime());
             goodsList.add(goodsRes);
         }
         GoodsGetResponse response = new GoodsGetResponse();
