@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -20,25 +22,32 @@ public class GoodsCreateHelper {
 
     private final GoodsService service;
 
-    public ResponseEntity<GoodsCreateResponse> createGoods(final GoodsCreateRequest request) {
+    public ResponseEntity<GoodsCreateResponse> execute(final GoodsCreateRequest request) {
         GoodsReq goodsReq = request.getGoods();
         Optional<GoodsTbl> optionalCode = service.findByCode(goodsReq.getCode());
         if (optionalCode.isPresent()) {
-            return new ResponseEntity<>(new GoodsCreateResponse(), HttpStatus.CONFLICT);
+            return new ResponseEntity<>(
+                    new GoodsCreateResponse(), HttpStatus.CONFLICT);
         } else {
             GoodsTbl entity = new GoodsTbl();
-            entity.setCode(goodsReq.getCode());
-            entity.setName(goodsReq.getName());
-            entity.setPrice(goodsReq.getPrice());
-            entity.setNote(goodsReq.getNote());
-
-            service.insert(entity);
-
+            create(entity, goodsReq);
             GoodsCreateResponse response = new GoodsCreateResponse();
             GoodsCreateResponse.Goods goods = response.new Goods();
             goods.setId(entity.getId());
             response.setGoods(goods);
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
+            return new ResponseEntity<>(
+                    response, HttpStatus.CREATED);
         }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    private void create(
+            final GoodsTbl entity,
+            final GoodsReq goodsReq) {
+        entity.setCode(goodsReq.getCode());
+        entity.setName(goodsReq.getName());
+        entity.setPrice(goodsReq.getPrice());
+        entity.setNote(goodsReq.getNote());
+        service.insert(entity);
     }
 }

@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -18,7 +20,7 @@ public class GoodsDeleteHelper {
 
     private final GoodsService service;
 
-    public ResponseEntity deleteGoods(
+    public ResponseEntity execute(
             final String id,
             final GoodsDeleteRequest request) {
 
@@ -26,13 +28,15 @@ public class GoodsDeleteHelper {
         if (optionalId.isPresent()) {
             GoodsTbl entity = optionalId.get();
             if (entity.getVersion() == request.getVersion()) {
-                service.deleteById(Long.valueOf(id));
+                delete(Long.valueOf(id));
                 return new ResponseEntity(HttpStatus.NO_CONTENT);
-            } else {
-                return new ResponseEntity(HttpStatus.NOT_FOUND);
             }
-        } else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    private void delete(final long id) {
+        service.deleteById(id);
     }
 }

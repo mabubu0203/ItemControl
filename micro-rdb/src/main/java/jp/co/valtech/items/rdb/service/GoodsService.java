@@ -16,11 +16,6 @@ public class GoodsService {
 
     private final GoodsRepository repository;
 
-    public boolean existsById(final long id) {
-        return repository.existsById(id);
-    }
-
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void deleteById(final long id) {
         repository.deleteById(id);
     }
@@ -37,14 +32,11 @@ public class GoodsService {
         return repository.findById(id);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public GoodsTbl insert(final GoodsTbl entity) {
+    public void insert(final GoodsTbl entity) {
         repository.saveAndFlush(entity);
-        return repository.getOne(entity.getId());
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void update() {
-        repository.flush();
+    public void update(final GoodsTbl entity) {
+        repository.saveAndFlush(entity);
     }
 }

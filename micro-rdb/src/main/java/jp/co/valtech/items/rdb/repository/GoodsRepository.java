@@ -4,8 +4,6 @@ import jp.co.valtech.items.rdb.domain.GoodsTbl;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- *
- *
  * @author uratamanabu
  * @version 1.0
  * @since 1.0

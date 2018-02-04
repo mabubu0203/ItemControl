@@ -19,7 +19,6 @@ import jp.co.valtech.items.interfaces.goods.responses.GoodsGetResponse;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsUpdateResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -77,7 +76,7 @@ public class GoodsController {
         }
 
         log.info("create");
-        return create.createGoods(request);
+        return create.execute(request);
 
     }
 
@@ -106,7 +105,7 @@ public class GoodsController {
         }
 
         log.info("delete");
-        return delete.deleteGoods(id, request);
+        return delete.execute(id, request);
     }
 
     /**
@@ -124,7 +123,7 @@ public class GoodsController {
     public ResponseEntity<GoodsGetResponse> getGoods() {
 
         log.info("get");
-        return get.getGoods();
+        return get.execute();
 
     }
 
@@ -146,7 +145,7 @@ public class GoodsController {
             @PathVariable(name = "id") @ApiParam(example = "1", value = "取得対象のIDを指定します。") final String id
     ) {
         log.info("find");
-        return find.findGoods(id);
+        return find.execute(id);
     }
 
     /**
@@ -175,7 +174,7 @@ public class GoodsController {
         }
 
         log.info("update");
-        return update.updateGoods(id, request);
+        return update.execute(id, request);
 
     }
 

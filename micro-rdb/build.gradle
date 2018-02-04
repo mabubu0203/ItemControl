@@ -15,7 +15,7 @@ dependencies {
 
 jar {
     baseName = 'micro-rdb'
-    version =  '1.0'
+    version = '1.0'
     enabled = true
 }
 
