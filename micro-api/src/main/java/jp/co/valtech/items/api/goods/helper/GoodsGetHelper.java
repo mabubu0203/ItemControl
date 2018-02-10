@@ -6,6 +6,7 @@ import jp.co.valtech.items.rdb.domain.GoodsTbl;
 import jp.co.valtech.items.rdb.service.GoodsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
@@ -21,14 +22,14 @@ import java.util.List;
 public class GoodsGetHelper {
 
     private final GoodsService service;
+    private final ModelMapper modelMapper;
 
     public ResponseEntity<GoodsGetResponse> execute() {
 
         List<GoodsTbl> entities = service.findAll();
         List<GoodsRes> goodsList = new ArrayList<>();
         for (GoodsTbl entity : entities) {
-            GoodsRes goodsRes = new GoodsRes();
-            BeanUtils.copyProperties(goodsRes,entity);
+            GoodsRes goodsRes = modelMapper.map(entity,GoodsRes.class);
             goodsList.add(goodsRes);
         }
         GoodsGetResponse response = new GoodsGetResponse();

@@ -21,8 +21,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,7 +48,6 @@ public class GoodsController {
     private final GoodsGetHelper get;
     private final GoodsUpdateHelper update;
 
-
     /**
      * 商品を1件登録します。
      *
@@ -61,21 +58,11 @@ public class GoodsController {
     @PostMapping(value = {"/"})
     @ApiOperation(value = "${GoodsController.createGoods.value}", notes = "${GoodsController.createGoods.notes}")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success", response = GoodsCreateResponse.class),
-            @ApiResponse(code = 401, message = "Unauthorized"),
-            @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 500, message = "Failure")})
+            @ApiResponse(code = 201, message = "Created", response = GoodsCreateResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request")})
     public ResponseEntity<GoodsCreateResponse> createGoods(
-            @RequestBody @Valid final GoodsCreateRequest request,
-            final BindingResult result
+            @RequestBody @Valid final GoodsCreateRequest request
     ) {
-
-        if (result.hasErrors()) {
-            for (FieldError err : result.getFieldErrors()) {
-                log.debug("error code = [" + err.getCode() + "]");
-            }
-        }
 
         log.info("create");
         return create.execute(request);
@@ -93,20 +80,11 @@ public class GoodsController {
     @ApiOperation(value = "${GoodsController.deleteGoods.value}", notes = "${GoodsController.deleteGoods.notes}")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "No Content"),
-            @ApiResponse(code = 401, message = "Unauthorized"),
-            @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 500, message = "Failure")})
+            @ApiResponse(code = 400, message = "Bad Request")})
     public ResponseEntity deleteGoods(
             @PathVariable(name = "id") @ApiParam(example = "1", value = "${GoodsController.deleteGoods.request.id.value}") final String id,
-            @RequestBody @Valid final GoodsDeleteRequest request,
-            final BindingResult result
+            @RequestBody @Valid final GoodsDeleteRequest request
     ) {
-        if (result.hasErrors()) {
-            for (FieldError err : result.getFieldErrors()) {
-                log.debug("error code = [" + err.getCode() + "]");
-            }
-        }
 
         log.info("delete");
         return delete.execute(id, request);
@@ -122,11 +100,8 @@ public class GoodsController {
     @GetMapping(value = {"/"})
     @ApiOperation(value = "${GoodsController.getGoods.value}", notes = "${GoodsController.getGoods.notes}")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success", response = GoodsGetResponse.class),
-            @ApiResponse(code = 401, message = "Unauthorized"),
-            @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 500, message = "Failure")})
+            @ApiResponse(code = 200, message = "OK", response = GoodsGetResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request")})
     public ResponseEntity<GoodsGetResponse> getGoods() {
 
         log.info("get");
@@ -145,11 +120,8 @@ public class GoodsController {
     @GetMapping(value = {"/{id}"})
     @ApiOperation(value = "${GoodsController.findGoods.value}", notes = "${GoodsController.findGoods.notes}")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success", response = GoodsFindResponse.class),
-            @ApiResponse(code = 401, message = "Unauthorized"),
-            @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 500, message = "Failure")})
+            @ApiResponse(code = 200, message = "OK", response = GoodsFindResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request")})
     public ResponseEntity<GoodsFindResponse> findGoods(
             @PathVariable(name = "id") @ApiParam(example = "1", value = "${GoodsController.findGoods.request.id.value}") final String id
     ) {
@@ -167,27 +139,16 @@ public class GoodsController {
     @PutMapping(value = {"/{id}"})
     @ApiOperation(value = "${GoodsController.updateGoods.value}", notes = "${GoodsController.updateGoods.notes}")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success", response = GoodsUpdateResponse.class),
-            @ApiResponse(code = 401, message = "Unauthorized"),
-            @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 500, message = "Failure")})
+            @ApiResponse(code = 200, message = "OK", response = GoodsUpdateResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request")})
     public ResponseEntity<GoodsUpdateResponse> updateGoods(
             @PathVariable(name = "id") @ApiParam(example = "1", value = "${GoodsController.updateGoods.request.id.value}") final String id,
-            @RequestBody @Valid final GoodsUpdateRequest request,
-            final BindingResult result
+            @RequestBody @Valid final GoodsUpdateRequest request
     ) {
-
-        if (result.hasErrors()) {
-            for (FieldError err : result.getFieldErrors()) {
-                log.debug("error code = [" + err.getCode() + "]");
-            }
-        }
 
         log.info("update");
         return update.execute(id, request);
 
     }
-
 
 }

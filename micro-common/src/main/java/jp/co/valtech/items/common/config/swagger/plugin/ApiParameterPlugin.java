@@ -1,4 +1,4 @@
-package jp.co.valtech.items.api.config.swagger;
+package jp.co.valtech.items.common.config.swagger.plugin;
 
 import com.google.common.base.Optional;
 import org.springframework.stereotype.Component;

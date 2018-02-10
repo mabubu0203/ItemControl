@@ -1,1 +1,0 @@
-package jp.co.valtech.items.common.validation.constraints;

@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+jp.co.valtech.items.common.config.modelmapper.ModelMapperAutoConfiguration,\
+jp.co.valtech.items.common.config.swagger.SwaggerAutoConfiguration

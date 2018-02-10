@@ -1,6 +1,7 @@
 package jp.co.valtech.items.api;
 
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import jp.co.valtech.items.common.config.swagger.SwaggerCore;
 import jp.co.valtech.items.rdb.RdbCore;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -17,7 +18,7 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
  * @since 1.0
  */
 @SpringBootApplication
-@Import(RdbCore.class)
+@Import({RdbCore.class, SwaggerCore.class})
 @EntityScan(basePackageClasses = {ApiApp.class, Jsr310JpaConverters.class})
 public class ApiApp extends SpringBootServletInitializer {
 

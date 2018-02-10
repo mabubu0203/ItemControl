@@ -6,6 +6,7 @@ import jp.co.valtech.items.rdb.domain.GoodsTbl;
 import jp.co.valtech.items.rdb.service.GoodsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import java.util.Optional;
 public class GoodsFindHelper {
 
     private final GoodsService service;
+    private final ModelMapper modelMapper;
 
     public ResponseEntity<GoodsFindResponse> execute(final String id) {
 
@@ -26,8 +28,7 @@ public class GoodsFindHelper {
 
         if (optionalId.isPresent()) {
             GoodsTbl entity = optionalId.get();
-            GoodsRes goodsRes = new GoodsRes();
-            BeanUtils.copyProperties(goodsRes, entity);
+            GoodsRes goodsRes = modelMapper.map(entity,GoodsRes.class);
             GoodsFindResponse response = new GoodsFindResponse();
             response.setGoods(goodsRes);
             return new ResponseEntity<>(

@@ -1,4 +1,4 @@
-package jp.co.valtech.items.api.config.swagger;
+package jp.co.valtech.items.common.config.swagger.plugin;
 
 import com.fasterxml.classmate.TypeResolver;
 import org.springframework.core.annotation.AnnotationUtils;
