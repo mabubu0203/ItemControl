@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDateTime;
@@ -18,30 +17,30 @@ import java.time.LocalDateTime;
 public class GoodsRes {
 
     @XmlElement(name = "id")
-    @ApiModelProperty(example = "1")
+    @ApiModelProperty(example = "1", value = "ID")
     private long id;
 
     @XmlElement(name = "version")
-    @ApiModelProperty(example = "1")
+    @ApiModelProperty(example = "1", value = "VERSION")
     private int version;
 
     @Length(min = 1, max = 10)
     @XmlElement(name = "code")
-    @ApiModelProperty(example = "AA01")
+    @ApiModelProperty(example = "AA01", value = "CODE")
     private String code;
 
     @Length(min = 1, max = 25)
     @XmlElement(name = "name")
-    @ApiModelProperty(example = "明石焼き")
+    @ApiModelProperty(example = "明石焼き", value = "NAME")
     private String name;
 
     @XmlElement(name = "price")
-    @ApiModelProperty(example = "200")
+    @ApiModelProperty(example = "200", value = "PRICE")
     private int price;
 
     @Length(min = 1, max = 64)
     @XmlElement(name = "note")
-    @ApiModelProperty(example = "タコが入っています。")
+    @ApiModelProperty(example = "タコが入っています。", value = "NOTE")
     private String note;
 
     @XmlElement(name = "create_datetime")

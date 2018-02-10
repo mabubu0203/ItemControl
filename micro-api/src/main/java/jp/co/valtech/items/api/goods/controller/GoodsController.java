@@ -59,11 +59,13 @@ public class GoodsController {
      * @since 1.0
      */
     @PostMapping(value = {"/"})
-    @ApiOperation(value = "商品を1件登録します。")
+    @ApiOperation(value = "${GoodsController.createGoods.value}", notes = "${GoodsController.createGoods.notes}")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "not found")
-    })
+            @ApiResponse(code = 200, message = "Success", response = GoodsCreateResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Failure")})
     public ResponseEntity<GoodsCreateResponse> createGoods(
             @RequestBody @Valid final GoodsCreateRequest request,
             final BindingResult result
@@ -88,13 +90,15 @@ public class GoodsController {
      * @since 1.0
      */
     @DeleteMapping(value = {"/{id}"})
-    @ApiOperation(value = "商品を1件削除します。")
+    @ApiOperation(value = "${GoodsController.deleteGoods.value}", notes = "${GoodsController.deleteGoods.notes}")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "No Content"),
-            @ApiResponse(code = 404, message = "not found")
-    })
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Failure")})
     public ResponseEntity deleteGoods(
-            @PathVariable(name = "id") @ApiParam(example = "1", value = "削除対象のIDを指定します。") final String id,
+            @PathVariable(name = "id") @ApiParam(example = "1", value = "${GoodsController.deleteGoods.request.id.value}") final String id,
             @RequestBody @Valid final GoodsDeleteRequest request,
             final BindingResult result
     ) {
@@ -116,10 +120,13 @@ public class GoodsController {
      * @since 1.0
      */
     @GetMapping(value = {"/"})
-    @ApiOperation(value = "商品を全件取得します。")
+    @ApiOperation(value = "${GoodsController.getGoods.value}", notes = "${GoodsController.getGoods.notes}")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK")
-    })
+            @ApiResponse(code = 200, message = "Success", response = GoodsGetResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Failure")})
     public ResponseEntity<GoodsGetResponse> getGoods() {
 
         log.info("get");
@@ -136,13 +143,15 @@ public class GoodsController {
      * @since 1.0
      */
     @GetMapping(value = {"/{id}"})
-    @ApiOperation(value = "商品を1件取得します。")
+    @ApiOperation(value = "${GoodsController.findGoods.value}", notes = "${GoodsController.findGoods.notes}")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "not found")
-    })
+            @ApiResponse(code = 200, message = "Success", response = GoodsFindResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Failure")})
     public ResponseEntity<GoodsFindResponse> findGoods(
-            @PathVariable(name = "id") @ApiParam(example = "1", value = "取得対象のIDを指定します。") final String id
+            @PathVariable(name = "id") @ApiParam(example = "1", value = "${GoodsController.findGoods.request.id.value}") final String id
     ) {
         log.info("find");
         return find.execute(id);
@@ -156,13 +165,15 @@ public class GoodsController {
      * @since 1.0
      */
     @PutMapping(value = {"/{id}"})
-    @ApiOperation(value = "商品を1件更新します。")
+    @ApiOperation(value = "${GoodsController.updateGoods.value}", notes = "${GoodsController.updateGoods.notes}")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "not found")
-    })
+            @ApiResponse(code = 200, message = "Success", response = GoodsUpdateResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Failure")})
     public ResponseEntity<GoodsUpdateResponse> updateGoods(
-            @PathVariable(name = "id") @ApiParam(example = "1", value = "更新対象のIDを指定します。") final String id,
+            @PathVariable(name = "id") @ApiParam(example = "1", value = "${GoodsController.updateGoods.request.id.value}") final String id,
             @RequestBody @Valid final GoodsUpdateRequest request,
             final BindingResult result
     ) {
