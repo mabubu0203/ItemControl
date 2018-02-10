@@ -1,10 +1,13 @@
 .gradle
+.idea
 .settings
 .classpath
 .project
 /bin
 /build
 /out
-.idea
+/.gradle
+/.idea
 *.iml
 *.log
+*.xml

@@ -12,6 +12,8 @@ buildscript {
         springfoxVersion = springfoxVersion
 
         // Others
+        h2Version = h2Version
+        modelmapperVersion = modelmapperVersion
 
     }
 
@@ -31,7 +33,7 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("com.github.ben-manes:gradle-versions-plugin:0.17.0")
-        classpath("com.h2database:h2:1.4.196")
+        classpath("com.h2database:h2:${h2Version}")
     }
 }
 
@@ -65,6 +67,7 @@ allprojects {
     dependencies {
         compile("org.springframework.boot:spring-boot-starter")
         compile("org.projectlombok:lombok")
+        compile("org.modelmapper:modelmapper:${modelmapperVersion}")
     }
 
     tasks.withType(JavaCompile) {
