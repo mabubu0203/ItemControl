@@ -28,7 +28,7 @@ public class ApiApp extends SpringBootServletInitializer {
      * @since 1.0
      */
     public static void main(final String[] args) {
-        new SpringApplicationBuilder(ApiApp.class).profiles("dev").run(args);
+        new SpringApplicationBuilder(ApiApp.class).run(args);
     }
 
     @Override
