@@ -2,7 +2,6 @@ package jp.co.valtech.items.common.config.swagger;
 
 import com.fasterxml.classmate.TypeResolver;
 import com.google.common.base.Predicate;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -29,44 +28,51 @@ public class DocketFactoryBean implements FactoryBean<Docket> {
 
     @Override
     public Docket getObject() throws Exception {
+        final Docket docket = createDocket();
+        return docket;
+    }
+
+    private Docket createDocket() {
         Set<String> set = new HashSet<>();
         set.add(MediaType.APPLICATION_JSON_UTF8_VALUE);
-
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
+        Docket docket = new Docket(DocumentationType.SWAGGER_2);
+        docket.select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(paths())
-                .build()
-                .useDefaultResponseMessages(false)
-                .enableUrlTemplating(false)
-                .genericModelSubstitutes(Optional.class, ResponseEntity.class)
+                .build();
+        docket.apiInfo(apiInfo())
+                .produces(set)
+                .consumes(set)
                 .alternateTypeRules(
                         newRule(typeResolver.resolve(DeferredResult.class,
                                 typeResolver.resolve(ResponseEntity.class, WildcardType.class)),
                                 typeResolver.resolve(WildcardType.class)))
+                .genericModelSubstitutes(Optional.class, ResponseEntity.class)
+                .useDefaultResponseMessages(false)
+                .enable(true)
+                .forCodeGeneration(true)
                 .pathMapping("/")
-                .produces(set)
-                .consumes(set)
-                .apiInfo(apiInfo());
-    }
-
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("Springfox")
-                .description("ここにはDiscriptionを記載します。")
-                .license("Apache License Version 2.0")
-                .licenseUrl("https://github.com/springfox/springfox/blob/master/LICENSE")
-                .version("2.0")
-                .build();
+                .enableUrlTemplating(false);
+        return docket;
     }
 
     private Predicate<String> paths() {
         return or(PathSelectors.any());
     }
 
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("Springfox")
+                .description("ここにはDescriptionを記載します。")
+                .license("Apache License Version 2.0")
+                .licenseUrl("https://github.com/springfox/springfox/blob/master/LICENSE")
+                .version("2.0")
+                .build();
+    }
+
     @Override
     public Class<?> getObjectType() {
-        return ModelMapper.class;
+        return Docket.class;
     }
 
     @Override

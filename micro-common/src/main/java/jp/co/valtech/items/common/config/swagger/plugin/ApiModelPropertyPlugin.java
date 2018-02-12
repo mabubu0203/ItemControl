@@ -45,7 +45,6 @@ public class ApiModelPropertyPlugin implements ModelPropertyBuilderPlugin {
 
             allowableValues(beanDef, builder);
 
-
         } else {
             // nothing
         }
