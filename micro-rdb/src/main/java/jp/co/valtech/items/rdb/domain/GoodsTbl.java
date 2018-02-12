@@ -3,6 +3,7 @@ package jp.co.valtech.items.rdb.domain;
 import jp.co.valtech.items.rdb.domain.common.AbstractEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -24,6 +25,7 @@ import java.io.Serializable;
         name = "GOODS_TBL",
         uniqueConstraints = @UniqueConstraint(columnNames = "CODE")
 )
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 public class GoodsTbl extends AbstractEntity implements Serializable {

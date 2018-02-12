@@ -1,0 +1,100 @@
+# ----------------------------------------
+# SPRING PROPERTIES
+# ----------------------------------------
+spring:
+  aop:
+    auto: true
+  beaninfo:
+    ignore: true
+  profiles: dev
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+  info:
+    build:
+      location: classpath:META-INF/build-info.properties
+    git:
+      location: classpath:git.properties
+  main:
+    banner-mode: console
+# ----------------------------------------
+# DATA PROPERTIES
+# ----------------------------------------
+  flyway:
+    baseline-version: 1.1
+    check-location: true
+    enabled: true
+    encoding: UTF-8
+    locations: classpath:db/migration/h2
+    #password:
+    schemas: PUBLIC
+    sql-migration-prefix: V
+    sql-migration-suffix: .sql
+    url: jdbc:h2:mem:test;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE
+    user: root
+  liquibase:
+    enabled: false
+  data:
+    jpa:
+      repositories:
+        enabled: true
+    web:
+      pageable:
+        default-page-size: 20
+        page-parameter: page
+        size-parameter: size
+      sort:
+        sort-parameter: sort
+  datasource:
+    continue-on-error: false
+    driverClassName: org.h2.Driver
+    generate-unique-name: false
+    jmx-enabled: false
+    #password:
+    sql-script-encoding: UTF-8
+    url: jdbc:h2:mem:test;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        trace: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    open-in-view: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        id:
+          new_generator_mappings: false
+        format_sql: true
+    show-sql: true
+  jta:
+    enabled: true
+
+# ----------------------------------------
+# WEB PROPERTIES
+# ----------------------------------------
+server:
+  port: 8086
+  context-path: /ItemsApi
+  servlet:
+    jsp:
+      registered: false
+  ssl:
+    enabled: false
+  tomcat:
+    accesslog:
+      directory: logs
+      enabled: true
+      file-date-format: .yyyy-MM-dd
+      pattern: common
+      prefix: access_log
+      rotate: true
+      suffix: .log
+    uri-encoding: UTF-8

@@ -1,27 +1,4 @@
 # ----------------------------------------
-# CORE PROPERTIES
-# ----------------------------------------
-banner:
-  charset: UTF-8
-  location: classpath:banner.txt
-# ----------------------------------------
-# LOGGING PROPERTIES
-# ----------------------------------------
-logging:
-  config: classpath:logback-spring.xml
-  file: micro-api.log
-  level:
-    org:
-      hibernate:
-        SQL: DEBUG
-        type:
-          descriptor:
-            sql:
-              BasicBinder: TRACE
-      springframework: INFO
-  path: /var/log
-
-# ----------------------------------------
 # SPRING PROPERTIES
 # ----------------------------------------
 spring:
@@ -46,7 +23,7 @@ spring:
 # ----------------------------------------
   flyway:
     baseline-version: 1
-    check-location: false
+    check-location: true
     enabled: true
     encoding: UTF-8
     locations: classpath:db/migration/mysql

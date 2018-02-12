@@ -1,13 +1,16 @@
 plugins {
-    id "org.flywaydb.flyway" version "5.0.6"
+    id "org.flywaydb.flyway" version "5.0.7"
 }
 flyway {
-    driver = 'com.mysql.cj.jdbc.Driver'
+    driver = 'com.mysql.jdbc.Driver'
     user = 'root'
     url = 'jdbc:mysql://localhost:3306/ITEMS?useSSL=false'
 }
 springBoot {
     buildInfo()
+}
+test {
+    flywayMigrate.enabled = false
 }
 dependencies {
 
@@ -27,8 +30,10 @@ dependencies {
 
     // JDBC Drivers
     runtime("mysql:mysql-connector-java")
+    testCompile("com.h2database:h2")
     // Flyway
     compile("org.flywaydb:flyway-core")
+    testCompile("org.flywaydb.flyway-test-extensions:flyway-spring-test:5.0.0")
 
     // required jaxb
     compile("javax.xml.bind:jaxb-api:2.3.0")
