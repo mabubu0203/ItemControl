@@ -15,22 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestControllerAdvice
-public class RestExceptionHandler extends ResponseEntityExceptionHandler {
-
-    @Override
-    protected ResponseEntity<Object> handleExceptionInternal(
-            Exception ex,
-            Object body,
-            HttpHeaders headers,
-            HttpStatus status,
-            WebRequest request
-    ) {
-
-        if (body == null) {
-            body = ex.getClass().toString();
-        }
-        return super.handleExceptionInternal(ex, body, headers, status, request);
-    }
+public class BadRequestHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
