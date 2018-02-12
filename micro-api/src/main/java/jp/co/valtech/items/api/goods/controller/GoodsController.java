@@ -12,6 +12,7 @@ import jp.co.valtech.items.api.goods.helper.GoodsGetHelper;
 import jp.co.valtech.items.api.goods.helper.GoodsUpdateHelper;
 import jp.co.valtech.items.common.exception.ConflictException;
 import jp.co.valtech.items.common.exception.NotFoundException;
+import jp.co.valtech.items.interfaces.definitions.responses.ErrorRes;
 import jp.co.valtech.items.interfaces.goods.requests.GoodsCreateRequest;
 import jp.co.valtech.items.interfaces.goods.requests.GoodsDeleteRequest;
 import jp.co.valtech.items.interfaces.goods.requests.GoodsUpdateRequest;
@@ -19,7 +20,7 @@ import jp.co.valtech.items.interfaces.goods.responses.GoodsCreateResponse;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsFindResponse;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsGetResponse;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsUpdateResponse;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,7 @@ import javax.validation.Valid;
         value = {"/goods/"},
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE
 )
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Api(description = "商品を扱います。")
 public class GoodsController {
     private final GoodsCreateHelper create;
@@ -61,14 +62,16 @@ public class GoodsController {
     @ApiOperation(value = "${GoodsController.createGoods.value}", notes = "${GoodsController.createGoods.notes}")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "", response = GoodsCreateResponse.class),
-            @ApiResponse(code = 400, message = ""),
-            @ApiResponse(code = 409, message = "")
+            @ApiResponse(code = 400, message = "", response = ErrorRes.class),
+            @ApiResponse(code = 409, message = "", response = ErrorRes.class)
     })
     public ResponseEntity<GoodsCreateResponse> createGoods(
             @RequestBody @Valid final GoodsCreateRequest request
     ) throws ConflictException {
+
         log.info("create");
         return create.execute(request);
+
     }
 
     /**
@@ -82,16 +85,18 @@ public class GoodsController {
     @ApiOperation(value = "${GoodsController.deleteGoods.value}", notes = "${GoodsController.deleteGoods.notes}")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = ""),
-            @ApiResponse(code = 400, message = ""),
-            @ApiResponse(code = 409, message = "")
+            @ApiResponse(code = 400, message = "", response = ErrorRes.class),
+            @ApiResponse(code = 404, message = "", response = ErrorRes.class),
+            @ApiResponse(code = 409, message = "", response = ErrorRes.class)
     })
     public ResponseEntity deleteGoods(
             @PathVariable(name = "id") @ApiParam(example = "1", value = "${GoodsController.deleteGoods.request.id.value}") final String id,
             @RequestBody @Valid final GoodsDeleteRequest request
-    ) {
+    ) throws NotFoundException, ConflictException {
 
         log.info("delete");
         return delete.execute(id, request);
+
     }
 
     /**
@@ -104,11 +109,13 @@ public class GoodsController {
     @GetMapping(value = {"/"})
     @ApiOperation(value = "${GoodsController.getGoods.value}", notes = "${GoodsController.getGoods.notes}")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = GoodsGetResponse.class),
-            @ApiResponse(code = 400, message = "")})
+            @ApiResponse(code = 200, message = "", response = GoodsGetResponse.class)
+    })
     public ResponseEntity<GoodsGetResponse> getGoods() {
+
         log.info("get");
         return get.execute();
+
     }
 
 
@@ -123,12 +130,15 @@ public class GoodsController {
     @ApiOperation(value = "${GoodsController.findGoods.value}", notes = "${GoodsController.findGoods.notes}")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "", response = GoodsFindResponse.class),
-            @ApiResponse(code = 400, message = "")})
+            @ApiResponse(code = 400, message = "", response = ErrorRes.class),
+            @ApiResponse(code = 404, message = "", response = ErrorRes.class)})
     public ResponseEntity<GoodsFindResponse> findGoods(
             @PathVariable(name = "id") @ApiParam(example = "1", value = "${GoodsController.findGoods.request.id.value}") final String id
-    ) {
+    ) throws NotFoundException {
+
         log.info("find");
         return find.execute(id);
+
     }
 
     /**
@@ -142,15 +152,18 @@ public class GoodsController {
     @ApiOperation(value = "${GoodsController.updateGoods.value}", notes = "${GoodsController.updateGoods.notes}")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "", response = GoodsUpdateResponse.class),
-            @ApiResponse(code = 400, message = ""),
-            @ApiResponse(code = 409, message = "")
+            @ApiResponse(code = 400, message = "", response = ErrorRes.class),
+            @ApiResponse(code = 404, message = "", response = ErrorRes.class),
+            @ApiResponse(code = 409, message = "", response = ErrorRes.class)
     })
     public ResponseEntity<GoodsUpdateResponse> updateGoods(
             @PathVariable(name = "id") @ApiParam(example = "1", value = "${GoodsController.updateGoods.request.id.value}") final String id,
             @RequestBody @Valid final GoodsUpdateRequest request
     ) throws ConflictException, NotFoundException {
+
         log.info("update");
         return update.execute(id, request);
+
     }
 
 }

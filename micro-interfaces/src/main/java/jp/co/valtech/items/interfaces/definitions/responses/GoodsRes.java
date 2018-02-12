@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,22 +25,23 @@ public class GoodsRes {
     @ApiModelProperty(example = "1", value = "VERSION")
     private int version;
 
-    @Length(min = 1, max = 10)
     @XmlElement(name = "code")
+    @Length(min = 1, max = 10)
     @ApiModelProperty(example = "AA01", value = "CODE")
     private String code;
 
-    @Length(min = 1, max = 25)
     @XmlElement(name = "name")
+    @Length(min = 1, max = 25)
     @ApiModelProperty(example = "明石焼き", value = "NAME")
     private String name;
 
     @XmlElement(name = "price")
+    @Range(min = 0, max = 9999)
     @ApiModelProperty(example = "200", value = "PRICE")
     private int price;
 
-    @Length(min = 1, max = 64)
     @XmlElement(name = "note")
+    @Length(min = 1, max = 64)
     @ApiModelProperty(example = "タコが入っています。", value = "NOTE")
     private String note;
 

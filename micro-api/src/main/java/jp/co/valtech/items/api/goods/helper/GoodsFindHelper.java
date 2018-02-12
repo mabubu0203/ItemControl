@@ -1,5 +1,6 @@
 package jp.co.valtech.items.api.goods.helper;
 
+import jp.co.valtech.items.common.exception.NotFoundException;
 import jp.co.valtech.items.interfaces.definitions.responses.GoodsRes;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsFindResponse;
 import jp.co.valtech.items.rdb.domain.GoodsTbl;
@@ -21,21 +22,20 @@ public class GoodsFindHelper {
     private final GoodsService service;
     private final ModelMapper modelMapper;
 
-    public ResponseEntity<GoodsFindResponse> execute(final String id) {
+    public ResponseEntity<GoodsFindResponse> execute(
+            final String id
+    ) throws NotFoundException {
 
         Optional<GoodsTbl> optionalId = service.findById(Long.valueOf(id));
-
-        if (optionalId.isPresent()) {
-            GoodsTbl entity = optionalId.get();
-            GoodsRes goodsRes = modelMapper.map(entity, GoodsRes.class);
-            GoodsFindResponse response = new GoodsFindResponse();
-            response.setGoods(goodsRes);
-            return new ResponseEntity<>(
-                    response, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(
-                    new GoodsFindResponse(), HttpStatus.NOT_FOUND);
+        if (!optionalId.isPresent()) {
+            throw new NotFoundException("id", "IDが存在しません。");
         }
+
+        GoodsTbl entity = optionalId.get();
+        GoodsRes goodsRes = modelMapper.map(entity, GoodsRes.class);
+        GoodsFindResponse response = new GoodsFindResponse();
+        response.setGoods(goodsRes);
+        return new ResponseEntity<>(response, HttpStatus.OK);
 
     }
 }

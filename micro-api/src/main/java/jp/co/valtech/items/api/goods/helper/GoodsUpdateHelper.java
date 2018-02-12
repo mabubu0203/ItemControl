@@ -7,7 +7,7 @@ import jp.co.valtech.items.interfaces.goods.requests.GoodsUpdateRequest;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsUpdateResponse;
 import jp.co.valtech.items.rdb.domain.GoodsTbl;
 import jp.co.valtech.items.rdb.service.GoodsService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class GoodsUpdateHelper {
 
     private final GoodsService service;
@@ -30,36 +30,36 @@ public class GoodsUpdateHelper {
     ) throws ConflictException, NotFoundException {
 
         Optional<GoodsTbl> optionalId = service.findById(Long.valueOf(id));
-        if (optionalId.isPresent()) {// idの存在チェック
-            GoodsTbl entity = optionalId.get();
-            GoodsReq goodsReq = request.getGoods();
-            if (entity.getVersion() == request.getVersion()) {// 楽観排他
-
-                if (goodsReq.getCode().equals(entity.getCode())) {// Codeの更新なし
-                    update(entity, goodsReq);
-                    GoodsUpdateResponse response = new GoodsUpdateResponse();
-                    GoodsUpdateResponse.Goods goods = response.new Goods();
-                    goods.setId(entity.getId());
-                    response.setGoods(goods);
-                    return new ResponseEntity<>(response, HttpStatus.OK);
-                }
-                Optional<GoodsTbl> optionalCode = service.findByCode(goodsReq.getCode());
-                if (optionalCode.isPresent()) {// code(unique制約)の存在チェック
-                    throw new ConflictException("code", "CODEが重複しています。");
-                } else {
-                    update(entity, goodsReq);
-                    GoodsUpdateResponse response = new GoodsUpdateResponse();
-                    GoodsUpdateResponse.Goods goods = response.new Goods();
-                    goods.setId(entity.getId());
-                    response.setGoods(goods);
-                    return new ResponseEntity<>(response, HttpStatus.OK);
-                }
-            } else {
-                throw new ConflictException("id", "排他エラー");
-            }
-        } else {
+        if (!optionalId.isPresent()) {
             throw new NotFoundException("id", "IDが存在しません。");
         }
+
+        GoodsTbl entity = optionalId.get();
+        GoodsReq goodsReq = request.getGoods();
+        if (entity.getVersion() != request.getVersion()) {// 楽観排他
+            throw new ConflictException("id", "排他エラー");
+        }
+
+        if (entity.getCode().equals(goodsReq.getCode())) {// Codeの更新なし
+            update(entity, goodsReq);
+            GoodsUpdateResponse response = new GoodsUpdateResponse();
+            GoodsUpdateResponse.Goods goods = response.new Goods();
+            goods.setId(entity.getId());
+            response.setGoods(goods);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {// Codeの更新あり
+            Optional<GoodsTbl> optionalCode = service.findByCode(goodsReq.getCode());
+            if (optionalCode.isPresent()) {// code(unique制約)の存在チェック
+                throw new ConflictException("code", "CODEが重複しています。");
+            }
+            update(entity, goodsReq);
+            GoodsUpdateResponse response = new GoodsUpdateResponse();
+            GoodsUpdateResponse.Goods goods = response.new Goods();
+            goods.setId(entity.getId());
+            response.setGoods(goods);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

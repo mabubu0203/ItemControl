@@ -33,5 +33,6 @@ public class GoodsGetHelper {
         GoodsGetResponse response = new GoodsGetResponse();
         response.setGoodsList(goodsList);
         return new ResponseEntity<>(response, HttpStatus.OK);
+
     }
 }

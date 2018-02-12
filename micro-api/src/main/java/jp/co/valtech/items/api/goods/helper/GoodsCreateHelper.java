@@ -31,16 +31,16 @@ public class GoodsCreateHelper {
         Optional<GoodsTbl> optionalCode = service.findByCode(goodsReq.getCode());
         if (optionalCode.isPresent()) {
             throw new ConflictException("code", "CODEが重複しています。");
-        } else {
-            GoodsTbl entity = new GoodsTbl();
-            create(entity, goodsReq);
-            GoodsCreateResponse response = new GoodsCreateResponse();
-            GoodsCreateResponse.Goods goods = response.new Goods();
-            goods.setId(entity.getId());
-            response.setGoods(goods);
-            return new ResponseEntity<>(
-                    response, HttpStatus.CREATED);
         }
+
+        GoodsTbl entity = new GoodsTbl();
+        create(entity, goodsReq);
+        GoodsCreateResponse response = new GoodsCreateResponse();
+        GoodsCreateResponse.Goods goods = response.new Goods();
+        goods.setId(entity.getId());
+        response.setGoods(goods);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
