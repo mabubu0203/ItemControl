@@ -1,5 +1,6 @@
 package jp.co.valtech.items.api.goods.helper;
 
+import jp.co.valtech.items.common.exception.ConflictException;
 import jp.co.valtech.items.interfaces.definitions.requests.GoodsReq;
 import jp.co.valtech.items.interfaces.goods.requests.GoodsCreateRequest;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsCreateResponse;
@@ -22,12 +23,14 @@ public class GoodsCreateHelper {
 
     private final GoodsService service;
 
-    public ResponseEntity<GoodsCreateResponse> execute(final GoodsCreateRequest request) {
+    public ResponseEntity<GoodsCreateResponse> execute(
+            final GoodsCreateRequest request
+    ) throws ConflictException {
+
         GoodsReq goodsReq = request.getGoods();
         Optional<GoodsTbl> optionalCode = service.findByCode(goodsReq.getCode());
         if (optionalCode.isPresent()) {
-            return new ResponseEntity<>(
-                    new GoodsCreateResponse(), HttpStatus.CONFLICT);
+            throw new ConflictException("code", "CODEが重複しています。");
         } else {
             GoodsTbl entity = new GoodsTbl();
             create(entity, goodsReq);
@@ -43,7 +46,8 @@ public class GoodsCreateHelper {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     private void create(
             final GoodsTbl entity,
-            final GoodsReq goodsReq) {
+            final GoodsReq goodsReq
+    ) {
         entity.setCode(goodsReq.getCode());
         entity.setName(goodsReq.getName());
         entity.setPrice(goodsReq.getPrice());

@@ -22,7 +22,8 @@ public class GoodsDeleteHelper {
 
     public ResponseEntity execute(
             final String id,
-            final GoodsDeleteRequest request) {
+            final GoodsDeleteRequest request
+    ) {
 
         Optional<GoodsTbl> optionalId = service.findById(Long.valueOf(id));
         if (optionalId.isPresent()) {

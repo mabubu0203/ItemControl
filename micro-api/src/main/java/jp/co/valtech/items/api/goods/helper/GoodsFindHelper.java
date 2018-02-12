@@ -7,7 +7,6 @@ import jp.co.valtech.items.rdb.service.GoodsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -28,13 +27,15 @@ public class GoodsFindHelper {
 
         if (optionalId.isPresent()) {
             GoodsTbl entity = optionalId.get();
-            GoodsRes goodsRes = modelMapper.map(entity,GoodsRes.class);
+            GoodsRes goodsRes = modelMapper.map(entity, GoodsRes.class);
             GoodsFindResponse response = new GoodsFindResponse();
             response.setGoods(goodsRes);
             return new ResponseEntity<>(
                     response, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(
+                    new GoodsFindResponse(), HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(
-                new GoodsFindResponse(), HttpStatus.NOT_FOUND);
+
     }
 }
