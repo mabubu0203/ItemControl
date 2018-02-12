@@ -8,15 +8,15 @@ import lombok.ToString;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.time.LocalDateTime;
 
-@ApiModel(description = "リクエスト情報")
 @Data
 @ToString
 @XmlRootElement(name = "request")
+@ApiModel(description = "リクエスト情報")
 public class GoodsDeleteRequest {
 
     @XmlElement(name = "version")
+    @NotNull
     @ApiModelProperty(example = "1")
     private int version;
 

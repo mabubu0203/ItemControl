@@ -11,15 +11,15 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@ApiModel(description = "リクエスト情報")
 @Data
 @ToString
 @XmlRootElement(name = "request")
+@ApiModel(description = "リクエスト情報")
 public class GoodsCreateRequest {
 
-    @NotNull
-    @XmlElement(name = "goods", required = true)
     @Valid
+    @XmlElement(name = "goods", required = true)
+    @NotNull
     @ApiModelProperty
     private GoodsReq goods;
 

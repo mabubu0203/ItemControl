@@ -10,21 +10,21 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.time.LocalDateTime;
 
-@ApiModel(description = "リクエスト情報")
 @Data
 @ToString
 @XmlRootElement(name = "request")
+@ApiModel(description = "リクエスト情報")
 public class GoodsUpdateRequest {
 
-    @NotNull
-    @XmlElement(name = "goods", required = true)
     @Valid
+    @XmlElement(name = "goods", required = true)
+    @NotNull
     @ApiModelProperty
     private GoodsReq goods;
 
     @XmlElement(name = "version")
+    @NotNull
     @ApiModelProperty(example = "1")
     private int version;
 
