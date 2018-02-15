@@ -27,30 +27,5 @@ spring:
     active: dev
 #    active: production
 #    active: test
-
-GoodsController:
-  createGoods:
-    value: 商品を1件登録します。
-    notes: 商品を1件登録します。
-  deleteGoods:
-    value: 商品を1件削除します。
-    notes: 商品を1件削除します。
-    request:
-      id:
-        value: 削除対象のIDを指定します。
-  getGoods:
-    value: 商品を全件取得します。
-    notes: 商品を全件取得します。
-  findGoods:
-    value: 商品を1件取得します。
-    notes: 商品を1件取得します。
-    request:
-      id:
-        value: 取得対象のIDを指定します。
-  updateGoods:
-    value: 商品を1件更新します。
-    notes: 商品を1件更新します。
-    request:
-      id:
-        value: 更新対象のIDを指定します。
+    include: message
 

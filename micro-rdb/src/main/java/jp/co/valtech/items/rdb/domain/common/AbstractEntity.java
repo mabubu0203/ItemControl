@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 public class AbstractEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(
             name = "ID",
             unique = true,
