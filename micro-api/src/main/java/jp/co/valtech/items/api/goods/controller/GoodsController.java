@@ -106,14 +106,34 @@ public class GoodsController {
      * @version 1.0
      * @since 1.0
      */
-    @GetMapping(value = {"/"})
+    @GetMapping(value = {"/all"})
     @ApiOperation(value = "${GoodsController.getGoods.value}", notes = "${GoodsController.getGoods.notes}")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "", response = GoodsGetResponse.class)
     })
-    public ResponseEntity<GoodsGetResponse> getGoods() {
+    public ResponseEntity<GoodsGetResponse> getAllGoods() {
 
-        log.info("get");
+        log.info("getAll");
+        return get.execute();
+
+    }
+
+    /**
+     * 商品を検索取得します。
+     *
+     * @author uratamanabu
+     * @version 1.0
+     * @since 1.0
+     */
+    // TODO:未実装
+    @GetMapping(value = {"/search"})
+    @ApiOperation(value = "${GoodsController.getGoods.value}", notes = "${GoodsController.getGoods.notes}")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "", response = GoodsGetResponse.class)
+    })
+    public ResponseEntity<GoodsGetResponse> getSearchGoods() {
+
+        log.info("getSearch");
         return get.execute();
 
     }
