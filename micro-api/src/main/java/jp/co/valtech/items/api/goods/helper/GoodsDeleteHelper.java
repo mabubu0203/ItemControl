@@ -32,16 +32,16 @@ public class GoodsDeleteHelper {
             throw new NotFoundException("id", "IDが存在しません。");
         }
         GoodsTbl entity = optionalId.get();
-        if (entity.getVersion() != request.getVersion()) {// 楽観排他
+        if (entity.getStatusTbl().getVersion() != request.getVersion()) {// 楽観排他
             throw new ConflictException("id", "排他エラー");
         }
-        delete(Long.valueOf(id));
+        delete(entity);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
 
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    private void delete(final long id) {
-        service.deleteById(id);
+    private void delete(GoodsTbl entity) {
+        service.delete(entity);
     }
 }

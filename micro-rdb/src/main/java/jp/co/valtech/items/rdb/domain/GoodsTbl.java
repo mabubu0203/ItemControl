@@ -1,6 +1,6 @@
 package jp.co.valtech.items.rdb.domain;
 
-import jp.co.valtech.items.rdb.domain.common.AbstractEntity;
+import jp.co.valtech.items.rdb.domain.common.AbstractMasterEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,6 +9,8 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.io.Serializable;
@@ -18,17 +20,17 @@ import java.io.Serializable;
  * @version 1.0
  * @since 1.0
  */
-@Entity
-@Data
-@ToString
+@Entity(name = "GoodsTbl")
 @Table(
         name = "GOODS_TBL",
-        uniqueConstraints = @UniqueConstraint(columnNames = "CODE")
+        uniqueConstraints = @UniqueConstraint(columnNames = {"ID", "CODE"})
 )
 @EqualsAndHashCode(callSuper = false)
+@Data
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class GoodsTbl extends AbstractEntity implements Serializable {
+public class GoodsTbl extends AbstractMasterEntity implements Serializable {
 
     /** */
     private static final long serialVersionUID = -5665962434247119049L;
@@ -41,6 +43,14 @@ public class GoodsTbl extends AbstractEntity implements Serializable {
             columnDefinition = "VARCHAR"
     )
     private String code;
+
+    @Column(
+            name = "CATEGORY_ID",
+            nullable = false,
+            length = 10,
+            columnDefinition = "BIGINT"
+    )
+    private long category_id;
 
     @Column(
             name = "NAME",
@@ -64,5 +74,9 @@ public class GoodsTbl extends AbstractEntity implements Serializable {
             columnDefinition = "VARCHAR"
     )
     private String note;
+
+    @OneToOne(targetEntity = GoodsStatusTbl.class)
+    @PrimaryKeyJoinColumn
+    private GoodsStatusTbl statusTbl;
 
 }

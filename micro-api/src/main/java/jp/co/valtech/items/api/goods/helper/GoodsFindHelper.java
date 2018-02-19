@@ -33,6 +33,7 @@ public class GoodsFindHelper {
 
         GoodsTbl entity = optionalId.get();
         GoodsRes goodsRes = modelMapper.map(entity, GoodsRes.class);
+        modelMapper.map(entity.getStatusTbl(), goodsRes);
         GoodsFindResponse response = new GoodsFindResponse();
         response.setGoods(goodsRes);
         return new ResponseEntity<>(response, HttpStatus.OK);

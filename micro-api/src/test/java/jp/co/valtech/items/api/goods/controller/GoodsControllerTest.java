@@ -17,6 +17,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -27,6 +28,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles(profiles = {"test"})
 @TestExecutionListeners({
         DependencyInjectionTestExecutionListener.class,
         FlywayTestExecutionListener.class})
@@ -58,7 +60,8 @@ public class GoodsControllerTest {
     @FlywayTest
     @Test
     public void deleteGoodsTest() throws Exception {
-
+        String id = "4";
+        String url = "http://localhost:" + port + "/goods/" + id;
     }
 
     @FlywayTest

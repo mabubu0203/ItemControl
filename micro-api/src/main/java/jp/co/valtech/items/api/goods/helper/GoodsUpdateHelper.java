@@ -9,6 +9,7 @@ import jp.co.valtech.items.rdb.domain.GoodsTbl;
 import jp.co.valtech.items.rdb.service.GoodsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ import java.util.Optional;
 public class GoodsUpdateHelper {
 
     private final GoodsService service;
+    private final ModelMapper modelMapper;
 
     public ResponseEntity<GoodsUpdateResponse> execute(
             final String id,
@@ -36,12 +38,13 @@ public class GoodsUpdateHelper {
 
         GoodsTbl entity = optionalId.get();
         GoodsReq goodsReq = request.getGoods();
-        if (entity.getVersion() != request.getVersion()) {// 楽観排他
+        if (entity.getStatusTbl().getVersion() != request.getVersion()) {// 楽観排他
             throw new ConflictException("id", "排他エラー");
         }
 
         if (entity.getCode().equals(goodsReq.getCode())) {// Codeの更新なし
-            update(entity, goodsReq);
+            modelMapper.map(goodsReq, entity);
+            update(entity);
             GoodsUpdateResponse response = new GoodsUpdateResponse();
             GoodsUpdateResponse.Goods goods = response.new Goods();
             goods.setId(entity.getId());
@@ -52,7 +55,8 @@ public class GoodsUpdateHelper {
             if (optionalCode.isPresent()) {// code(unique制約)の存在チェック
                 throw new ConflictException("code", "CODEが重複しています。");
             }
-            update(entity, goodsReq);
+            modelMapper.map(goodsReq, entity);
+            update(entity);
             GoodsUpdateResponse response = new GoodsUpdateResponse();
             GoodsUpdateResponse.Goods goods = response.new Goods();
             goods.setId(entity.getId());
@@ -63,14 +67,7 @@ public class GoodsUpdateHelper {
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    private void update(
-            final GoodsTbl entity,
-            final GoodsReq goodsReq
-    ) {
-        entity.setCode(goodsReq.getCode());
-        entity.setName(goodsReq.getName());
-        entity.setPrice(goodsReq.getPrice());
-        entity.setNote(goodsReq.getNote());
+    private void update(final GoodsTbl entity) {
         service.update(entity);
     }
 }

@@ -28,6 +28,7 @@ public class GoodsGetHelper {
         List<GoodsRes> goodsList = new ArrayList<>();
         for (GoodsTbl entity : entities) {
             GoodsRes goodsRes = modelMapper.map(entity, GoodsRes.class);
+            modelMapper.map(entity.getStatusTbl(), goodsRes);
             goodsList.add(goodsRes);
         }
         GoodsGetResponse response = new GoodsGetResponse();

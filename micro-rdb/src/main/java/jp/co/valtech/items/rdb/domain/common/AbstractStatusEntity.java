@@ -1,14 +1,14 @@
 package jp.co.valtech.items.rdb.domain.common;
 
+import jp.co.valtech.items.rdb.domain.common.interfaces.StatusEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -20,18 +20,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
-public class AbstractEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(
-            name = "ID",
-            unique = true,
-            nullable = false,
-            length = 10,
-            columnDefinition = "BIGINT"
-    )
-    private long id;
+public class AbstractStatusEntity implements StatusEntity {
 
     @Version
     @Column(
@@ -43,12 +32,21 @@ public class AbstractEntity {
     private int version;
 
     @Column(
+            name = "DELETE_FLAG",
+            nullable = false,
+            columnDefinition = "TINYINT"
+    )
+    private boolean deleteFlag;
+
+    @CreatedDate
+    @Column(
             name = "CREATE_DATETIME",
             nullable = false,
             columnDefinition = "DATETIME"
     )
     private LocalDateTime createDatetime;
 
+    @LastModifiedDate
     @Column(
             name = "UPDATE_DATETIME",
             nullable = false,
@@ -57,19 +55,21 @@ public class AbstractEntity {
     private LocalDateTime updateDatetime;
 
     @PrePersist
+    @Override
     public void onPrePersist() {
-        setCreateDatetime(LocalDateTime.now());
-        setUpdateDatetime(LocalDateTime.now());
+        createDatetime = LocalDateTime.now();
+        updateDatetime = LocalDateTime.now();
     }
 
     @PreUpdate
+    @Override
     public void onPreUpdate() {
-        addVersion();
-        setUpdateDatetime(LocalDateTime.now());
+        updateDatetime = LocalDateTime.now();
     }
 
-    private void addVersion() {
-        int count = getVersion();
-        setVersion(count++);
+    @Override
+    public void addVersion() {
+        version++;
     }
+
 }

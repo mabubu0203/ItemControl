@@ -8,6 +8,7 @@ import jp.co.valtech.items.rdb.domain.GoodsTbl;
 import jp.co.valtech.items.rdb.service.GoodsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import java.util.Optional;
 public class GoodsCreateHelper {
 
     private final GoodsService service;
+    private final ModelMapper modelMapper;
 
     public ResponseEntity<GoodsCreateResponse> execute(
             final GoodsCreateRequest request
@@ -33,8 +35,8 @@ public class GoodsCreateHelper {
             throw new ConflictException("code", "CODEが重複しています。");
         }
 
-        GoodsTbl entity = new GoodsTbl();
-        create(entity, goodsReq);
+        GoodsTbl entity = modelMapper.map(goodsReq, GoodsTbl.class);
+        create(entity);
         GoodsCreateResponse response = new GoodsCreateResponse();
         GoodsCreateResponse.Goods goods = response.new Goods();
         goods.setId(entity.getId());
@@ -44,14 +46,7 @@ public class GoodsCreateHelper {
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    private void create(
-            final GoodsTbl entity,
-            final GoodsReq goodsReq
-    ) {
-        entity.setCode(goodsReq.getCode());
-        entity.setName(goodsReq.getName());
-        entity.setPrice(goodsReq.getPrice());
-        entity.setNote(goodsReq.getNote());
+    private void create(final GoodsTbl entity) {
         service.insert(entity);
     }
 }
