@@ -14,7 +14,6 @@ import jp.co.valtech.items.common.exception.ConflictException;
 import jp.co.valtech.items.common.exception.NotFoundException;
 import jp.co.valtech.items.interfaces.definitions.responses.ErrorRes;
 import jp.co.valtech.items.interfaces.goods.requests.GoodsCreateRequest;
-import jp.co.valtech.items.interfaces.goods.requests.GoodsDeleteRequest;
 import jp.co.valtech.items.interfaces.goods.requests.GoodsUpdateRequest;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsCreateResponse;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsFindResponse;
@@ -31,6 +30,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -91,11 +91,11 @@ public class GoodsController {
     })
     public ResponseEntity deleteGoods(
             @PathVariable(name = "id") @ApiParam(example = "1", value = "${GoodsController.deleteGoods.request.id.value}") final String id,
-            @RequestBody @Valid final GoodsDeleteRequest request
+            @RequestParam(name = "version") @ApiParam(example = "1", value = "${GoodsController.deleteGoods.request.version.value}") final int version
     ) throws NotFoundException, ConflictException {
 
         log.info("delete");
-        return delete.execute(id, request);
+        return delete.execute(id, version);
 
     }
 

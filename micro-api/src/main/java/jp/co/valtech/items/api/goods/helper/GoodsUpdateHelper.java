@@ -32,11 +32,9 @@ public class GoodsUpdateHelper {
     ) throws ConflictException, NotFoundException {
 
         Optional<GoodsTbl> optionalId = service.findById(Long.valueOf(id));
-        if (!optionalId.isPresent()) {
-            throw new NotFoundException("id", "IDが存在しません。");
-        }
+        GoodsTbl entity = optionalId
+                .orElseThrow(() -> new NotFoundException("id", "IDが存在しません。"));
 
-        GoodsTbl entity = optionalId.get();
         GoodsReq goodsReq = request.getGoods();
         if (entity.getStatusTbl().getVersion() != request.getVersion()) {// 楽観排他
             throw new ConflictException("id", "排他エラー");

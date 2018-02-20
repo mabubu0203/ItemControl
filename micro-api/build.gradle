@@ -2,9 +2,11 @@ plugins {
     id "org.flywaydb.flyway" version "5.0.7"
 }
 flyway {
+    baselineVersion = '1.1'
     driver = 'com.mysql.jdbc.Driver'
     user = 'root'
     url = 'jdbc:mysql://localhost:3306/ITEMS?useSSL=false'
+    sqlMigrationPrefix = 'M'
 }
 springBoot {
     buildInfo()

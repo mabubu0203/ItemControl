@@ -2,7 +2,6 @@ package jp.co.valtech.items.api.goods.helper;
 
 import jp.co.valtech.items.common.exception.ConflictException;
 import jp.co.valtech.items.common.exception.NotFoundException;
-import jp.co.valtech.items.interfaces.goods.requests.GoodsDeleteRequest;
 import jp.co.valtech.items.rdb.domain.GoodsTbl;
 import jp.co.valtech.items.rdb.service.GoodsService;
 import lombok.RequiredArgsConstructor;
@@ -24,15 +23,13 @@ public class GoodsDeleteHelper {
 
     public ResponseEntity execute(
             final String id,
-            final GoodsDeleteRequest request
+            final int version
     ) throws NotFoundException, ConflictException {
 
         Optional<GoodsTbl> optionalId = service.findById(Long.valueOf(id));
-        if (!optionalId.isPresent()) {
-            throw new NotFoundException("id", "IDが存在しません。");
-        }
-        GoodsTbl entity = optionalId.get();
-        if (entity.getStatusTbl().getVersion() != request.getVersion()) {// 楽観排他
+        GoodsTbl entity = optionalId
+                .orElseThrow(() -> new NotFoundException("id", "IDが存在しません。"));
+        if (entity.getStatusTbl().getVersion() != version) {// 楽観排他
             throw new ConflictException("id", "排他エラー");
         }
         delete(entity);

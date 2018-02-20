@@ -31,10 +31,9 @@ public class GoodsCreateHelper {
 
         GoodsReq goodsReq = request.getGoods();
         Optional<GoodsTbl> optionalCode = service.findByCode(goodsReq.getCode());
-        if (optionalCode.isPresent()) {
+        if (optionalCode.isPresent()) {// code(unique制約)の存在チェック
             throw new ConflictException("code", "CODEが重複しています。");
         }
-
         GoodsTbl entity = modelMapper.map(goodsReq, GoodsTbl.class);
         create(entity);
         GoodsCreateResponse response = new GoodsCreateResponse();

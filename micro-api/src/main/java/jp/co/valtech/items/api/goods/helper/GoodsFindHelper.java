@@ -27,11 +27,8 @@ public class GoodsFindHelper {
     ) throws NotFoundException {
 
         Optional<GoodsTbl> optionalId = service.findById(Long.valueOf(id));
-        if (!optionalId.isPresent()) {
-            throw new NotFoundException("id", "IDが存在しません。");
-        }
-
-        GoodsTbl entity = optionalId.get();
+        GoodsTbl entity = optionalId
+                .orElseThrow(() -> new NotFoundException("id", "IDが存在しません。"));
         GoodsRes goodsRes = modelMapper.map(entity, GoodsRes.class);
         modelMapper.map(entity.getStatusTbl(), goodsRes);
         GoodsFindResponse response = new GoodsFindResponse();

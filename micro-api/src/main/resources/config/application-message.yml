@@ -8,6 +8,8 @@ GoodsController:
     request:
       id:
         value: 削除対象のIDを指定します。
+      version:
+        value: 楽観排他用Versionを指定します。
   getGoods:
     value: 商品を全件取得します。
     notes: 商品を全件取得します。
