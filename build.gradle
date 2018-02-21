@@ -100,7 +100,7 @@ project(':micro-interfaces') {
 project(':micro-rdb') {
     ext.moduleName = 'jp.co.valtech.items.rdb'
     dependencies {
-        compile project(':micro-common')
+        compile project(':micro-common'), project(':micro-interfaces')
     }
 }
 
