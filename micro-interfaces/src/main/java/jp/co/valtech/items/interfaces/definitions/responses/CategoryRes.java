@@ -11,11 +11,11 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDateTime;
 
-@ApiModel(description = "商品情報")
+@ApiModel(description = "カテゴリー情報")
 @Data
 @ToString
-@XmlRootElement(name = "goods")
-public class GoodsRes {
+@XmlRootElement(name = "category")
+public class CategoryRes {
 
     @XmlElement(name = "id")
     @Range(min = 0, max = 999999999)
@@ -36,11 +36,6 @@ public class GoodsRes {
     @Length(min = 1, max = 25)
     @ApiModelProperty(example = "明石焼き", value = "NAME")
     private String name;
-
-    @XmlElement(name = "price")
-    @Range(min = 0, max = 9999)
-    @ApiModelProperty(example = "200", value = "PRICE")
-    private int price;
 
     @XmlElement(name = "note")
     @Length(min = 1, max = 64)

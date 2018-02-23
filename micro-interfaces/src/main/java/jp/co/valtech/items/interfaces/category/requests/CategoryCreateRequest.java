@@ -1,11 +1,10 @@
-package jp.co.valtech.items.interfaces.goods.requests;
+package jp.co.valtech.items.interfaces.category.requests;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import jp.co.valtech.items.interfaces.definitions.requests.GoodsReq;
+import jp.co.valtech.items.interfaces.definitions.requests.CategoryReq;
 import lombok.Data;
 import lombok.ToString;
-import org.hibernate.validator.constraints.Range;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -16,18 +15,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @ToString
 @XmlRootElement(name = "request")
 @ApiModel(description = "リクエスト情報")
-public class GoodsUpdateRequest {
+public class CategoryCreateRequest {
 
     @Valid
-    @XmlElement(name = "goods", required = true)
+    @XmlElement(name = "category", required = true)
     @NotNull
     @ApiModelProperty
-    private GoodsReq goods;
-
-    @XmlElement(name = "version")
-    @NotNull
-    @Range(min = 0, max = 99999)
-    @ApiModelProperty(example = "1")
-    private int version;
+    private CategoryReq category;
 
 }

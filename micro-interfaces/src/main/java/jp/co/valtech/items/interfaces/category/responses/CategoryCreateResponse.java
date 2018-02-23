@@ -1,4 +1,4 @@
-package jp.co.valtech.items.interfaces.goods.responses;
+package jp.co.valtech.items.interfaces.category.responses;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,19 +17,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 @AllArgsConstructor
 @XmlRootElement(name = "response")
 @ApiModel(description = "レスポンス情報")
-public class GoodsUpdateResponse {
+public class CategoryCreateResponse {
 
-    @XmlElement(name = "goods")
+    @XmlElement(name = "category")
     @ApiModelProperty
-    private Goods goods;
+    private CategoryRes categoryRes;
 
     @Data
     @ToString
     @NoArgsConstructor
     @AllArgsConstructor
-    @XmlRootElement(name = "goods")
+    @XmlRootElement(name = "category")
     @ApiModel(description = "商品情報")
-    public class Goods {
+    public class CategoryRes {
 
         @XmlElement(name = "id")
         @Range(min = 0, max = 999999999)
@@ -37,5 +37,4 @@ public class GoodsUpdateResponse {
         private long id;
 
     }
-
 }

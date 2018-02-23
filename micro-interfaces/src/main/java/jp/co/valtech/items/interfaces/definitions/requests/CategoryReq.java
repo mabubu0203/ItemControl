@@ -5,19 +5,17 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Data
 @ToString
-@XmlRootElement(name = "goods")
-@ApiModel(description = "商品情報")
-public class GoodsReq {
+@XmlRootElement(name = "category")
+@ApiModel(description = "カテゴリー情報")
+public class CategoryReq {
 
     @XmlElement(name = "code", required = true)
     @NotEmpty
@@ -31,12 +29,6 @@ public class GoodsReq {
     @Length(min = 1, max = 25)
     @ApiModelProperty(example = "明石焼き", value = "NAME")
     private String name;
-
-    @XmlElement(name = "price", required = true)
-    @NotNull
-    @Range(min = 0, max = 9999)
-    @ApiModelProperty(example = "200", value = "PRICE")
-    private int price;
 
     @XmlElement(name = "note")
     @Length(min = 1, max = 64)
