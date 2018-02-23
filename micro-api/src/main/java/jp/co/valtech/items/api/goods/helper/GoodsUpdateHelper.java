@@ -27,11 +27,11 @@ public class GoodsUpdateHelper {
     private final ModelMapper modelMapper;
 
     public ResponseEntity<GoodsUpdateResponse> execute(
-            final String id,
+            final long id,
             final GoodsUpdateRequest request
     ) throws ConflictException, NotFoundException {
 
-        Optional<GoodsTbl> optionalId = service.findById(Long.valueOf(id));
+        Optional<GoodsTbl> optionalId = service.findById(id);
         GoodsTbl entity = optionalId
                 .orElseThrow(() -> new NotFoundException("id", "IDが存在しません。"));
 

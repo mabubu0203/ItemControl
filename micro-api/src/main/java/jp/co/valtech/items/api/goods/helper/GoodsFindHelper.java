@@ -23,10 +23,10 @@ public class GoodsFindHelper {
     private final ModelMapper modelMapper;
 
     public ResponseEntity<GoodsFindResponse> execute(
-            final String id
+            final long id
     ) throws NotFoundException {
 
-        Optional<GoodsTbl> optionalId = service.findById(Long.valueOf(id));
+        Optional<GoodsTbl> optionalId = service.findById(id);
         GoodsTbl entity = optionalId
                 .orElseThrow(() -> new NotFoundException("id", "IDが存在しません。"));
         GoodsRes goodsRes = modelMapper.map(entity, GoodsRes.class);

@@ -21,6 +21,7 @@ import jp.co.valtech.items.interfaces.goods.responses.GoodsGetResponse;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsUpdateResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -90,7 +91,7 @@ public class GoodsController {
             @ApiResponse(code = 409, message = "", response = ErrorRes.class)
     })
     public ResponseEntity deleteGoods(
-            @PathVariable(name = "id") @ApiParam(example = "1", value = "${GoodsController.deleteGoods.request.id.value}") final String id,
+            @PathVariable(name = "id") @Range(min = 0, max = 999999999) @ApiParam(example = "1", value = "${GoodsController.deleteGoods.request.id.value}") final long id,
             @RequestParam(name = "version") @ApiParam(example = "1", value = "${GoodsController.deleteGoods.request.version.value}") final int version
     ) throws NotFoundException, ConflictException {
 
@@ -153,7 +154,7 @@ public class GoodsController {
             @ApiResponse(code = 400, message = "", response = ErrorRes.class),
             @ApiResponse(code = 404, message = "", response = ErrorRes.class)})
     public ResponseEntity<GoodsFindResponse> findGoods(
-            @PathVariable(name = "id") @ApiParam(example = "1", value = "${GoodsController.findGoods.request.id.value}") final String id
+            @PathVariable(name = "id") @Range(min = 0, max = 999999999) @ApiParam(example = "1", value = "${GoodsController.findGoods.request.id.value}") final long id
     ) throws NotFoundException {
 
         log.info("find");
@@ -177,7 +178,7 @@ public class GoodsController {
             @ApiResponse(code = 409, message = "", response = ErrorRes.class)
     })
     public ResponseEntity<GoodsUpdateResponse> updateGoods(
-            @PathVariable(name = "id") @ApiParam(example = "1", value = "${GoodsController.updateGoods.request.id.value}") final String id,
+            @PathVariable(name = "id") @Range(min = 0, max = 999999999) @ApiParam(example = "1", value = "${GoodsController.updateGoods.request.id.value}") final long id,
             @RequestBody @Valid final GoodsUpdateRequest request
     ) throws ConflictException, NotFoundException {
 

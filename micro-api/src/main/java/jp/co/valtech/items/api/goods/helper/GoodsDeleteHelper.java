@@ -22,11 +22,11 @@ public class GoodsDeleteHelper {
     private final GoodsService service;
 
     public ResponseEntity execute(
-            final String id,
+            final long id,
             final int version
     ) throws NotFoundException, ConflictException {
 
-        Optional<GoodsTbl> optionalId = service.findById(Long.valueOf(id));
+        Optional<GoodsTbl> optionalId = service.findById(id);
         GoodsTbl entity = optionalId
                 .orElseThrow(() -> new NotFoundException("id", "IDが存在しません。"));
         if (entity.getStatusTbl().getVersion() != version) {// 楽観排他

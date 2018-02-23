@@ -1,3 +1,10 @@
+CategoryController:
+  createCategory:
+    value: カテゴリーを1件登録します。
+    notes: カテゴリーを1件登録します。
+  getCategory:
+    value: カテゴリーを全件取得します。
+    notes: カテゴリーを全件取得します。
 GoodsController:
   createGoods:
     value: 商品を1件登録します。
