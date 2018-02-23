@@ -1,9 +1,8 @@
 package jp.co.valtech.items.rdb.domain;
 
-import jp.co.valtech.items.interfaces.validator.constraint.GoodsCodeField;
-import jp.co.valtech.items.interfaces.validator.constraint.GoodsNameField;
-import jp.co.valtech.items.interfaces.validator.constraint.GoodsNoteField;
-import jp.co.valtech.items.interfaces.validator.constraint.PriceField;
+import jp.co.valtech.items.interfaces.validator.constraint.CategoryCodeField;
+import jp.co.valtech.items.interfaces.validator.constraint.CategoryNameField;
+import jp.co.valtech.items.interfaces.validator.constraint.CategoryNoteField;
 import jp.co.valtech.items.rdb.domain.common.AbstractMasterEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,9 +23,9 @@ import java.io.Serializable;
  * @version 1.0
  * @since 1.0
  */
-@Entity(name = "GoodsTbl")
+@Entity(name = "CategoryTbl")
 @Table(
-        name = "GOODS_TBL",
+        name = "CATEGORY_TBL",
         uniqueConstraints = @UniqueConstraint(columnNames = {"ID", "CODE"})
 )
 @EqualsAndHashCode(callSuper = false)
@@ -34,11 +33,11 @@ import java.io.Serializable;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class GoodsTbl
+public class CategoryTbl
         extends AbstractMasterEntity implements Serializable {
 
     /** */
-    private static final long serialVersionUID = -5665962434247119049L;
+    private static final long serialVersionUID = -5665962434747119049L;
 
     @Column(
             name = "CODE",
@@ -47,16 +46,8 @@ public class GoodsTbl
             length = 10,
             columnDefinition = "VARCHAR"
     )
-    @GoodsCodeField
+    @CategoryCodeField
     private String code;
-
-    @Column(
-            name = "CATEGORY_ID",
-            nullable = false,
-            length = 10,
-            columnDefinition = "BIGINT"
-    )
-    private long category_id;
 
     @Column(
             name = "NAME",
@@ -64,28 +55,19 @@ public class GoodsTbl
             length = 25,
             columnDefinition = "VARCHAR"
     )
-    @GoodsNameField
+    @CategoryNameField
     private String name;
-
-    @Column(
-            name = "PRICE",
-            nullable = false,
-            length = 4,
-            columnDefinition = "SMALLINT"
-    )
-    @PriceField
-    private int price;
 
     @Column(
             name = "NOTE",
             length = 64,
             columnDefinition = "VARCHAR"
     )
-    @GoodsNoteField
+    @CategoryNoteField
     private String note;
 
-    @OneToOne(targetEntity = GoodsStatusTbl.class)
+    @OneToOne(targetEntity = CategoryStatusTbl.class)
     @PrimaryKeyJoinColumn
-    private GoodsStatusTbl statusTbl;
+    private CategoryStatusTbl statusTbl;
 
 }

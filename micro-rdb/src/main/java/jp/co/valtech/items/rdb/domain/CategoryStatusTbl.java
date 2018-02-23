@@ -17,10 +17,10 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.io.Serializable;
 
-@Entity(name = "GoodsStatusTbl")
+@Entity(name = "CategoryStatusTbl")
 @Table(
-        name = "GOODS_STATUS_TBL",
-        uniqueConstraints = @UniqueConstraint(columnNames = "GOODS_ID")
+        name = "CATEGORY_STATUS_TBL",
+        uniqueConstraints = @UniqueConstraint(columnNames = "CATEGORY_ID")
 )
 @Where(clause = "DELETE_FLAG = false")
 @Data
@@ -28,27 +28,27 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-public class GoodsStatusTbl
+public class CategoryStatusTbl
         extends AbstractStatusEntity implements Serializable {
 
     /** */
-    private static final long serialVersionUID = -5669762434247119049L;
+    private static final long serialVersionUID = -5669762434897119049L;
 
     @Id
     @Column(
-            name = "GOODS_ID",
+            name = "CATEGORY_ID",
             unique = true,
             nullable = false,
             length = 10,
             columnDefinition = "BIGINT"
     )
-    private long goodsId;
+    private long categoryId;
 
     @OneToOne(
             mappedBy = "statusTbl",
-            targetEntity = GoodsTbl.class
+            targetEntity = CategoryTbl.class
     )
     @PrimaryKeyJoinColumn
-    private GoodsTbl masterTbl;
+    private CategoryTbl masterTbl;
 
 }
