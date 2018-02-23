@@ -1,6 +1,5 @@
 package jp.co.valtech.items.api.handler;
 
-import jp.co.valtech.items.common.exception.ConflictException;
 import jp.co.valtech.items.common.exception.NotFoundException;
 import jp.co.valtech.items.interfaces.definitions.responses.ErrorRes;
 import org.springframework.http.HttpStatus;
