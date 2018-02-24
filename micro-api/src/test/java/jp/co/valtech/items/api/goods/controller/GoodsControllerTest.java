@@ -59,7 +59,7 @@ class GoodsControllerTest {
             String url = "http://localhost:" + port + "/goods/";
             GoodsCreateRequest request = new GoodsCreateRequest();
             GoodsReq goodsReq = new GoodsReq();
-            goodsReq.setCode("AAAAA");
+            goodsReq.setGoodsCode("AAAAA");
             goodsReq.setName("aaa");
             goodsReq.setPrice(1);
             goodsReq.setNote("aaa");
@@ -128,7 +128,7 @@ class GoodsControllerTest {
             GoodsFindResponse response = entity.getBody();
             Assertions.assertNotNull(response);
             GoodsRes goods = response.getGoods();
-            Assertions.assertEquals(goods.getCode(), "CODE1");
+            Assertions.assertEquals(goods.getGoodsCode(), "CODE1");
         }
     }
 
@@ -148,7 +148,7 @@ class GoodsControllerTest {
 
             GoodsUpdateRequest request = new GoodsUpdateRequest();
             GoodsReq goodsReq = new GoodsReq();
-            goodsReq.setCode("ACCCA");
+            goodsReq.setGoodsCode("ACCCA");
             goodsReq.setName("aaa");
             goodsReq.setPrice(1);
             goodsReq.setNote("aaa");

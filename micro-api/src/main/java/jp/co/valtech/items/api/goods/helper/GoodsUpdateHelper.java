@@ -1,5 +1,6 @@
 package jp.co.valtech.items.api.goods.helper;
 
+import jp.co.valtech.items.api.goods.util.GoodsUtil;
 import jp.co.valtech.items.common.exception.ConflictException;
 import jp.co.valtech.items.common.exception.NotFoundException;
 import jp.co.valtech.items.interfaces.definitions.requests.GoodsReq;
@@ -34,33 +35,22 @@ public class GoodsUpdateHelper {
         Optional<GoodsTbl> optionalId = service.findById(id);
         GoodsTbl entity = optionalId
                 .orElseThrow(() -> new NotFoundException("id", "IDが存在しません。"));
-
         GoodsReq goodsReq = request.getGoods();
         if (entity.getStatusTbl().getVersion() != request.getVersion()) {// 楽観排他
             throw new ConflictException("id", "排他エラー");
         }
-
-        if (entity.getCode().equals(goodsReq.getCode())) {// Codeの更新なし
-            modelMapper.map(goodsReq, entity);
-            update(entity);
-            GoodsUpdateResponse response = new GoodsUpdateResponse();
-            GoodsUpdateResponse.Goods goods = response.new Goods();
-            goods.setId(entity.getId());
-            response.setGoods(goods);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } else {// Codeの更新あり
-            Optional<GoodsTbl> optionalCode = service.findByCode(goodsReq.getCode());
-            if (optionalCode.isPresent()) {// code(unique制約)の存在チェック
-                throw new ConflictException("code", "CODEが重複しています。");
-            }
-            modelMapper.map(goodsReq, entity);
-            update(entity);
-            GoodsUpdateResponse response = new GoodsUpdateResponse();
-            GoodsUpdateResponse.Goods goods = response.new Goods();
-            goods.setId(entity.getId());
-            response.setGoods(goods);
-            return new ResponseEntity<>(response, HttpStatus.OK);
+        String goodsCode = goodsReq.getGoodsCode();
+        if (!entity.getCode().equals(goodsCode)) {// Codeの更新あり
+            GoodsUtil.codeCheck(service, goodsCode);
         }
+        modelMapper.map(goodsReq, entity);
+        entity.setCode(goodsCode);
+        update(entity);
+        GoodsUpdateResponse response = new GoodsUpdateResponse();
+        GoodsUpdateResponse.Goods goods = response.new Goods();
+        goods.setId(entity.getId());
+        response.setGoods(goods);
+        return new ResponseEntity<>(response, HttpStatus.OK);
 
     }
 
@@ -68,4 +58,5 @@ public class GoodsUpdateHelper {
     private void update(final GoodsTbl entity) {
         service.update(entity);
     }
+
 }

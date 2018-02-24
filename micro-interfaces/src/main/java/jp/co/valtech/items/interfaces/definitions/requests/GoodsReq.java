@@ -24,8 +24,7 @@ public class GoodsReq {
     @ApiModelProperty(example = "AA01", value = "GOODS_CODE")
     private String goodsCode;
 
-    @XmlElement(name = "categoryCode", required = true)
-    @NotEmpty
+    @XmlElement(name = "categoryCode")
     @Length(min = 1, max = 10)
     @Pattern(regexp = "[a-zA-Z0-9]+")
     @ApiModelProperty(example = "AA01", value = "CATEGORY_CODE")

@@ -1,5 +1,6 @@
 package jp.co.valtech.items.api.goods.helper;
 
+import jp.co.valtech.items.api.goods.util.GoodsUtil;
 import jp.co.valtech.items.common.exception.ConflictException;
 import jp.co.valtech.items.interfaces.definitions.requests.GoodsReq;
 import jp.co.valtech.items.interfaces.goods.requests.GoodsCreateRequest;
@@ -15,8 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -30,11 +29,10 @@ public class GoodsCreateHelper {
     ) throws ConflictException {
 
         GoodsReq goodsReq = request.getGoods();
-        Optional<GoodsTbl> optionalCode = service.findByCode(goodsReq.getCode());
-        if (optionalCode.isPresent()) {// code(unique制約)の存在チェック
-            throw new ConflictException("code", "CODEが重複しています。");
-        }
+        String goodsCode = goodsReq.getGoodsCode();
+        GoodsUtil.codeCheck(service, goodsCode);
         GoodsTbl entity = modelMapper.map(goodsReq, GoodsTbl.class);
+        entity.setCode(goodsCode);
         create(entity);
         GoodsCreateResponse response = new GoodsCreateResponse();
         GoodsCreateResponse.Goods goods = response.new Goods();

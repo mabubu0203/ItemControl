@@ -28,6 +28,7 @@ public class CategoryGetHelper {
         List<CategoryRes> categoryList = new ArrayList<>();
         for (CategoryTbl entity : entities) {
             CategoryRes categoryRes = modelMapper.map(entity, CategoryRes.class);
+            categoryRes.setCategoryCode(entity.getCode());
             modelMapper.map(entity.getStatusTbl(), categoryRes);
             categoryList.add(categoryRes);
         }

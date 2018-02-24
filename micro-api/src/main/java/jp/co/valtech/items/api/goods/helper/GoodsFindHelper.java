@@ -1,5 +1,6 @@
 package jp.co.valtech.items.api.goods.helper;
 
+import jp.co.valtech.items.api.goods.util.GoodsUtil;
 import jp.co.valtech.items.common.exception.NotFoundException;
 import jp.co.valtech.items.interfaces.definitions.responses.GoodsRes;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsFindResponse;
@@ -29,8 +30,7 @@ public class GoodsFindHelper {
         Optional<GoodsTbl> optionalId = service.findById(id);
         GoodsTbl entity = optionalId
                 .orElseThrow(() -> new NotFoundException("id", "IDが存在しません。"));
-        GoodsRes goodsRes = modelMapper.map(entity, GoodsRes.class);
-        modelMapper.map(entity.getStatusTbl(), goodsRes);
+        GoodsRes goodsRes = GoodsUtil.createResponse(modelMapper, entity);
         GoodsFindResponse response = new GoodsFindResponse();
         response.setGoods(goodsRes);
         return new ResponseEntity<>(response, HttpStatus.OK);

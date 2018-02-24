@@ -30,11 +30,13 @@ public class CategoryCreateHelper {
     ) throws ConflictException {
 
         CategoryReq categoryReq = request.getCategory();
-        Optional<CategoryTbl> optionalCode = service.findByCode(categoryReq.getCode());
-        if (optionalCode.isPresent()) {// code(unique制約)の存在チェック
-            throw new ConflictException("code", "CODEが重複しています。");
+        String categoryCode = categoryReq.getCategoryCode();
+        Optional<CategoryTbl> optionalCode = service.findByCode(categoryCode);
+        if (optionalCode.isPresent()) {// categoryCode(unique制約)の存在チェック
+            throw new ConflictException("categoryCode", "CODEが重複しています。");
         }
         CategoryTbl entity = modelMapper.map(categoryReq, CategoryTbl.class);
+        entity.setCode(categoryCode);
         create(entity);
         CategoryCreateResponse response = new CategoryCreateResponse();
         CategoryCreateResponse.CategoryRes categoryRes = response.new CategoryRes();

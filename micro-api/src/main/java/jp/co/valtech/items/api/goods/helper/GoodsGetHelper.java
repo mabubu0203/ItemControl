@@ -1,5 +1,6 @@
 package jp.co.valtech.items.api.goods.helper;
 
+import jp.co.valtech.items.api.goods.util.GoodsUtil;
 import jp.co.valtech.items.interfaces.definitions.responses.GoodsRes;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsGetResponse;
 import jp.co.valtech.items.rdb.domain.GoodsTbl;
@@ -27,8 +28,7 @@ public class GoodsGetHelper {
         List<GoodsTbl> entities = service.getAll();
         List<GoodsRes> goodsList = new ArrayList<>();
         for (GoodsTbl entity : entities) {
-            GoodsRes goodsRes = modelMapper.map(entity, GoodsRes.class);
-            modelMapper.map(entity.getStatusTbl(), goodsRes);
+            GoodsRes goodsRes = GoodsUtil.createResponse(modelMapper, entity);
             goodsList.add(goodsRes);
         }
         GoodsGetResponse response = new GoodsGetResponse();
