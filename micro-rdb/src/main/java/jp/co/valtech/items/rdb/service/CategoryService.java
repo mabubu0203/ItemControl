@@ -33,6 +33,20 @@ public class CategoryService {
         return Optional.ofNullable(master.findByCode(code));
     }
 
+    public Optional<CategoryTbl> findById(final long id) {
+
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<CategoryTbl> query = builder.createQuery(CategoryTbl.class);
+        Root<CategoryTbl> root = query.from(CategoryTbl.class);
+        Join<CategoryTbl, CategoryStatusTbl> join1 = root.join("statusTbl", JoinType.INNER);
+        List<Predicate> preds = new ArrayList<>();
+        preds.add(builder.equal(join1.get("deleteFlag"), false));
+        preds.add(builder.equal(root.get("id"), id));
+        query.select(root).where(builder.and(preds.toArray(new Predicate[]{})));
+        return Optional.ofNullable(entityManager.createQuery(query).getSingleResult());
+
+    }
+
     public List<CategoryTbl> getAll() {
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
