@@ -6,7 +6,9 @@ import jp.co.valtech.items.common.exception.NotFoundException;
 import jp.co.valtech.items.interfaces.definitions.requests.GoodsReq;
 import jp.co.valtech.items.interfaces.goods.requests.GoodsUpdateRequest;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsUpdateResponse;
+import jp.co.valtech.items.rdb.domain.CategoryTbl;
 import jp.co.valtech.items.rdb.domain.GoodsTbl;
+import jp.co.valtech.items.rdb.service.CategoryService;
 import jp.co.valtech.items.rdb.service.GoodsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class GoodsUpdateHelper {
 
+    private final CategoryService category;
     private final GoodsService service;
     private final ModelMapper modelMapper;
 
@@ -32,18 +35,19 @@ public class GoodsUpdateHelper {
             final GoodsUpdateRequest request
     ) throws ConflictException, NotFoundException {
 
-        Optional<GoodsTbl> optionalId = service.findById(id);
-        GoodsTbl entity = optionalId
-                .orElseThrow(() -> new NotFoundException("id", "IDが存在しません。"));
+        GoodsTbl entity = GoodsUtil.findById(service, id);
+        int version = request.getVersion();
+        GoodsUtil.exclusionCheck(entity.getStatusTbl(), version);
         GoodsReq goodsReq = request.getGoods();
-        if (entity.getStatusTbl().getVersion() != request.getVersion()) {// 楽観排他
-            throw new ConflictException("id", "排他エラー");
-        }
         String goodsCode = goodsReq.getGoodsCode();
         if (!entity.getCode().equals(goodsCode)) {// Codeの更新あり
-            GoodsUtil.codeCheck(service, goodsCode);
+            GoodsUtil.duplicationGoodsCodeCheck(service, goodsCode);
         }
+        String categoryCode = goodsReq.getCategoryCode();
+        Optional<CategoryTbl> optionalCode = category.findByCode(categoryCode);
+        CategoryTbl categoryTbl = optionalCode.orElseThrow(() -> new NotFoundException("code", "CODEが存在しません。"));
         modelMapper.map(goodsReq, entity);
+        entity.setCategory_id(categoryTbl.getId());
         entity.setCode(goodsCode);
         update(entity);
         GoodsUpdateResponse response = new GoodsUpdateResponse();

@@ -1,5 +1,6 @@
 package jp.co.valtech.items.api.goods.helper;
 
+import jp.co.valtech.items.api.goods.util.GoodsUtil;
 import jp.co.valtech.items.common.exception.ConflictException;
 import jp.co.valtech.items.common.exception.NotFoundException;
 import jp.co.valtech.items.rdb.domain.GoodsTbl;
@@ -11,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -26,12 +25,8 @@ public class GoodsDeleteHelper {
             final int version
     ) throws NotFoundException, ConflictException {
 
-        Optional<GoodsTbl> optionalId = service.findById(id);
-        GoodsTbl entity = optionalId
-                .orElseThrow(() -> new NotFoundException("id", "IDが存在しません。"));
-        if (entity.getStatusTbl().getVersion() != version) {// 楽観排他
-            throw new ConflictException("id", "排他エラー");
-        }
+        GoodsTbl entity = GoodsUtil.findById(service, id);
+        GoodsUtil.exclusionCheck(entity.getStatusTbl(), version);
         delete(entity);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
 

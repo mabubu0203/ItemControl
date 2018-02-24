@@ -13,8 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -27,9 +25,7 @@ public class GoodsFindHelper {
             final long id
     ) throws NotFoundException {
 
-        Optional<GoodsTbl> optionalId = service.findById(id);
-        GoodsTbl entity = optionalId
-                .orElseThrow(() -> new NotFoundException("id", "IDが存在しません。"));
+        GoodsTbl entity = GoodsUtil.findById(service, id);
         GoodsRes goodsRes = GoodsUtil.createResponse(modelMapper, entity);
         GoodsFindResponse response = new GoodsFindResponse();
         response.setGoods(goodsRes);
