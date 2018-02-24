@@ -16,4 +16,5 @@ public interface CategoryRepository
      * @return
      */
     CategoryTbl findByCode(final String code);
+
 }

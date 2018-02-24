@@ -5,11 +5,8 @@ import jp.co.valtech.items.interfaces.validator.constraint.GoodsNameField;
 import jp.co.valtech.items.interfaces.validator.constraint.GoodsNoteField;
 import jp.co.valtech.items.interfaces.validator.constraint.PriceField;
 import jp.co.valtech.items.rdb.domain.common.AbstractMasterEntity;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,11 +26,8 @@ import java.io.Serializable;
         name = "GOODS_TBL",
         uniqueConstraints = @UniqueConstraint(columnNames = {"ID", "CODE"})
 )
-@EqualsAndHashCode(callSuper = false)
 @Data
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class GoodsTbl
         extends AbstractMasterEntity implements Serializable {
 

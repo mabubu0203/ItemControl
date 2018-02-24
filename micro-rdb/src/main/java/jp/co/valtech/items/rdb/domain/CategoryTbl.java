@@ -4,11 +4,8 @@ import jp.co.valtech.items.interfaces.validator.constraint.CategoryCodeField;
 import jp.co.valtech.items.interfaces.validator.constraint.CategoryNameField;
 import jp.co.valtech.items.interfaces.validator.constraint.CategoryNoteField;
 import jp.co.valtech.items.rdb.domain.common.AbstractMasterEntity;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,11 +25,8 @@ import java.io.Serializable;
         name = "CATEGORY_TBL",
         uniqueConstraints = @UniqueConstraint(columnNames = {"ID", "CODE"})
 )
-@EqualsAndHashCode(callSuper = false)
 @Data
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class CategoryTbl
         extends AbstractMasterEntity implements Serializable {
 

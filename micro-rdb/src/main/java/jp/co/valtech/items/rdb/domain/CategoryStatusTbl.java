@@ -1,11 +1,8 @@
 package jp.co.valtech.items.rdb.domain;
 
 import jp.co.valtech.items.rdb.domain.common.AbstractStatusEntity;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.Column;
@@ -24,10 +21,7 @@ import java.io.Serializable;
 )
 @Where(clause = "DELETE_FLAG = false")
 @Data
-@ToString
 @EqualsAndHashCode(callSuper = false)
-@NoArgsConstructor
-@AllArgsConstructor
 public class CategoryStatusTbl
         extends AbstractStatusEntity implements Serializable {
 

@@ -17,4 +17,5 @@ public interface CategoryStatusRepository
      * @return
      */
     GoodsStatusTbl findByCategoryId(final long categoryId);
+
 }

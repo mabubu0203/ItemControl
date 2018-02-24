@@ -16,4 +16,5 @@ public interface GoodsStatusRepository
      * @return
      */
     GoodsStatusTbl findByGoodsId(final long goodsId);
+
 }

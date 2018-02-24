@@ -76,4 +76,5 @@ public class GoodsService {
         statusEntity.addVersion();
         status.saveAndFlush(statusEntity);
     }
+
 }
