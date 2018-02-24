@@ -5,11 +5,12 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import jp.co.valtech.items.api.category.helper.CategoryCreateHelper;
+import jp.co.valtech.items.api.category.helper.CategoryGetHelper;
 import jp.co.valtech.items.common.exception.ConflictException;
 import jp.co.valtech.items.interfaces.category.requests.CategoryCreateRequest;
 import jp.co.valtech.items.interfaces.category.responses.CategoryCreateResponse;
+import jp.co.valtech.items.interfaces.category.responses.CategoryGetResponse;
 import jp.co.valtech.items.interfaces.definitions.responses.ErrorRes;
-import jp.co.valtech.items.interfaces.goods.responses.GoodsGetResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -32,6 +33,7 @@ import javax.validation.Valid;
 @Api(description = "カテゴリーを扱います。")
 public class CategoryController {
     private final CategoryCreateHelper create;
+    private final CategoryGetHelper get;
 
     /**
      * カテゴリーを1件登録します。
@@ -68,7 +70,6 @@ public class CategoryController {
      * @version 1.0
      * @since 1.0
      */
-    // TODO:未実装
     @GetMapping(value = {"/all"})
     @ApiOperation(
             value = "${CategoryController.getCategory.value}",
@@ -76,13 +77,13 @@ public class CategoryController {
     )
     @ApiResponses(
             value = {
-                    @ApiResponse(code = 200, message = "", response = GoodsGetResponse.class)
+                    @ApiResponse(code = 200, message = "", response = CategoryGetResponse.class)
             }
     )
-    public ResponseEntity<GoodsGetResponse> getAllCategory() {
+    public ResponseEntity<CategoryGetResponse> getCategory() {
 
         log.info("getAll");
-        return null;
+        return get.execute();
 
     }
 
