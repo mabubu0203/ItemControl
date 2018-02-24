@@ -46,6 +46,7 @@ dependencies {
 
     // SpringFox
     compile("io.springfox:springfox-swagger2:$springfoxVersion")
+    compile("io.springfox:springfox-data-rest:$springfoxVersion")
     runtimeOnly("io.springfox:springfox-swagger-ui:$springfoxVersion")
 
     // Junit 5

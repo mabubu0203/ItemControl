@@ -26,6 +26,9 @@ GoodsController:
     request:
       id:
         value: 取得対象のIDを指定します。
+  searchGoods:
+    value: 商品を全件取得します。
+    notes: 商品を全件取得します。
   updateGoods:
     value: 商品を1件更新します。
     notes: 商品を1件更新します。

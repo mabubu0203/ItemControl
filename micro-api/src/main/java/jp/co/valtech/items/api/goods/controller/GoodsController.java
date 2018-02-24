@@ -9,6 +9,7 @@ import jp.co.valtech.items.api.goods.helper.GoodsCreateHelper;
 import jp.co.valtech.items.api.goods.helper.GoodsDeleteHelper;
 import jp.co.valtech.items.api.goods.helper.GoodsFindHelper;
 import jp.co.valtech.items.api.goods.helper.GoodsGetHelper;
+import jp.co.valtech.items.api.goods.helper.GoodsSearchHelper;
 import jp.co.valtech.items.api.goods.helper.GoodsUpdateHelper;
 import jp.co.valtech.items.common.exception.ConflictException;
 import jp.co.valtech.items.common.exception.NotFoundException;
@@ -18,6 +19,7 @@ import jp.co.valtech.items.interfaces.goods.requests.GoodsUpdateRequest;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsCreateResponse;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsFindResponse;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsGetResponse;
+import jp.co.valtech.items.interfaces.goods.responses.GoodsSearchResponse;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsUpdateResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +38,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-
 @Slf4j
 @RestController
 @RequestMapping(
@@ -50,6 +51,7 @@ public class GoodsController {
     private final GoodsDeleteHelper delete;
     private final GoodsFindHelper find;
     private final GoodsGetHelper get;
+    private final GoodsSearchHelper search;
     private final GoodsUpdateHelper update;
 
     /**
@@ -112,33 +114,12 @@ public class GoodsController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "", response = GoodsGetResponse.class)
     })
-    public ResponseEntity<GoodsGetResponse> getAllGoods() {
+    public ResponseEntity<GoodsGetResponse> getGoods() {
 
-        log.info("getAll");
+        log.info("get");
         return get.execute();
 
     }
-
-    /**
-     * 商品を検索取得します。
-     *
-     * @author uratamanabu
-     * @version 1.0
-     * @since 1.0
-     */
-    // TODO:未実装
-    @GetMapping(value = {"/search"})
-    @ApiOperation(value = "${GoodsController.getGoods.value}", notes = "${GoodsController.getGoods.notes}")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = GoodsGetResponse.class)
-    })
-    public ResponseEntity<GoodsGetResponse> getSearchGoods() {
-
-        log.info("getSearch");
-        return get.execute();
-
-    }
-
 
     /**
      * 商品を1件取得します。
@@ -159,6 +140,28 @@ public class GoodsController {
 
         log.info("find");
         return find.execute(id);
+
+    }
+
+    /**
+     * 商品を検索取得します。
+     *
+     * @author uratamanabu
+     * @version 1.0
+     * @since 1.0
+     */
+    @GetMapping(value = {"/search"})
+    @ApiOperation(value = "${GoodsController.searchGoods.value}", notes = "${GoodsController.searchGoods.notes}")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "", response = GoodsGetResponse.class),
+            @ApiResponse(code = 400, message = "", response = ErrorRes.class)
+    })
+    public ResponseEntity<GoodsSearchResponse> searchGoods(
+            @RequestBody @Valid final GoodsSearchHelper request
+    ) {
+
+        log.info("search");
+        return search.execute(request);
 
     }
 
