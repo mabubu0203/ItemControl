@@ -21,12 +21,12 @@ public class GoodsSearchRequest {
     @XmlElement(name = "condition", required = true)
     @NotNull
     @ApiModelProperty
-    private GoodsReq condition;
+    private Goods condition;
 
     @Data
-    @XmlRootElement(name = "goods_condition")
+    @XmlRootElement(name = "condition")
     @ApiModel(description = "商品情報検索")
-    public class GoodsReq {
+    public class Goods {
 
         @XmlElement(name = "code")
         @Length(min = 1, max = 10)

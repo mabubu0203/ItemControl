@@ -28,7 +28,7 @@ public class GoodsSearchHelper {
             final GoodsSearchRequest request
     ) {
 
-        GoodsSearchRequest.GoodsReq condition = request.getCondition();
+        GoodsSearchRequest.Goods condition = request.getCondition();
         GoodsCondtionBean conditionBean = modelMapper.map(condition, GoodsCondtionBean.class);
         List<GoodsTbl> entities = service.search(conditionBean);
         List<GoodsRes> goodsList = new ArrayList<>();

@@ -172,14 +172,14 @@ public class GoodsController {
      * @version 1.0
      * @since 1.0
      */
-    @GetMapping(value = {"/search"})
+    @PostMapping(value = {"/search"})
     @ApiOperation(
             value = "${GoodsController.searchGoods.value}",
             notes = "${GoodsController.searchGoods.notes}"
     )
     @ApiResponses(
             value = {
-                    @ApiResponse(code = 200, message = "", response = GoodsGetResponse.class),
+                    @ApiResponse(code = 200, message = "", response = GoodsSearchResponse.class),
                     @ApiResponse(code = 400, message = "", response = ErrorRes.class)
             }
     )
