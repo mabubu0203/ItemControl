@@ -3,7 +3,6 @@ package jp.co.valtech.items.interfaces.definitions.responses;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
@@ -11,15 +10,15 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDateTime;
 
-@ApiModel(description = "商品情報")
+
 @Data
-@ToString
 @XmlRootElement(name = "goods")
+@ApiModel(description = "商品情報")
 public class GoodsRes {
 
     @XmlElement(name = "id")
     @Range(min = 0, max = 999999999)
-    @ApiModelProperty(example = "1", value = "ID")
+    @ApiModelProperty(example = "1", value = "GOODS_ID")
     private long id;
 
     @XmlElement(name = "version")
@@ -29,7 +28,7 @@ public class GoodsRes {
 
     @XmlElement(name = "code")
     @Length(min = 1, max = 10)
-    @ApiModelProperty(example = "AA01", value = "CODE")
+    @ApiModelProperty(example = "AA01", value = "GOODS_CODE")
     private String code;
 
     @XmlElement(name = "name")

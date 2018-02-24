@@ -2,38 +2,28 @@ package jp.co.valtech.items.interfaces.definitions.responses;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
-
 @Data
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
 @XmlRootElement(name = "error")
 @ApiModel(description = "エラー情報")
 public class ErrorRes {
 
-    @XmlElement(name = "error_data_list")
+    @XmlElement(name = "errorDataList")
     @ApiModelProperty
     private List<Error_data> errorDataList;
 
     @Data
-    @ToString
-    @NoArgsConstructor
-    @AllArgsConstructor
     @XmlRootElement(name = "error_data")
     @ApiModel(description = "エラー")
     public class Error_data {
 
-        @XmlElement(name = "key_name")
-        @ApiModelProperty(example = "エラーキー", value = "KEYNAME")
+        @XmlElement(name = "keyName")
+        @ApiModelProperty(example = "エラーキー", value = "KEY_NAME")
         private String keyName;
 
         @XmlElement(name = "message")

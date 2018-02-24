@@ -3,7 +3,6 @@ package jp.co.valtech.items.interfaces.definitions.requests;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
@@ -12,7 +11,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Data
-@ToString
 @XmlRootElement(name = "category")
 @ApiModel(description = "カテゴリー情報")
 public class CategoryReq {
@@ -21,7 +19,7 @@ public class CategoryReq {
     @NotEmpty
     @Length(min = 1, max = 10)
     @Pattern(regexp = "[a-zA-Z0-9]+")
-    @ApiModelProperty(example = "AA01", value = "CODE")
+    @ApiModelProperty(example = "AA01", value = "CATEGORY_CODE")
     private String code;
 
     @XmlElement(name = "name", required = true)
