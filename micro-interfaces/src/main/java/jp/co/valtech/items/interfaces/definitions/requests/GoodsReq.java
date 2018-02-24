@@ -17,12 +17,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 @ApiModel(description = "商品情報")
 public class GoodsReq {
 
-    @XmlElement(name = "code", required = true)
+    @XmlElement(name = "goodsCode", required = true)
     @NotEmpty
     @Length(min = 1, max = 10)
     @Pattern(regexp = "[a-zA-Z0-9]+")
     @ApiModelProperty(example = "AA01", value = "GOODS_CODE")
-    private String code;
+    private String goodsCode;
+
+    @XmlElement(name = "categoryCode", required = true)
+    @NotEmpty
+    @Length(min = 1, max = 10)
+    @Pattern(regexp = "[a-zA-Z0-9]+")
+    @ApiModelProperty(example = "AA01", value = "CATEGORY_CODE")
+    private String categoryCode;
 
     @XmlElement(name = "name", required = true)
     @NotEmpty

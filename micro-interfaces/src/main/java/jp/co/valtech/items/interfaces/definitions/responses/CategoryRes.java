@@ -25,10 +25,10 @@ public class CategoryRes {
     @ApiModelProperty(example = "1", value = "VERSION")
     private int version;
 
-    @XmlElement(name = "code")
+    @XmlElement(name = "categoryCode")
     @Length(min = 1, max = 10)
-    @ApiModelProperty(example = "AA01", value = "CODE")
-    private String code;
+    @ApiModelProperty(example = "AA01", value = "CATEGORY_CODE")
+    private String categoryCode;
 
     @XmlElement(name = "name")
     @Length(min = 1, max = 25)

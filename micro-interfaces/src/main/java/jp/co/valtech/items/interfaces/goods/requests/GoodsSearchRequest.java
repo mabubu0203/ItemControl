@@ -28,11 +28,11 @@ public class GoodsSearchRequest {
     @ApiModel(description = "商品情報検索")
     public class Goods {
 
-        @XmlElement(name = "code")
+        @XmlElement(name = "goodsCode")
         @Length(min = 1, max = 10)
         @Pattern(regexp = "[a-zA-Z0-9]+")
         @ApiModelProperty(example = "AA01", value = "GOODS_CODE")
-        private String code;
+        private String goodsCode;
 
         @XmlElement(name = "name")
         @Length(min = 1, max = 25)
