@@ -4,6 +4,7 @@ import jp.co.valtech.items.rdb.domain.GoodsStatusTbl;
 import jp.co.valtech.items.rdb.domain.GoodsTbl;
 import jp.co.valtech.items.rdb.repository.GoodsRepository;
 import jp.co.valtech.items.rdb.repository.GoodsStatusRepository;
+import jp.co.valtech.items.rdb.service.conditions.GoodsCondtionBean;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -78,7 +79,7 @@ public class GoodsService {
 
     }
 
-    public List<GoodsTbl> search() {
+    public List<GoodsTbl> search(final GoodsCondtionBean condtion) {
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<GoodsTbl> query = builder.createQuery(GoodsTbl.class);
@@ -86,6 +87,14 @@ public class GoodsService {
         Join<GoodsTbl, GoodsStatusTbl> join1 = root.join("statusTbl", JoinType.INNER);
         List<Predicate> preds = new ArrayList<>();
         preds.add(builder.equal(join1.get("deleteFlag"), false));
+        // 検索条件設定
+        Optional<String> code = Optional.ofNullable(condtion.getCode());
+        code.ifPresent(str -> preds.add(builder.like(root.get("code"), "%" + str + "%")));
+        Optional<String> name = Optional.ofNullable(condtion.getName());
+        name.ifPresent(str -> preds.add(builder.like(root.get("name"), "%" + str + "%")));
+        Optional<String> note = Optional.ofNullable(condtion.getNote());
+        note.ifPresent(str -> preds.add(builder.like(root.get("note"), "%" + str + "%")));
+
         query.select(root).where(builder.and(preds.toArray(new Predicate[]{})));
         return entityManager.createQuery(query).getResultList();
 

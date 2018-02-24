@@ -1,9 +1,11 @@
 package jp.co.valtech.items.api.goods.helper;
 
 import jp.co.valtech.items.interfaces.definitions.responses.GoodsRes;
+import jp.co.valtech.items.interfaces.goods.requests.GoodsSearchRequest;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsSearchResponse;
 import jp.co.valtech.items.rdb.domain.GoodsTbl;
 import jp.co.valtech.items.rdb.service.GoodsService;
+import jp.co.valtech.items.rdb.service.conditions.GoodsCondtionBean;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -23,11 +25,12 @@ public class GoodsSearchHelper {
     private final ModelMapper modelMapper;
 
     public ResponseEntity<GoodsSearchResponse> execute(
-            final GoodsSearchHelper request
+            final GoodsSearchRequest request
     ) {
 
-        // TODO:未実装
-        List<GoodsTbl> entities = service.getAll();
+        GoodsSearchRequest.GoodsReq condition = request.getCondition();
+        GoodsCondtionBean conditionBean = modelMapper.map(condition, GoodsCondtionBean.class);
+        List<GoodsTbl> entities = service.search(conditionBean);
         List<GoodsRes> goodsList = new ArrayList<>();
         for (GoodsTbl entity : entities) {
             GoodsRes goodsRes = modelMapper.map(entity, GoodsRes.class);

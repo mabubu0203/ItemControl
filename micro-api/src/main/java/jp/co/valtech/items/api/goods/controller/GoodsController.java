@@ -15,6 +15,7 @@ import jp.co.valtech.items.common.exception.ConflictException;
 import jp.co.valtech.items.common.exception.NotFoundException;
 import jp.co.valtech.items.interfaces.definitions.responses.ErrorRes;
 import jp.co.valtech.items.interfaces.goods.requests.GoodsCreateRequest;
+import jp.co.valtech.items.interfaces.goods.requests.GoodsSearchRequest;
 import jp.co.valtech.items.interfaces.goods.requests.GoodsUpdateRequest;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsCreateResponse;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsFindResponse;
@@ -183,7 +184,7 @@ public class GoodsController {
             }
     )
     public ResponseEntity<GoodsSearchResponse> searchGoods(
-            @RequestBody @Valid final GoodsSearchHelper request
+            @RequestBody @Valid final GoodsSearchRequest request
     ) {
 
         log.info("search");
