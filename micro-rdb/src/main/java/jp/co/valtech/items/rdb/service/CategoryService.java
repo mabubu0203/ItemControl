@@ -7,6 +7,16 @@ import jp.co.valtech.items.rdb.repository.CategoryStatusRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,8 +26,24 @@ public class CategoryService {
     private final CategoryRepository master;
     private final CategoryStatusRepository status;
 
+    @PersistenceContext
+    EntityManager entityManager;
+
     public Optional<CategoryTbl> findByCode(final String code) {
         return Optional.ofNullable(master.findByCode(code));
+    }
+
+    public List<CategoryTbl> getAll() {
+
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<CategoryTbl> query = builder.createQuery(CategoryTbl.class);
+        Root<CategoryTbl> root = query.from(CategoryTbl.class);
+        Join<CategoryTbl, CategoryStatusTbl> join1 = root.join("statusTbl", JoinType.INNER);
+        List<Predicate> preds = new ArrayList<>();
+        preds.add(builder.equal(join1.get("deleteFlag"), false));
+        query.select(root).where(builder.and(preds.toArray(new Predicate[]{})));
+        return entityManager.createQuery(query).getResultList();
+
     }
 
     public void insert(final CategoryTbl masterEntity) {
