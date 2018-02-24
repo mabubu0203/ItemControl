@@ -24,7 +24,7 @@ public class GoodsGetHelper {
 
     public ResponseEntity<GoodsGetResponse> execute() {
 
-        List<GoodsTbl> entities = service.findAll();
+        List<GoodsTbl> entities = service.getAll();
         List<GoodsRes> goodsList = new ArrayList<>();
         for (GoodsTbl entity : entities) {
             GoodsRes goodsRes = modelMapper.map(entity, GoodsRes.class);

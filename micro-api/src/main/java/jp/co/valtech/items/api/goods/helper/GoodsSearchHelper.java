@@ -27,7 +27,7 @@ public class GoodsSearchHelper {
     ) {
 
         // TODO:未実装
-        List<GoodsTbl> entities = service.findAll();
+        List<GoodsTbl> entities = service.getAll();
         List<GoodsRes> goodsList = new ArrayList<>();
         for (GoodsTbl entity : entities) {
             GoodsRes goodsRes = modelMapper.map(entity, GoodsRes.class);

@@ -9,10 +9,15 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.StringJoiner;
 
 @Service
 @RequiredArgsConstructor
@@ -25,23 +30,12 @@ public class GoodsService {
     EntityManager entityManager;
 
     public void delete(final GoodsTbl masterEntity) {
+
         GoodsStatusTbl statusEntity = status.findByGoodsId(masterEntity.getId());
         statusEntity.setDeleteFlag(true);
         statusEntity.addVersion();
         status.saveAndFlush(statusEntity);
-    }
 
-    public List<GoodsTbl> findAll() {
-        StringJoiner sj = new StringJoiner(" ");
-        sj.add("SELECT");
-        sj.add("goodsTbl");
-        sj.add("FROM GoodsTbl goodsTbl");
-        sj.add("INNER JOIN goodsTbl.statusTbl goodsStatusTbl");
-        sj.add("WHERE");
-        sj.add("goodsStatusTbl.deleteFlag = false");
-
-        TypedQuery<GoodsTbl> q = entityManager.createQuery(sj.toString(), GoodsTbl.class);
-        return q.getResultList();
     }
 
     public Optional<GoodsTbl> findByCode(final String code) {
@@ -49,32 +43,61 @@ public class GoodsService {
     }
 
     public Optional<GoodsTbl> findById(final long id) {
-        StringJoiner sj = new StringJoiner(" ");
-        sj.add("SELECT");
-        sj.add("goodsTbl");
-        sj.add("FROM GoodsTbl goodsTbl");
-        sj.add("INNER JOIN goodsTbl.statusTbl goodsStatusTbl");
-        sj.add("WHERE");
-        sj.add("goodsStatusTbl.deleteFlag = false");
-        sj.add("AND goodsTbl.id = :id");
 
-        TypedQuery<GoodsTbl> q = entityManager.createQuery(sj.toString(), GoodsTbl.class);
-        q.setParameter("id", id);
-        return Optional.ofNullable(q.getSingleResult());
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<GoodsTbl> query = builder.createQuery(GoodsTbl.class);
+        Root<GoodsTbl> root = query.from(GoodsTbl.class);
+        Join<GoodsTbl, GoodsStatusTbl> join1 = root.join("statusTbl", JoinType.INNER);
+        List<Predicate> preds = new ArrayList<>();
+        preds.add(builder.equal(join1.get("deleteFlag"), false));
+        preds.add(builder.equal(root.get("id"), id));
+        query.select(root).where(builder.and(preds.toArray(new Predicate[]{})));
+        return Optional.ofNullable(entityManager.createQuery(query).getSingleResult());
+
+    }
+
+    public List<GoodsTbl> getAll() {
+
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<GoodsTbl> query = builder.createQuery(GoodsTbl.class);
+        Root<GoodsTbl> root = query.from(GoodsTbl.class);
+        Join<GoodsTbl, GoodsStatusTbl> join1 = root.join("statusTbl", JoinType.INNER);
+        List<Predicate> preds = new ArrayList<>();
+        preds.add(builder.equal(join1.get("deleteFlag"), false));
+        query.select(root).where(builder.and(preds.toArray(new Predicate[]{})));
+        return entityManager.createQuery(query).getResultList();
+
     }
 
     public void insert(final GoodsTbl masterEntity) {
+
         master.saveAndFlush(masterEntity);
         GoodsStatusTbl statusEntity = new GoodsStatusTbl();
         statusEntity.setGoodsId(masterEntity.getId());
         status.saveAndFlush(statusEntity);
+
+    }
+
+    public List<GoodsTbl> search() {
+
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<GoodsTbl> query = builder.createQuery(GoodsTbl.class);
+        Root<GoodsTbl> root = query.from(GoodsTbl.class);
+        Join<GoodsTbl, GoodsStatusTbl> join1 = root.join("statusTbl", JoinType.INNER);
+        List<Predicate> preds = new ArrayList<>();
+        preds.add(builder.equal(join1.get("deleteFlag"), false));
+        query.select(root).where(builder.and(preds.toArray(new Predicate[]{})));
+        return entityManager.createQuery(query).getResultList();
+
     }
 
     public void update(final GoodsTbl masterEntity) {
+
         master.saveAndFlush(masterEntity);
         GoodsStatusTbl statusEntity = status.findByGoodsId(masterEntity.getId());
         statusEntity.addVersion();
         status.saveAndFlush(statusEntity);
+
     }
 
 }

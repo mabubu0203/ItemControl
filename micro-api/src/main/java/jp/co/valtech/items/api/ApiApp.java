@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
-import springfox.documentation.spring.data.rest.configuration.SpringDataRestConfiguration;
 
 /**
  * @author uratamanabu
@@ -19,7 +18,7 @@ import springfox.documentation.spring.data.rest.configuration.SpringDataRestConf
  * @since 1.0
  */
 @SpringBootApplication
-@Import({RdbCore.class, SwaggerCore.class, SpringDataRestConfiguration.class})
+@Import({RdbCore.class, SwaggerCore.class})
 @EntityScan(basePackageClasses = {ApiApp.class, Jsr310JpaConverters.class})
 public class ApiApp extends SpringBootServletInitializer {
 
