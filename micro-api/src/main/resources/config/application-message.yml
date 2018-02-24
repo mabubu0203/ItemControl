@@ -2,6 +2,12 @@ CategoryController:
   createCategory:
     value: カテゴリーを1件登録します。
     notes: カテゴリーを1件登録します。
+  findCategory:
+    value: カテゴリーを1件取得します。
+    notes: カテゴリーを1件取得します。
+    request:
+      id:
+        value: 取得対象のIDを指定します。
   getCategory:
     value: カテゴリーを全件取得します。
     notes: カテゴリーを全件取得します。
