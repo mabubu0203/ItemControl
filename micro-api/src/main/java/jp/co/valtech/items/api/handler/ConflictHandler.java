@@ -19,6 +19,7 @@ public class ConflictHandler {
             ConflictException ex,
             WebRequest request
     ) {
+
         ErrorRes res = new ErrorRes();
         List<ErrorRes.Error_data> errorDataList = new ArrayList<>();
         ErrorRes.Error_data error_data = res.new Error_data();
@@ -27,5 +28,6 @@ public class ConflictHandler {
         errorDataList.add(error_data);
         res.setErrorDataList(errorDataList);
         return new ResponseEntity<>(res, null, HttpStatus.CONFLICT);
+
     }
 }

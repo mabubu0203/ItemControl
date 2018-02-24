@@ -40,8 +40,8 @@ public class BadRequestHandler extends ResponseEntityExceptionHandler {
             errorDataList.add(error_data);
         }
         res.setErrorDataList(errorDataList);
-
         return super.handleExceptionInternal(ex, res, null, HttpStatus.BAD_REQUEST, request);
+
     }
 
     @ExceptionHandler({ConstraintViolationException.class})
@@ -58,8 +58,8 @@ public class BadRequestHandler extends ResponseEntityExceptionHandler {
             errorDataList.add(error_data);
         }
         res.setErrorDataList(errorDataList);
-
         return new ResponseEntity<>(res, null, HttpStatus.BAD_REQUEST);
+
     }
 
 }

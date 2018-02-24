@@ -62,12 +62,17 @@ public class GoodsController {
      * @since 1.0
      */
     @PostMapping(value = {"/"})
-    @ApiOperation(value = "${GoodsController.createGoods.value}", notes = "${GoodsController.createGoods.notes}")
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "", response = GoodsCreateResponse.class),
-            @ApiResponse(code = 400, message = "", response = ErrorRes.class),
-            @ApiResponse(code = 409, message = "", response = ErrorRes.class)
-    })
+    @ApiOperation(
+            value = "${GoodsController.createGoods.value}",
+            notes = "${GoodsController.createGoods.notes}"
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(code = 201, message = "", response = GoodsCreateResponse.class),
+                    @ApiResponse(code = 400, message = "", response = ErrorRes.class),
+                    @ApiResponse(code = 409, message = "", response = ErrorRes.class)
+            }
+    )
     public ResponseEntity<GoodsCreateResponse> createGoods(
             @RequestBody @Valid final GoodsCreateRequest request
     ) throws ConflictException {
@@ -85,13 +90,18 @@ public class GoodsController {
      * @since 1.0
      */
     @DeleteMapping(value = {"/{id}"})
-    @ApiOperation(value = "${GoodsController.deleteGoods.value}", notes = "${GoodsController.deleteGoods.notes}")
-    @ApiResponses(value = {
-            @ApiResponse(code = 204, message = ""),
-            @ApiResponse(code = 400, message = "", response = ErrorRes.class),
-            @ApiResponse(code = 404, message = "", response = ErrorRes.class),
-            @ApiResponse(code = 409, message = "", response = ErrorRes.class)
-    })
+    @ApiOperation(
+            value = "${GoodsController.deleteGoods.value}",
+            notes = "${GoodsController.deleteGoods.notes}"
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(code = 204, message = ""),
+                    @ApiResponse(code = 400, message = "", response = ErrorRes.class),
+                    @ApiResponse(code = 404, message = "", response = ErrorRes.class),
+                    @ApiResponse(code = 409, message = "", response = ErrorRes.class)
+            }
+    )
     public ResponseEntity deleteGoods(
             @PathVariable(name = "id") @Range(min = 0, max = 999999999) @ApiParam(example = "1", value = "${GoodsController.deleteGoods.request.id.value}") final long id,
             @RequestParam(name = "version") @ApiParam(example = "1", value = "${GoodsController.deleteGoods.request.version.value}") final int version
@@ -110,10 +120,15 @@ public class GoodsController {
      * @since 1.0
      */
     @GetMapping(value = {"/all"})
-    @ApiOperation(value = "${GoodsController.getGoods.value}", notes = "${GoodsController.getGoods.notes}")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = GoodsGetResponse.class)
-    })
+    @ApiOperation(
+            value = "${GoodsController.getGoods.value}",
+            notes = "${GoodsController.getGoods.notes}"
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(code = 200, message = "", response = GoodsGetResponse.class)
+            }
+    )
     public ResponseEntity<GoodsGetResponse> getGoods() {
 
         log.info("get");
@@ -129,11 +144,17 @@ public class GoodsController {
      * @since 1.0
      */
     @GetMapping(value = {"/{id}"})
-    @ApiOperation(value = "${GoodsController.findGoods.value}", notes = "${GoodsController.findGoods.notes}")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = GoodsFindResponse.class),
-            @ApiResponse(code = 400, message = "", response = ErrorRes.class),
-            @ApiResponse(code = 404, message = "", response = ErrorRes.class)})
+    @ApiOperation(
+            value = "${GoodsController.findGoods.value}",
+            notes = "${GoodsController.findGoods.notes}"
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(code = 200, message = "", response = GoodsFindResponse.class),
+                    @ApiResponse(code = 400, message = "", response = ErrorRes.class),
+                    @ApiResponse(code = 404, message = "", response = ErrorRes.class)
+            }
+    )
     public ResponseEntity<GoodsFindResponse> findGoods(
             @PathVariable(name = "id") @Range(min = 0, max = 999999999) @ApiParam(example = "1", value = "${GoodsController.findGoods.request.id.value}") final long id
     ) throws NotFoundException {
@@ -151,11 +172,16 @@ public class GoodsController {
      * @since 1.0
      */
     @GetMapping(value = {"/search"})
-    @ApiOperation(value = "${GoodsController.searchGoods.value}", notes = "${GoodsController.searchGoods.notes}")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = GoodsGetResponse.class),
-            @ApiResponse(code = 400, message = "", response = ErrorRes.class)
-    })
+    @ApiOperation(
+            value = "${GoodsController.searchGoods.value}",
+            notes = "${GoodsController.searchGoods.notes}"
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(code = 200, message = "", response = GoodsGetResponse.class),
+                    @ApiResponse(code = 400, message = "", response = ErrorRes.class)
+            }
+    )
     public ResponseEntity<GoodsSearchResponse> searchGoods(
             @RequestBody @Valid final GoodsSearchHelper request
     ) {
@@ -173,13 +199,18 @@ public class GoodsController {
      * @since 1.0
      */
     @PutMapping(value = {"/{id}"})
-    @ApiOperation(value = "${GoodsController.updateGoods.value}", notes = "${GoodsController.updateGoods.notes}")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = GoodsUpdateResponse.class),
-            @ApiResponse(code = 400, message = "", response = ErrorRes.class),
-            @ApiResponse(code = 404, message = "", response = ErrorRes.class),
-            @ApiResponse(code = 409, message = "", response = ErrorRes.class)
-    })
+    @ApiOperation(
+            value = "${GoodsController.updateGoods.value}",
+            notes = "${GoodsController.updateGoods.notes}"
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(code = 200, message = "", response = GoodsUpdateResponse.class),
+                    @ApiResponse(code = 400, message = "", response = ErrorRes.class),
+                    @ApiResponse(code = 404, message = "", response = ErrorRes.class),
+                    @ApiResponse(code = 409, message = "", response = ErrorRes.class)
+            }
+    )
     public ResponseEntity<GoodsUpdateResponse> updateGoods(
             @PathVariable(name = "id") @Range(min = 0, max = 999999999) @ApiParam(example = "1", value = "${GoodsController.updateGoods.request.id.value}") final long id,
             @RequestBody @Valid final GoodsUpdateRequest request

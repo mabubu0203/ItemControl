@@ -39,7 +39,7 @@ public class CategoryCreateHelper {
         CategoryCreateResponse response = new CategoryCreateResponse();
         CategoryCreateResponse.CategoryRes categoryRes = response.new CategoryRes();
         categoryRes.setId(entity.getId());
-        response.setCategoryRes(categoryRes);
+        response.setCategory(categoryRes);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
 
     }

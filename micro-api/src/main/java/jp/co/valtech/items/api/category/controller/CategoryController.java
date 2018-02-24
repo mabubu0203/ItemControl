@@ -45,11 +45,13 @@ public class CategoryController {
             value = "${CategoryController.createCategory.value}",
             notes = "${CategoryController.createCategory.notes}"
     )
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "", response = CategoryCreateResponse.class),
-            @ApiResponse(code = 400, message = "", response = ErrorRes.class),
-            @ApiResponse(code = 409, message = "", response = ErrorRes.class)
-    })
+    @ApiResponses(
+            value = {
+                    @ApiResponse(code = 201, message = "", response = CategoryCreateResponse.class),
+                    @ApiResponse(code = 400, message = "", response = ErrorRes.class),
+                    @ApiResponse(code = 409, message = "", response = ErrorRes.class)
+            }
+    )
     public ResponseEntity<CategoryCreateResponse> createCategory(
             @RequestBody @Valid final CategoryCreateRequest request
     ) throws ConflictException {
@@ -72,9 +74,11 @@ public class CategoryController {
             value = "${CategoryController.getCategory.value}",
             notes = "${CategoryController.getCategory.notes}"
     )
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = GoodsGetResponse.class)
-    })
+    @ApiResponses(
+            value = {
+                    @ApiResponse(code = 200, message = "", response = GoodsGetResponse.class)
+            }
+    )
     public ResponseEntity<GoodsGetResponse> getAllCategory() {
 
         log.info("getAll");
