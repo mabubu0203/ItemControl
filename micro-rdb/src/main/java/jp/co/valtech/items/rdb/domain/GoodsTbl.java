@@ -1,6 +1,5 @@
 package jp.co.valtech.items.rdb.domain;
 
-import jp.co.valtech.items.interfaces.validator.constraint.GoodsCodeField;
 import jp.co.valtech.items.interfaces.validator.constraint.GoodsNameField;
 import jp.co.valtech.items.interfaces.validator.constraint.GoodsNoteField;
 import jp.co.valtech.items.interfaces.validator.constraint.PriceField;
@@ -41,7 +40,7 @@ public class GoodsTbl
             length = 10,
             columnDefinition = "VARCHAR"
     )
-    @GoodsCodeField
+
     private String code;
 
     @Column(

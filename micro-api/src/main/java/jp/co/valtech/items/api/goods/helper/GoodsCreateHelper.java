@@ -12,7 +12,6 @@ import jp.co.valtech.items.rdb.service.CategoryService;
 import jp.co.valtech.items.rdb.service.GoodsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -26,9 +25,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class GoodsCreateHelper {
 
-    private final CategoryService category;
-    private final GoodsService service;
-    private final ModelMapper modelMapper;
+    private final CategoryService cService;
+    private final GoodsService gService;
 
     public ResponseEntity<GoodsCreateResponse> execute(
             final GoodsCreateRequest request
@@ -36,13 +34,13 @@ public class GoodsCreateHelper {
 
         GoodsReq goodsReq = request.getGoods();
         String goodsCode = goodsReq.getGoodsCode();
-        GoodsUtil.duplicationGoodsCodeCheck(service, goodsCode);
+        GoodsUtil.duplicationGoodsCodeCheck(gService, goodsCode);
 
         String categoryCode = goodsReq.getCategoryCode();
-        Optional<CategoryTbl> optionalCode = category.findByCode(categoryCode);
+        Optional<CategoryTbl> optionalCode = cService.findByCode(categoryCode);
         CategoryTbl categoryTbl = optionalCode.orElseThrow(() -> new NotFoundException("code", "CODEが存在しません。"));
-
-        GoodsTbl entity = modelMapper.map(goodsReq, GoodsTbl.class);
+        GoodsTbl entity = new GoodsTbl();
+        GoodsUtil.requestToEntity(goodsReq, entity);
         entity.setCategory_id(categoryTbl.getId());
         entity.setCode(goodsCode);
         create(entity);
@@ -56,6 +54,6 @@ public class GoodsCreateHelper {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     private void create(final GoodsTbl entity) {
-        service.insert(entity);
+        gService.insert(entity);
     }
 }

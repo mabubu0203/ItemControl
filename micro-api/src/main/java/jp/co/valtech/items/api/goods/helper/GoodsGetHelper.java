@@ -20,15 +20,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GoodsGetHelper {
 
-    private final GoodsService service;
+    private final GoodsService gService;
     private final ModelMapper modelMapper;
 
     public ResponseEntity<GoodsGetResponse> execute() {
 
-        List<GoodsTbl> entities = service.getAll();
+        List<GoodsTbl> entities = gService.getAll();
         List<GoodsRes> goodsList = new ArrayList<>();
         for (GoodsTbl entity : entities) {
-            GoodsRes goodsRes = GoodsUtil.createResponse(modelMapper, entity);
+            GoodsRes goodsRes = new GoodsRes();
+            GoodsUtil.entityToResponse(modelMapper, entity, goodsRes);
             goodsList.add(goodsRes);
         }
         GoodsGetResponse response = new GoodsGetResponse();

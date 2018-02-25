@@ -76,7 +76,7 @@ public class GoodsController {
     )
     public ResponseEntity<GoodsCreateResponse> createGoods(
             @RequestBody @Valid final GoodsCreateRequest request
-    ) throws ConflictException {
+    ) throws ConflictException, NotFoundException {
 
         log.info("create");
         return create.execute(request);

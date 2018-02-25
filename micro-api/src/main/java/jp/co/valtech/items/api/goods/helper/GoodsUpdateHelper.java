@@ -12,7 +12,6 @@ import jp.co.valtech.items.rdb.service.CategoryService;
 import jp.co.valtech.items.rdb.service.GoodsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -26,27 +25,26 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class GoodsUpdateHelper {
 
-    private final CategoryService category;
-    private final GoodsService service;
-    private final ModelMapper modelMapper;
+    private final CategoryService cService;
+    private final GoodsService gService;
 
     public ResponseEntity<GoodsUpdateResponse> execute(
             final long id,
             final GoodsUpdateRequest request
     ) throws ConflictException, NotFoundException {
 
-        GoodsTbl entity = GoodsUtil.findById(service, id);
+        GoodsTbl entity = GoodsUtil.findById(gService, id);
         int version = request.getVersion();
         GoodsUtil.exclusionCheck(entity.getStatusTbl(), version);
         GoodsReq goodsReq = request.getGoods();
         String goodsCode = goodsReq.getGoodsCode();
         if (!entity.getCode().equals(goodsCode)) {// Codeの更新あり
-            GoodsUtil.duplicationGoodsCodeCheck(service, goodsCode);
+            GoodsUtil.duplicationGoodsCodeCheck(gService, goodsCode);
         }
         String categoryCode = goodsReq.getCategoryCode();
-        Optional<CategoryTbl> optionalCode = category.findByCode(categoryCode);
+        Optional<CategoryTbl> optionalCode = cService.findByCode(categoryCode);
         CategoryTbl categoryTbl = optionalCode.orElseThrow(() -> new NotFoundException("code", "CODEが存在しません。"));
-        modelMapper.map(goodsReq, entity);
+        GoodsUtil.requestToEntity(goodsReq, entity);
         entity.setCategory_id(categoryTbl.getId());
         entity.setCode(goodsCode);
         update(entity);
@@ -60,7 +58,7 @@ public class GoodsUpdateHelper {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     private void update(final GoodsTbl entity) {
-        service.update(entity);
+        gService.update(entity);
     }
 
 }

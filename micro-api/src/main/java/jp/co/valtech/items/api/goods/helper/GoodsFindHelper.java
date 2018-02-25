@@ -18,15 +18,16 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class GoodsFindHelper {
 
-    private final GoodsService service;
+    private final GoodsService gService;
     private final ModelMapper modelMapper;
 
     public ResponseEntity<GoodsFindResponse> execute(
             final long id
     ) throws NotFoundException {
 
-        GoodsTbl entity = GoodsUtil.findById(service, id);
-        GoodsRes goodsRes = GoodsUtil.createResponse(modelMapper, entity);
+        GoodsTbl entity = GoodsUtil.findById(gService, id);
+        GoodsRes goodsRes = new GoodsRes();
+        GoodsUtil.entityToResponse(modelMapper, entity, goodsRes);
         GoodsFindResponse response = new GoodsFindResponse();
         response.setGoods(goodsRes);
         return new ResponseEntity<>(response, HttpStatus.OK);

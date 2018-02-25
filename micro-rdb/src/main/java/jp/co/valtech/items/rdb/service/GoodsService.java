@@ -4,7 +4,7 @@ import jp.co.valtech.items.rdb.domain.GoodsStatusTbl;
 import jp.co.valtech.items.rdb.domain.GoodsTbl;
 import jp.co.valtech.items.rdb.repository.GoodsRepository;
 import jp.co.valtech.items.rdb.repository.GoodsStatusRepository;
-import jp.co.valtech.items.rdb.service.conditions.GoodsCondtionBean;
+import jp.co.valtech.items.rdb.service.conditions.GoodsConditionBean;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -79,7 +79,7 @@ public class GoodsService {
 
     }
 
-    public List<GoodsTbl> search(final GoodsCondtionBean condtion) {
+    public List<GoodsTbl> search(final GoodsConditionBean condtion) {
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<GoodsTbl> query = builder.createQuery(GoodsTbl.class);

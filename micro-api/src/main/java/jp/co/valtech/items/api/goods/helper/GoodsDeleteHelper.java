@@ -18,14 +18,14 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class GoodsDeleteHelper {
 
-    private final GoodsService service;
+    private final GoodsService gService;
 
     public ResponseEntity execute(
             final long id,
             final int version
     ) throws NotFoundException, ConflictException {
 
-        GoodsTbl entity = GoodsUtil.findById(service, id);
+        GoodsTbl entity = GoodsUtil.findById(gService, id);
         GoodsUtil.exclusionCheck(entity.getStatusTbl(), version);
         delete(entity);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -34,6 +34,6 @@ public class GoodsDeleteHelper {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     private void delete(GoodsTbl entity) {
-        service.delete(entity);
+        gService.delete(entity);
     }
 }

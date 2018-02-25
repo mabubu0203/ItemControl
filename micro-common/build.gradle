@@ -6,17 +6,10 @@ plugins {
 dependencies {
 
     // SpringBoot projects
-    compile("org.springframework.boot:spring-boot-starter-validation") {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
-        exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-el'
-    }
-
     compile("org.springframework.boot:spring-boot-starter-web") {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
     }
 
-    // SpringFox
-    compile("io.springfox:springfox-swagger2:$springfoxVersion")
 }
 
 jar {

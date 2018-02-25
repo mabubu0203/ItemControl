@@ -6,7 +6,7 @@ import jp.co.valtech.items.interfaces.goods.requests.GoodsSearchRequest;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsSearchResponse;
 import jp.co.valtech.items.rdb.domain.GoodsTbl;
 import jp.co.valtech.items.rdb.service.GoodsService;
-import jp.co.valtech.items.rdb.service.conditions.GoodsCondtionBean;
+import jp.co.valtech.items.rdb.service.conditions.GoodsConditionBean;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -22,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GoodsSearchHelper {
 
-    private final GoodsService service;
+    private final GoodsService gService;
     private final ModelMapper modelMapper;
 
     public ResponseEntity<GoodsSearchResponse> execute(
@@ -30,12 +30,13 @@ public class GoodsSearchHelper {
     ) {
 
         GoodsSearchRequest.Goods condition = request.getCondition();
-        GoodsCondtionBean conditionBean = modelMapper.map(condition, GoodsCondtionBean.class);
+        GoodsConditionBean conditionBean = modelMapper.map(condition, GoodsConditionBean.class);
         conditionBean.setCode(condition.getGoodsCode());
-        List<GoodsTbl> entities = service.search(conditionBean);
+        List<GoodsTbl> entities = gService.search(conditionBean);
         List<GoodsRes> goodsList = new ArrayList<>();
         for (GoodsTbl entity : entities) {
-            GoodsRes goodsRes = GoodsUtil.createResponse(modelMapper, entity);
+            GoodsRes goodsRes = new GoodsRes();
+            GoodsUtil.entityToResponse(modelMapper, entity, goodsRes);
             goodsList.add(goodsRes);
         }
         GoodsSearchResponse response = new GoodsSearchResponse();

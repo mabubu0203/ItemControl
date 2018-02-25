@@ -3,7 +3,7 @@ package jp.co.valtech.items.rdb.service.conditions;
 import lombok.Data;
 
 @Data
-public class GoodsCondtionBean {
+public class GoodsConditionBean {
 
     private String code;
 

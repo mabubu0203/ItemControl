@@ -2,6 +2,7 @@ package jp.co.valtech.items.api.goods.util;
 
 import jp.co.valtech.items.common.exception.ConflictException;
 import jp.co.valtech.items.common.exception.NotFoundException;
+import jp.co.valtech.items.interfaces.definitions.requests.GoodsReq;
 import jp.co.valtech.items.interfaces.definitions.responses.GoodsRes;
 import jp.co.valtech.items.rdb.domain.GoodsStatusTbl;
 import jp.co.valtech.items.rdb.domain.GoodsTbl;
@@ -14,18 +15,6 @@ import java.util.Optional;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class GoodsUtil {
-
-    public static GoodsRes createResponse(
-            final ModelMapper modelMapper,
-            final GoodsTbl entity
-    ) {
-
-        GoodsRes goodsRes = modelMapper.map(entity, GoodsRes.class);
-        goodsRes.setGoodsCode(entity.getCode());
-        modelMapper.map(entity.getStatusTbl(), goodsRes);
-        return goodsRes;
-
-    }
 
     public static void duplicationGoodsCodeCheck(
             final GoodsService service,
@@ -50,6 +39,23 @@ public class GoodsUtil {
 
     }
 
+    public static GoodsRes entityToResponse(
+            final ModelMapper modelMapper,
+            final GoodsTbl entity,
+            final GoodsRes goodsRes
+    ) {
+
+        goodsRes.setGoodsCode(entity.getCode());
+        goodsRes.setName(entity.getName());
+        goodsRes.setPrice(entity.getPrice());
+        goodsRes.setNote(entity.getNote());
+
+        GoodsStatusTbl statusTbl = entity.getStatusTbl();
+        modelMapper.map(statusTbl, goodsRes);
+        return goodsRes;
+
+    }
+
     public static GoodsTbl findById(
             final GoodsService service,
             final long id
@@ -59,4 +65,16 @@ public class GoodsUtil {
         return optionalId.orElseThrow(() -> new NotFoundException("id", "IDが存在しません。"));
 
     }
+
+    public static void requestToEntity(
+            final GoodsReq goodsReq,
+            final GoodsTbl entity
+    ) {
+
+        entity.setName(goodsReq.getName());
+        entity.setPrice(goodsReq.getPrice());
+        entity.setNote(goodsReq.getNote());
+
+    }
+
 }
