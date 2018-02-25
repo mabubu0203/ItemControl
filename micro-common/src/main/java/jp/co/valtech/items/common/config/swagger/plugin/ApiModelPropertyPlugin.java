@@ -5,7 +5,6 @@ import com.google.common.base.Optional;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import springfox.documentation.builders.ModelPropertyBuilder;
 import springfox.documentation.service.AllowableRangeValues;
@@ -18,7 +17,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlElement;
 
 import static springfox.documentation.schema.Annotations.findPropertyAnnotation;
 
@@ -39,28 +37,12 @@ public class ApiModelPropertyPlugin implements ModelPropertyBuilderPlugin {
             BeanPropertyDefinition beanDef = beanPropDef.get();
             ModelPropertyBuilder builder = context.getBuilder();
 
-            name(beanDef, builder);
-
             required(beanDef, builder);
 
             allowableValues(beanDef, builder);
 
         } else {
             // nothing
-        }
-    }
-
-    private void name(BeanPropertyDefinition beanDef, ModelPropertyBuilder builder) {
-        // jsonラベルを取得する
-        Optional<XmlElement> xmlElement = findPropertyAnnotation(beanDef, XmlElement.class);
-
-        if (xmlElement.isPresent()) {
-            builder.name(xmlElement.get().name());
-        }
-
-        Optional<PathVariable> pathVariable = findPropertyAnnotation(beanDef, PathVariable.class);
-        if (pathVariable.isPresent()) {
-            builder.name(pathVariable.get().name());
         }
     }
 

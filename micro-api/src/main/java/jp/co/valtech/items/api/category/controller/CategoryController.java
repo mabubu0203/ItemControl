@@ -11,9 +11,11 @@ import jp.co.valtech.items.api.category.helper.CategoryGetHelper;
 import jp.co.valtech.items.common.exception.ConflictException;
 import jp.co.valtech.items.common.exception.NotFoundException;
 import jp.co.valtech.items.interfaces.category.requests.CategoryCreateRequest;
+import jp.co.valtech.items.interfaces.category.requests.CategorySearchRequest;
 import jp.co.valtech.items.interfaces.category.responses.CategoryCreateResponse;
 import jp.co.valtech.items.interfaces.category.responses.CategoryFindResponse;
 import jp.co.valtech.items.interfaces.category.responses.CategoryGetResponse;
+import jp.co.valtech.items.interfaces.category.responses.CategorySearchResponse;
 import jp.co.valtech.items.interfaces.definitions.responses.ErrorRes;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -124,6 +126,33 @@ public class CategoryController {
 
         log.info("getAll");
         return get.execute();
+
+    }
+
+    /**
+     * 商品を検索取得します。
+     *
+     * @author uratamanabu
+     * @version 1.0
+     * @since 1.0
+     */
+    @PostMapping(value = {"/search"})
+    @ApiOperation(
+            value = "${CategoryController.searchCategory.value}",
+            notes = "${CategoryController.searchCategory.notes}"
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(code = 200, message = "", response = CategorySearchResponse.class),
+                    @ApiResponse(code = 400, message = "", response = ErrorRes.class)
+            }
+    )
+    public ResponseEntity<CategorySearchResponse> searchCategory(
+            @RequestBody @Valid final CategorySearchRequest request
+    ) {
+
+        log.info("search");
+        return null;
 
     }
 

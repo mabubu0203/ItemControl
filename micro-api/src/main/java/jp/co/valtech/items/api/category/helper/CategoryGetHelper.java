@@ -32,8 +32,8 @@ public class CategoryGetHelper {
         List<CategoryTbl> entities = service.getAll();
         List<CategoryRes> categoryList = new ArrayList<>();
         for (CategoryTbl entity : entities) {
+            // TODO:未実装
             CategoryRes categoryRes = modelMapper.map(entity, CategoryRes.class);
-            categoryRes.setCategoryCode(entity.getCode());
             modelMapper.map(entity.getStatusTbl(), categoryRes);
             categoryList.add(categoryRes);
         }

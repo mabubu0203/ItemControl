@@ -11,6 +11,9 @@ CategoryController:
   getCategory:
     value: カテゴリーを全件取得します。
     notes: カテゴリーを全件取得します。
+  searchCategory:
+    value: カテゴリーを検索取得します。
+    notes: カテゴリーを検索取得します。
 GoodsController:
   createGoods:
     value: 商品を1件登録します。
@@ -23,15 +26,15 @@ GoodsController:
         value: 削除対象のIDを指定します。
       version:
         value: 楽観排他用Versionを指定します。
-  getGoods:
-    value: 商品を全件取得します。
-    notes: 商品を全件取得します。
   findGoods:
     value: 商品を1件取得します。
     notes: 商品を1件取得します。
     request:
       id:
         value: 取得対象のIDを指定します。
+  getGoods:
+    value: 商品を全件取得します。
+    notes: 商品を全件取得します。
   searchGoods:
     value: 商品を検索取得します。
     notes: 商品を検索取得します。

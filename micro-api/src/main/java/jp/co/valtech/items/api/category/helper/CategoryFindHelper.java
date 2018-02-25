@@ -35,10 +35,11 @@ public class CategoryFindHelper {
         CategoryTbl entity = optionalId
                 .orElseThrow(() -> new NotFoundException("id", "IDが存在しません。"));
         CategoryRes categoryRes = modelMapper.map(entity, CategoryRes.class);
-        categoryRes.setCategoryCode(entity.getCode());
+        // TODO:未実装
+//        categoryRes.setCategoryCode(entity.getCode());
         modelMapper.map(entity.getStatusTbl(), categoryRes);
         CategoryFindResponse response = new CategoryFindResponse();
-        response.setCategory(categoryRes);
+//        response.setCategory(categoryRes);
         return new ResponseEntity<>(response, HttpStatus.OK);
 
     }
