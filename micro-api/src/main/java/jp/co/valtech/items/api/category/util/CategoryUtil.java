@@ -8,6 +8,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.Optional;
 
+/**
+ * @author uratamanabu
+ * @version 1.0
+ * @since 1.0
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CategoryUtil {
 

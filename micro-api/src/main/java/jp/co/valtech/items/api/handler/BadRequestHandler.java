@@ -17,6 +17,11 @@ import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author uratamanabu
+ * @version 1.0
+ * @since 1.0
+ */
 @RestControllerAdvice
 public class BadRequestHandler extends ResponseEntityExceptionHandler {
 
@@ -34,10 +39,10 @@ public class BadRequestHandler extends ResponseEntityExceptionHandler {
         List<FieldError> fieldErrors = result.getFieldErrors();
 
         for (FieldError fieldError : fieldErrors) {
-            ErrorRes.ErrorData error_data = res.new ErrorData();
-            error_data.setKeyName(fieldError.getField());
-            error_data.setMessage(fieldError.getDefaultMessage());
-            errorDataList.add(error_data);
+            ErrorRes.ErrorData errorData = res.new ErrorData();
+            errorData.setKeyName(fieldError.getField());
+            errorData.setMessage(fieldError.getDefaultMessage());
+            errorDataList.add(errorData);
         }
         res.setErrorDataList(errorDataList);
         return super.handleExceptionInternal(ex, res, null, HttpStatus.BAD_REQUEST, request);
@@ -52,10 +57,10 @@ public class BadRequestHandler extends ResponseEntityExceptionHandler {
         ErrorRes res = new ErrorRes();
         List<ErrorRes.ErrorData> errorDataList = new ArrayList<>();
         for (ConstraintViolation cv : ex.getConstraintViolations()) {
-            ErrorRes.ErrorData error_data = res.new ErrorData();
-            error_data.setKeyName(cv.getPropertyPath().toString());
-            error_data.setMessage(cv.getMessage());
-            errorDataList.add(error_data);
+            ErrorRes.ErrorData errorData = res.new ErrorData();
+            errorData.setKeyName(cv.getPropertyPath().toString());
+            errorData.setMessage(cv.getMessage());
+            errorDataList.add(errorData);
         }
         res.setErrorDataList(errorDataList);
         return new ResponseEntity<>(res, null, HttpStatus.BAD_REQUEST);

@@ -1,13 +1,3 @@
-plugins {
-    id 'java'
-    id 'org.springframework.boot'
-    id 'io.spring.dependency-management'
-}
-
-dependencies {
-
-}
-
 jar {
     baseName = 'micro-interfaces'
     version = '1.0'

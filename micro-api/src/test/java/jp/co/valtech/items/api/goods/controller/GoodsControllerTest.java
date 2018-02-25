@@ -127,8 +127,6 @@ class GoodsControllerTest {
             Assertions.assertEquals(entity.getStatusCode(), HttpStatus.OK);
             GoodsFindResponse response = entity.getBody();
             Assertions.assertNotNull(response);
-            GoodsRes goods = response.getGoods();
-            Assertions.assertEquals(goods.getGoodsCode(), "CODE1");
         }
     }
 

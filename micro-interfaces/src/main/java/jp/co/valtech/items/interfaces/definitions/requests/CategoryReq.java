@@ -11,6 +11,11 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
+/**
+ * @author uratamanabu
+ * @version 1.0
+ * @since 1.0
+ */
 @Data
 @XmlRootElement(name = "category")
 @ApiModel(description = "カテゴリー情報")

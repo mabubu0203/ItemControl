@@ -60,17 +60,13 @@ allprojects {
     task('default') {
         dependsOn 'clean', 'check'
     }
+
     dependencies {
 
-        // lombok
-        compile("org.projectlombok:lombok")
         // modelmapper
         compile("org.modelmapper.extensions:modelmapper-spring:${modelmapperVersion}")
-
-        // SpringFox
-        compile("io.springfox:springfox-bean-validators:$springfoxVersion")
-        compile("io.springfox:springfox-data-rest:$springfoxVersion")
-        compile("io.springfox:springfox-swagger2:$springfoxVersion")
+        // lombok
+        compile("org.projectlombok:lombok")
 
         // SpringBoot projects
         compile("org.springframework.boot:spring-boot-starter")
@@ -81,6 +77,11 @@ allprojects {
             exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
             exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-el'
         }
+
+        // SpringFox
+        compile("io.springfox:springfox-bean-validators:$springfoxVersion")
+        compile("io.springfox:springfox-data-rest:$springfoxVersion")
+        compile("io.springfox:springfox-swagger2:$springfoxVersion")
     }
 
     tasks.withType(JavaCompile) {
@@ -90,10 +91,17 @@ allprojects {
             targetCompatibility = jdkVersion
             options.compilerArgs = [
                     '-Xlint:unchecked', '-Xlint:deprecation',
-                    '--add-modules', 'java.xml.ws.annotation',
                     '--add-modules', 'java.xml.bind',
+                    '--add-modules', 'java.xml.ws.annotation',
                     '--add-exports', 'java.xml.bind/com.sun.istack.internal=ALL-UNNAMED'
             ]
+        }
+    }
+
+    tasks.withType(Javadoc) {
+        doFirst {
+            options.addStringOption('-add-modules', 'java.xml.bind')
+            options.addStringOption('-add-modules', 'java.xml.ws.annotation')
         }
     }
 
@@ -124,4 +132,3 @@ project(':micro-rdb') {
 task wrapper(type: Wrapper) {
     gradleVersion = gradleVersion
 }
-

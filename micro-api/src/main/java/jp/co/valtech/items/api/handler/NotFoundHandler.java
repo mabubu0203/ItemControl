@@ -6,26 +6,29 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author uratamanabu
+ * @version 1.0
+ * @since 1.0
+ */
 @RestControllerAdvice
 public class NotFoundHandler {
 
     @ExceptionHandler({NotFoundException.class})
     public final ResponseEntity<Object> handleException(
-            NotFoundException ex,
-            WebRequest request
+            final NotFoundException ex
     ) {
 
         ErrorRes res = new ErrorRes();
         List<ErrorRes.ErrorData> errorDataList = new ArrayList<>();
-        ErrorRes.ErrorData error_data = res.new ErrorData();
-        error_data.setKeyName(ex.getKeyName());
-        error_data.setMessage(ex.getMessage());
-        errorDataList.add(error_data);
+        ErrorRes.ErrorData errorData = res.new ErrorData();
+        errorData.setKeyName(ex.getKeyName());
+        errorData.setMessage(ex.getMessage());
+        errorDataList.add(errorData);
         res.setErrorDataList(errorDataList);
         return new ResponseEntity<>(res, null, HttpStatus.NOT_FOUND);
 

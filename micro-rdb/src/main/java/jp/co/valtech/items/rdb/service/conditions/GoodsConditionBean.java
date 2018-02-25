@@ -4,6 +4,11 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ * @author uratamanabu
+ * @version 1.0
+ * @since 1.0
+ */
 @Data
 public class GoodsConditionBean
         implements Serializable {

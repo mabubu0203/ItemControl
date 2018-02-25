@@ -9,6 +9,11 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
+/**
+ * @author uratamanabu
+ * @version 1.0
+ * @since 1.0
+ */
 @Data
 @XmlRootElement(name = "response")
 @ApiModel(description = "レスポンス情報")
@@ -21,6 +26,11 @@ public class GoodsCreateResponse
     @ApiModelProperty
     private Goods goods;
 
+    /**
+     * @author uratamanabu
+     * @version 1.0
+     * @since 1.0
+     */
     @Data
     @XmlRootElement(name = "goods")
     @ApiModel(description = "商品情報")

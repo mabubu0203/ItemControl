@@ -12,6 +12,11 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Version;
 import java.time.LocalDateTime;
 
+/**
+ * @author uratamanabu
+ * @version 1.0
+ * @since 1.0
+ */
 @Data
 @MappedSuperclass
 public class AbstractStatusEntity

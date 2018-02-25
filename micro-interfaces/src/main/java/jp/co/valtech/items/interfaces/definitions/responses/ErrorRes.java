@@ -9,6 +9,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * @author uratamanabu
+ * @version 1.0
+ * @since 1.0
+ */
 @Data
 @XmlRootElement(name = "error")
 @ApiModel(description = "エラー情報")
@@ -21,6 +26,11 @@ public class ErrorRes
     @ApiModelProperty
     private List<ErrorData> errorDataList;
 
+    /**
+     * @author uratamanabu
+     * @version 1.0
+     * @since 1.0
+     */
     @Data
     @XmlRootElement(name = "errorData")
     @ApiModel(description = "エラー")

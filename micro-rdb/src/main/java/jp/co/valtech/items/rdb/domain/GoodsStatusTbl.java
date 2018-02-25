@@ -14,6 +14,11 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.io.Serializable;
 
+/**
+ * @author uratamanabu
+ * @version 1.0
+ * @since 1.0
+ */
 @Entity(name = "GoodsStatusTbl")
 @Table(
         name = "GOODS_STATUS_TBL",

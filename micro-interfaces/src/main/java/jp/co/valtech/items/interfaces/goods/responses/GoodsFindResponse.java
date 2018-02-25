@@ -12,6 +12,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * @author uratamanabu
+ * @version 1.0
+ * @since 1.0
+ */
 @Data
 @XmlRootElement(name = "response")
 @ApiModel(description = "レスポンス情報")
@@ -24,6 +29,11 @@ public class GoodsFindResponse
     @ApiModelProperty
     private GoodsDetail goods;
 
+    /**
+     * @author uratamanabu
+     * @version 1.0
+     * @since 1.0
+     */
     @Data
     @EqualsAndHashCode(callSuper = false)
     @XmlRootElement(name = "goods")
