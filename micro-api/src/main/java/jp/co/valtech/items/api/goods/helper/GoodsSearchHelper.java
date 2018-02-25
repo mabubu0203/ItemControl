@@ -36,7 +36,7 @@ public class GoodsSearchHelper {
         List<GoodsRes> goodsList = new ArrayList<>();
         for (GoodsTbl entity : entities) {
             GoodsRes goodsRes = new GoodsRes();
-            GoodsUtil.entityToResponse(modelMapper, entity, goodsRes);
+            GoodsUtil.entityToResponse(entity, goodsRes);
             goodsList.add(goodsRes);
         }
         GoodsSearchResponse response = new GoodsSearchResponse();

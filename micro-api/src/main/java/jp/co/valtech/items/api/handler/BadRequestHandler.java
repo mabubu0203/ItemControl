@@ -29,12 +29,12 @@ public class BadRequestHandler extends ResponseEntityExceptionHandler {
     ) {
 
         ErrorRes res = new ErrorRes();
-        List<ErrorRes.Error_data> errorDataList = new ArrayList<>();
+        List<ErrorRes.ErrorData> errorDataList = new ArrayList<>();
         BindingResult result = ex.getBindingResult();
         List<FieldError> fieldErrors = result.getFieldErrors();
 
         for (FieldError fieldError : fieldErrors) {
-            ErrorRes.Error_data error_data = res.new Error_data();
+            ErrorRes.ErrorData error_data = res.new ErrorData();
             error_data.setKeyName(fieldError.getField());
             error_data.setMessage(fieldError.getDefaultMessage());
             errorDataList.add(error_data);
@@ -50,9 +50,9 @@ public class BadRequestHandler extends ResponseEntityExceptionHandler {
     ) {
 
         ErrorRes res = new ErrorRes();
-        List<ErrorRes.Error_data> errorDataList = new ArrayList<>();
+        List<ErrorRes.ErrorData> errorDataList = new ArrayList<>();
         for (ConstraintViolation cv : ex.getConstraintViolations()) {
-            ErrorRes.Error_data error_data = res.new Error_data();
+            ErrorRes.ErrorData error_data = res.new ErrorData();
             error_data.setKeyName(cv.getPropertyPath().toString());
             error_data.setMessage(cv.getMessage());
             errorDataList.add(error_data);

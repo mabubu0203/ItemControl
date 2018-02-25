@@ -15,12 +15,12 @@ public class ErrorRes {
 
     @XmlElement(name = "errorDataList")
     @ApiModelProperty
-    private List<Error_data> errorDataList;
+    private List<ErrorData> errorDataList;
 
     @Data
-    @XmlRootElement(name = "error_data")
+    @XmlRootElement(name = "errorData")
     @ApiModel(description = "エラー")
-    public class Error_data {
+    public class ErrorData {
 
         @XmlElement(name = "keyName")
         @ApiModelProperty(example = "エラーキー", value = "KEY_NAME")

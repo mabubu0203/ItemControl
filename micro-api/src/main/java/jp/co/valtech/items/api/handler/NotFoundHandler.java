@@ -21,8 +21,8 @@ public class NotFoundHandler {
     ) {
 
         ErrorRes res = new ErrorRes();
-        List<ErrorRes.Error_data> errorDataList = new ArrayList<>();
-        ErrorRes.Error_data error_data = res.new Error_data();
+        List<ErrorRes.ErrorData> errorDataList = new ArrayList<>();
+        ErrorRes.ErrorData error_data = res.new ErrorData();
         error_data.setKeyName(ex.getKeyName());
         error_data.setMessage(ex.getMessage());
         errorDataList.add(error_data);

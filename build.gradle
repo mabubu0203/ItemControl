@@ -61,9 +61,26 @@ allprojects {
         dependsOn 'clean', 'check'
     }
     dependencies {
-        compile("org.springframework.boot:spring-boot-starter")
+
+        // lombok
         compile("org.projectlombok:lombok")
-        compile("org.modelmapper:modelmapper:${modelmapperVersion}")
+        // modelmapper
+        compile("org.modelmapper.extensions:modelmapper-spring:${modelmapperVersion}")
+
+        // SpringFox
+        compile("io.springfox:springfox-bean-validators:$springfoxVersion")
+        compile("io.springfox:springfox-data-rest:$springfoxVersion")
+        compile("io.springfox:springfox-swagger2:$springfoxVersion")
+
+        // SpringBoot projects
+        compile("org.springframework.boot:spring-boot-starter")
+        compile('org.springframework.boot:spring-boot-starter-data-rest') {
+            exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
+        }
+        compile("org.springframework.boot:spring-boot-starter-validation") {
+            exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
+            exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-el'
+        }
     }
 
     tasks.withType(JavaCompile) {

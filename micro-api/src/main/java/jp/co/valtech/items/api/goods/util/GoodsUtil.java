@@ -9,7 +9,6 @@ import jp.co.valtech.items.rdb.domain.GoodsTbl;
 import jp.co.valtech.items.rdb.service.GoodsService;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.modelmapper.ModelMapper;
 
 import java.util.Optional;
 
@@ -39,20 +38,16 @@ public class GoodsUtil {
 
     }
 
-    public static GoodsRes entityToResponse(
-            final ModelMapper modelMapper,
+    public static void entityToResponse(
             final GoodsTbl entity,
             final GoodsRes goodsRes
     ) {
 
-        goodsRes.setGoodsCode(entity.getCode());
+        goodsRes.setId(entity.getId());
         goodsRes.setName(entity.getName());
         goodsRes.setPrice(entity.getPrice());
-        goodsRes.setNote(entity.getNote());
-
         GoodsStatusTbl statusTbl = entity.getStatusTbl();
-        modelMapper.map(statusTbl, goodsRes);
-        return goodsRes;
+        goodsRes.setVersion(statusTbl.getVersion());
 
     }
 

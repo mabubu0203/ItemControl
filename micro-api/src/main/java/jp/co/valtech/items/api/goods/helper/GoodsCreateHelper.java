@@ -35,7 +35,6 @@ public class GoodsCreateHelper {
         GoodsReq goodsReq = request.getGoods();
         String goodsCode = goodsReq.getGoodsCode();
         GoodsUtil.duplicationGoodsCodeCheck(gService, goodsCode);
-
         String categoryCode = goodsReq.getCategoryCode();
         Optional<CategoryTbl> optionalCode = cService.findByCode(categoryCode);
         CategoryTbl categoryTbl = optionalCode.orElseThrow(() -> new NotFoundException("code", "CODEが存在しません。"));
