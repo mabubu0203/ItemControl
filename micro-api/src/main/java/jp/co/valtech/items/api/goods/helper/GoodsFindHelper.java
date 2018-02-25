@@ -22,7 +22,7 @@ public class GoodsFindHelper {
     private final ModelMapper modelMapper;
 
     public ResponseEntity<GoodsFindResponse> execute(
-            final long id
+            final Long id
     ) throws NotFoundException {
 
         GoodsTbl entity = GoodsUtil.findById(gService, id);

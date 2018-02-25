@@ -22,18 +22,18 @@ public class GoodsUtil {
     ) throws ConflictException {
 
         Optional<GoodsTbl> optionalCode = service.findByCode(goodsCode);
-        if (optionalCode.isPresent()) {// categoryCode(unique制約)の存在チェック
-            throw new ConflictException("categoryCode", "CODEが重複しています。");
+        if (optionalCode.isPresent()) {// goodsCode(unique制約)の存在チェック
+            throw new ConflictException("goodsCode", "CODEが重複しています。");
         }
 
     }
 
     public static void exclusionCheck(
             final GoodsStatusTbl entity,
-            final int version
+            final Integer version
     ) throws ConflictException {
 
-        if (entity.getVersion() != version) {// 楽観排他
+        if (entity.getVersion().compareTo(version) != 0) {// 楽観排他
             throw new ConflictException("id", "排他エラー");
         }
 
@@ -58,7 +58,7 @@ public class GoodsUtil {
 
     public static GoodsTbl findById(
             final GoodsService service,
-            final long id
+            final Long id
     ) throws NotFoundException {
 
         Optional<GoodsTbl> optionalId = service.findById(id);

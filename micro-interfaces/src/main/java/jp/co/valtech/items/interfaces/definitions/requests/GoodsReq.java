@@ -40,7 +40,7 @@ public class GoodsReq {
     @NotNull
     @Range(min = 0, max = 9999)
     @ApiModelProperty(example = "200", value = "PRICE")
-    private int price;
+    private Integer price;
 
     @XmlElement(name = "note")
     @Length(min = 1, max = 64)

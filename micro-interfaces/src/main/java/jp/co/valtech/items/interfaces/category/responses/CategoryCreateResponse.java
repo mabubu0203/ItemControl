@@ -25,7 +25,7 @@ public class CategoryCreateResponse {
         @XmlElement(name = "id")
         @Range(min = 0, max = 999999999)
         @ApiModelProperty(example = "1", value = "CATEGORY_ID")
-        private long id;
+        private Long id;
 
     }
 }

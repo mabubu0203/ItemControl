@@ -29,14 +29,14 @@ public class AbstractStatusEntity implements StatusEntity {
             length = 5,
             columnDefinition = "INT"
     )
-    private int version;
+    private Integer version;
 
     @Column(
             name = "DELETE_FLAG",
             nullable = false,
             columnDefinition = "TINYINT"
     )
-    private boolean deleteFlag;
+    private Boolean deleteFlag;
 
     @CreatedDate
     @Column(
@@ -57,6 +57,8 @@ public class AbstractStatusEntity implements StatusEntity {
     @PrePersist
     @Override
     public void onPrePersist() {
+        version = 0;
+        deleteFlag = false;
         createDatetime = LocalDateTime.now();
         updateDatetime = LocalDateTime.now();
     }

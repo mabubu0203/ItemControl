@@ -23,7 +23,7 @@ public class CategoryFindHelper {
     private final ModelMapper modelMapper;
 
     public ResponseEntity<CategoryFindResponse> execute(
-            final long id
+            final Long id
     ) throws NotFoundException {
 
         Optional<CategoryTbl> optionalId = service.findById(id);

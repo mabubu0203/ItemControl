@@ -15,6 +15,6 @@ public interface GoodsStatusRepository
      * @param goodsId
      * @return
      */
-    GoodsStatusTbl findByGoodsId(final long goodsId);
+    GoodsStatusTbl findByGoodsId(final Long goodsId);
 
 }

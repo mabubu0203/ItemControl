@@ -43,16 +43,16 @@ public class GoodsService {
         return Optional.ofNullable(master.findByCode(code));
     }
 
-    public Optional<GoodsTbl> findById(final long id) {
+    public Optional<GoodsTbl> findById(final Long id) {
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<GoodsTbl> query = builder.createQuery(GoodsTbl.class);
         Root<GoodsTbl> root = query.from(GoodsTbl.class);
         Join<GoodsTbl, GoodsStatusTbl> join1 = root.join("statusTbl", JoinType.INNER);
-        List<Predicate> preds = new ArrayList<>();
-        preds.add(builder.equal(join1.get("deleteFlag"), false));
-        preds.add(builder.equal(root.get("id"), id));
-        query.select(root).where(builder.and(preds.toArray(new Predicate[]{})));
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(builder.equal(join1.get("deleteFlag"), false));
+        predicates.add(builder.equal(root.get("id"), id));
+        query.select(root).where(builder.and(predicates.toArray(new Predicate[]{})));
         return Optional.ofNullable(entityManager.createQuery(query).getSingleResult());
 
     }
@@ -63,9 +63,9 @@ public class GoodsService {
         CriteriaQuery<GoodsTbl> query = builder.createQuery(GoodsTbl.class);
         Root<GoodsTbl> root = query.from(GoodsTbl.class);
         Join<GoodsTbl, GoodsStatusTbl> join1 = root.join("statusTbl", JoinType.INNER);
-        List<Predicate> preds = new ArrayList<>();
-        preds.add(builder.equal(join1.get("deleteFlag"), false));
-        query.select(root).where(builder.and(preds.toArray(new Predicate[]{})));
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(builder.equal(join1.get("deleteFlag"), false));
+        query.select(root).where(builder.and(predicates.toArray(new Predicate[]{})));
         return entityManager.createQuery(query).getResultList();
 
     }
@@ -85,17 +85,17 @@ public class GoodsService {
         CriteriaQuery<GoodsTbl> query = builder.createQuery(GoodsTbl.class);
         Root<GoodsTbl> root = query.from(GoodsTbl.class);
         Join<GoodsTbl, GoodsStatusTbl> join1 = root.join("statusTbl", JoinType.INNER);
-        List<Predicate> preds = new ArrayList<>();
-        preds.add(builder.equal(join1.get("deleteFlag"), false));
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(builder.equal(join1.get("deleteFlag"), false));
         // 検索条件設定
         Optional<String> code = Optional.ofNullable(condtion.getCode());
-        code.ifPresent(str -> preds.add(builder.like(root.get("code"), "%" + str + "%")));
+        code.ifPresent(str -> predicates.add(builder.like(root.get("code"), "%" + str + "%")));
         Optional<String> name = Optional.ofNullable(condtion.getName());
-        name.ifPresent(str -> preds.add(builder.like(root.get("name"), "%" + str + "%")));
+        name.ifPresent(str -> predicates.add(builder.like(root.get("name"), "%" + str + "%")));
         Optional<String> note = Optional.ofNullable(condtion.getNote());
-        note.ifPresent(str -> preds.add(builder.like(root.get("note"), "%" + str + "%")));
+        note.ifPresent(str -> predicates.add(builder.like(root.get("note"), "%" + str + "%")));
 
-        query.select(root).where(builder.and(preds.toArray(new Predicate[]{})));
+        query.select(root).where(builder.and(predicates.toArray(new Predicate[]{})));
         return entityManager.createQuery(query).getResultList();
 
     }

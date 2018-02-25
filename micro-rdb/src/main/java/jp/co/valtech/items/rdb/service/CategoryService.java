@@ -39,10 +39,10 @@ public class CategoryService {
         CriteriaQuery<CategoryTbl> query = builder.createQuery(CategoryTbl.class);
         Root<CategoryTbl> root = query.from(CategoryTbl.class);
         Join<CategoryTbl, CategoryStatusTbl> join1 = root.join("statusTbl", JoinType.INNER);
-        List<Predicate> preds = new ArrayList<>();
-        preds.add(builder.equal(join1.get("deleteFlag"), false));
-        preds.add(builder.equal(root.get("id"), id));
-        query.select(root).where(builder.and(preds.toArray(new Predicate[]{})));
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(builder.equal(join1.get("deleteFlag"), false));
+        predicates.add(builder.equal(root.get("id"), id));
+        query.select(root).where(builder.and(predicates.toArray(new Predicate[]{})));
         return Optional.ofNullable(entityManager.createQuery(query).getSingleResult());
 
     }
@@ -53,9 +53,9 @@ public class CategoryService {
         CriteriaQuery<CategoryTbl> query = builder.createQuery(CategoryTbl.class);
         Root<CategoryTbl> root = query.from(CategoryTbl.class);
         Join<CategoryTbl, CategoryStatusTbl> join1 = root.join("statusTbl", JoinType.INNER);
-        List<Predicate> preds = new ArrayList<>();
-        preds.add(builder.equal(join1.get("deleteFlag"), false));
-        query.select(root).where(builder.and(preds.toArray(new Predicate[]{})));
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(builder.equal(join1.get("deleteFlag"), false));
+        query.select(root).where(builder.and(predicates.toArray(new Predicate[]{})));
         return entityManager.createQuery(query).getResultList();
 
     }

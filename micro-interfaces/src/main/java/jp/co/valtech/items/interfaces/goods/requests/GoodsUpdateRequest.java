@@ -26,6 +26,6 @@ public class GoodsUpdateRequest {
     @NotNull
     @Range(min = 0, max = 99999)
     @ApiModelProperty(example = "1")
-    private int version;
+    private Integer version;
 
 }

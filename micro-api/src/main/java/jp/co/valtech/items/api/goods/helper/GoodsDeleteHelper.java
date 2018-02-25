@@ -21,8 +21,8 @@ public class GoodsDeleteHelper {
     private final GoodsService gService;
 
     public ResponseEntity execute(
-            final long id,
-            final int version
+            final Long id,
+            final Integer version
     ) throws NotFoundException, ConflictException {
 
         GoodsTbl entity = GoodsUtil.findById(gService, id);

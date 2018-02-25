@@ -90,7 +90,7 @@ public class CategoryController {
             }
     )
     public ResponseEntity<CategoryFindResponse> findGoods(
-            @PathVariable(name = "id") @Range(min = 0, max = 999999999) @ApiParam(example = "1", value = "${CategoryController.findCategory.request.id.value}") final long id
+            @PathVariable(name = "id") @Range(min = 0, max = 999999999) @ApiParam(example = "1", value = "${CategoryController.findCategory.request.id.value}") final Long id
     ) throws NotFoundException {
 
         log.info("find");

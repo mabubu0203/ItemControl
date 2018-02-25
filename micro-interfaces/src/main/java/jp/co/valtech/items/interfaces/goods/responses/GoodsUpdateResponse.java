@@ -25,7 +25,7 @@ public class GoodsUpdateResponse {
         @XmlElement(name = "id")
         @Range(min = 0, max = 999999999)
         @ApiModelProperty(example = "1", value = "GOODS_ID")
-        private long id;
+        private Long id;
 
     }
 

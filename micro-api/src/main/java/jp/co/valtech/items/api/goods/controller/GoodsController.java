@@ -104,8 +104,8 @@ public class GoodsController {
             }
     )
     public ResponseEntity deleteGoods(
-            @PathVariable(name = "id") @Range(min = 0, max = 999999999) @ApiParam(example = "1", value = "${GoodsController.deleteGoods.request.id.value}") final long id,
-            @RequestParam(name = "version") @ApiParam(example = "1", value = "${GoodsController.deleteGoods.request.version.value}") final int version
+            @PathVariable(name = "id") @Range(min = 0, max = 999999999) @ApiParam(example = "1", value = "${GoodsController.deleteGoods.request.id.value}") final Long id,
+            @RequestParam(name = "version") @ApiParam(example = "1", value = "${GoodsController.deleteGoods.request.version.value}") final Integer version
     ) throws NotFoundException, ConflictException {
 
         log.info("delete");
@@ -157,7 +157,7 @@ public class GoodsController {
             }
     )
     public ResponseEntity<GoodsFindResponse> findGoods(
-            @PathVariable(name = "id") @Range(min = 0, max = 999999999) @ApiParam(example = "1", value = "${GoodsController.findGoods.request.id.value}") final long id
+            @PathVariable(name = "id") @Range(min = 0, max = 999999999) @ApiParam(example = "1", value = "${GoodsController.findGoods.request.id.value}") final Long id
     ) throws NotFoundException {
 
         log.info("find");
@@ -213,7 +213,7 @@ public class GoodsController {
             }
     )
     public ResponseEntity<GoodsUpdateResponse> updateGoods(
-            @PathVariable(name = "id") @Range(min = 0, max = 999999999) @ApiParam(example = "1", value = "${GoodsController.updateGoods.request.id.value}") final long id,
+            @PathVariable(name = "id") @Range(min = 0, max = 999999999) @ApiParam(example = "1", value = "${GoodsController.updateGoods.request.id.value}") final Long id,
             @RequestBody @Valid final GoodsUpdateRequest request
     ) throws ConflictException, NotFoundException {
 

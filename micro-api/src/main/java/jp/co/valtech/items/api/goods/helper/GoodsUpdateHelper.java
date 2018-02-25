@@ -29,12 +29,12 @@ public class GoodsUpdateHelper {
     private final GoodsService gService;
 
     public ResponseEntity<GoodsUpdateResponse> execute(
-            final long id,
+            final Long id,
             final GoodsUpdateRequest request
     ) throws ConflictException, NotFoundException {
 
         GoodsTbl entity = GoodsUtil.findById(gService, id);
-        int version = request.getVersion();
+        Integer version = request.getVersion();
         GoodsUtil.exclusionCheck(entity.getStatusTbl(), version);
         GoodsReq goodsReq = request.getGoods();
         String goodsCode = goodsReq.getGoodsCode();

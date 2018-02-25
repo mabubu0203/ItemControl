@@ -49,7 +49,7 @@ public class GoodsTbl
             length = 10,
             columnDefinition = "BIGINT"
     )
-    private long category_id;
+    private Long category_id;
 
     @Column(
             name = "NAME",
@@ -67,7 +67,7 @@ public class GoodsTbl
             columnDefinition = "SMALLINT"
     )
     @PriceField
-    private int price;
+    private Integer price;
 
     @Column(
             name = "NOTE",

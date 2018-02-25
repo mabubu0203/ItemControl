@@ -9,9 +9,9 @@ public class GoodsConditionBean {
 
     private String name;
 
-    private int price_from;
+    private Integer price_from;
 
-    private int price_to;
+    private Integer price_to;
 
     private String note;
 

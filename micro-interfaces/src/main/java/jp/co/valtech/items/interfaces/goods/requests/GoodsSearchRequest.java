@@ -42,12 +42,12 @@ public class GoodsSearchRequest {
         @XmlElement(name = "price_from")
         @Range(min = 0, max = 9999)
         @ApiModelProperty(example = "200", value = "PRICE")
-        private int price_from;
+        private Integer price_from;
 
         @XmlElement(name = "price_to")
         @Range(min = 0, max = 9999)
         @ApiModelProperty(example = "200", value = "PRICE")
-        private int price_to;
+        private Integer price_to;
 
         @XmlElement(name = "note")
         @Length(min = 1, max = 64)

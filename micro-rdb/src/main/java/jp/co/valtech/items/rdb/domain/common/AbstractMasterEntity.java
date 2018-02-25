@@ -28,5 +28,5 @@ public class AbstractMasterEntity implements UniqueEntity {
             length = 10,
             columnDefinition = "BIGINT"
     )
-    private long id;
+    private Long id;
 }

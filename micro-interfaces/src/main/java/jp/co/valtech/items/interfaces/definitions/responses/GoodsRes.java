@@ -19,12 +19,12 @@ public class GoodsRes {
     @XmlElement(name = "id")
     @Range(min = 0, max = 999999999)
     @ApiModelProperty(example = "1", value = "GOODS_ID")
-    private long id;
+    private Long id;
 
     @XmlElement(name = "version")
     @Range(min = 0, max = 99999)
     @ApiModelProperty(example = "1", value = "VERSION")
-    private int version;
+    private Integer version;
 
     @XmlElement(name = "goodsCode")
     @Length(min = 1, max = 10)
@@ -44,7 +44,7 @@ public class GoodsRes {
     @XmlElement(name = "price")
     @Range(min = 0, max = 9999)
     @ApiModelProperty(example = "200", value = "PRICE")
-    private int price;
+    private Integer price;
 
     @XmlElement(name = "note")
     @Length(min = 1, max = 64)

@@ -49,7 +49,7 @@ spring:
     continue-on-error: false
     driverClassName: com.mysql.jdbc.Driver
     generate-unique-name: false
-    jmx-enabled: false
+    jmx-enabled: true
     #password:
     sql-script-encoding: UTF-8
     url: jdbc:mysql://localhost:3306/ITEMS?useSSL=false
@@ -69,7 +69,7 @@ spring:
         id:
           new_generator_mappings: false
         format_sql: true
-    show-sql: true
+    show-sql: false
   jta:
     enabled: true
 

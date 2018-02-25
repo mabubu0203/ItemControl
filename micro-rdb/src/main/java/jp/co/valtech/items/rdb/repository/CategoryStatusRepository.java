@@ -16,6 +16,6 @@ public interface CategoryStatusRepository
      * @param categoryId
      * @return
      */
-    GoodsStatusTbl findByCategoryId(final long categoryId);
+    GoodsStatusTbl findByCategoryId(final Long categoryId);
 
 }

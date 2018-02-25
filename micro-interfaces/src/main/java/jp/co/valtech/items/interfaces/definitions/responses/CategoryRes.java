@@ -18,12 +18,12 @@ public class CategoryRes {
     @XmlElement(name = "id")
     @Range(min = 0, max = 999999999)
     @ApiModelProperty(example = "1", value = "ID")
-    private long id;
+    private Long id;
 
     @XmlElement(name = "version")
     @Range(min = 0, max = 99999)
     @ApiModelProperty(example = "1", value = "VERSION")
-    private int version;
+    private Integer version;
 
     @XmlElement(name = "categoryCode")
     @Length(min = 1, max = 10)

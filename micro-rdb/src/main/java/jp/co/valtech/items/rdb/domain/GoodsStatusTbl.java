@@ -36,7 +36,7 @@ public class GoodsStatusTbl
             length = 10,
             columnDefinition = "BIGINT"
     )
-    private long goodsId;
+    private Long goodsId;
 
     @OneToOne(
             mappedBy = "statusTbl",
