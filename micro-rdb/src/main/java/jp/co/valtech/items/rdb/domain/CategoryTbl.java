@@ -28,9 +28,9 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class CategoryTbl
-        extends AbstractMasterEntity implements Serializable {
+        extends AbstractMasterEntity
+        implements Serializable {
 
-    /** */
     private static final long serialVersionUID = -5665962434747119049L;
 
     @Column(

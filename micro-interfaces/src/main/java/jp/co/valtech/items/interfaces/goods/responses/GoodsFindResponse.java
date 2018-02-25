@@ -4,25 +4,35 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import jp.co.valtech.items.interfaces.definitions.responses.GoodsRes;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.Length;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
 @XmlRootElement(name = "response")
 @ApiModel(description = "レスポンス情報")
-public class GoodsFindResponse {
+public class GoodsFindResponse
+        implements Serializable {
+
+    private static final long serialVersionUID = -3539390114199314241L;
 
     @XmlElement(name = "goods")
     @ApiModelProperty
     private GoodsDetail goods;
 
     @Data
+    @EqualsAndHashCode(callSuper = false)
     @XmlRootElement(name = "goods")
     @ApiModel(description = "商品情報")
-    public class GoodsDetail extends GoodsRes {
+    public class GoodsDetail
+            extends GoodsRes
+            implements Serializable {
+
+        private static final long serialVersionUID = 4596780254818182943L;
 
         @XmlElement(name = "goodsCode")
         @Length(min = 1, max = 10)

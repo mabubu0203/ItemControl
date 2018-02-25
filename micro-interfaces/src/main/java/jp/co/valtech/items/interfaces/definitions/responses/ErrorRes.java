@@ -6,12 +6,16 @@ import lombok.Data;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @XmlRootElement(name = "error")
 @ApiModel(description = "エラー情報")
-public class ErrorRes {
+public class ErrorRes
+        implements Serializable {
+
+    private static final long serialVersionUID = -2337862079596568172L;
 
     @XmlElement(name = "errorDataList")
     @ApiModelProperty
@@ -20,7 +24,10 @@ public class ErrorRes {
     @Data
     @XmlRootElement(name = "errorData")
     @ApiModel(description = "エラー")
-    public class ErrorData {
+    public class ErrorData
+            implements Serializable {
+
+        private static final long serialVersionUID = 4856984078768376657L;
 
         @XmlElement(name = "keyName")
         @ApiModelProperty(example = "エラーキー", value = "KEY_NAME")

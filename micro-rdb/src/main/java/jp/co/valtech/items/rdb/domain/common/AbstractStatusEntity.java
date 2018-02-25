@@ -1,10 +1,7 @@
 package jp.co.valtech.items.rdb.domain.common;
 
 import jp.co.valtech.items.rdb.domain.common.interfaces.StatusEntity;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -16,11 +13,9 @@ import javax.persistence.Version;
 import java.time.LocalDateTime;
 
 @Data
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
 @MappedSuperclass
-public class AbstractStatusEntity implements StatusEntity {
+public class AbstractStatusEntity
+        implements StatusEntity {
 
     @Version
     @Column(

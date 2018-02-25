@@ -23,9 +23,9 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class CategoryStatusTbl
-        extends AbstractStatusEntity implements Serializable {
+        extends AbstractStatusEntity
+        implements Serializable {
 
-    /** */
     private static final long serialVersionUID = -5669762434897119049L;
 
     @Id

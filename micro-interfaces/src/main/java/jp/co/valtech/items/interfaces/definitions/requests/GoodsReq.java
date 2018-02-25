@@ -11,11 +11,15 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 @Data
 @XmlRootElement(name = "goods")
 @ApiModel(description = "商品情報")
-public class GoodsReq {
+public class GoodsReq
+        implements Serializable {
+
+    private static final long serialVersionUID = -8223443889749129561L;
 
     @XmlElement(name = "goodsCode", required = true)
     @NotEmpty

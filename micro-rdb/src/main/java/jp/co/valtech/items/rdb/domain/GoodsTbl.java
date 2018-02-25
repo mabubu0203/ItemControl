@@ -1,5 +1,6 @@
 package jp.co.valtech.items.rdb.domain;
 
+import jp.co.valtech.items.interfaces.validator.constraint.GoodsCodeField;
 import jp.co.valtech.items.interfaces.validator.constraint.GoodsNameField;
 import jp.co.valtech.items.interfaces.validator.constraint.GoodsNoteField;
 import jp.co.valtech.items.interfaces.validator.constraint.PriceField;
@@ -28,9 +29,9 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class GoodsTbl
-        extends AbstractMasterEntity implements Serializable {
+        extends AbstractMasterEntity
+        implements Serializable {
 
-    /** */
     private static final long serialVersionUID = -5665962434247119049L;
 
     @Column(
@@ -40,7 +41,7 @@ public class GoodsTbl
             length = 10,
             columnDefinition = "VARCHAR"
     )
-
+    @GoodsCodeField
     private String code;
 
     @Column(

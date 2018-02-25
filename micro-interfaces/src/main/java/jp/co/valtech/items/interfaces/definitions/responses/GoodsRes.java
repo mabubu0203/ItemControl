@@ -8,11 +8,15 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 @Data
 @XmlRootElement(name = "goods")
 @ApiModel(description = "商品情報")
-public class GoodsRes {
+public class GoodsRes
+        implements Serializable {
+
+    private static final long serialVersionUID = -1385773670653213914L;
 
     @XmlElement(name = "id")
     @Range(min = 0, max = 999999999)

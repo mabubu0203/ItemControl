@@ -7,11 +7,15 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 @Data
 @XmlRootElement(name = "response")
 @ApiModel(description = "レスポンス情報")
-public class CategoryCreateResponse {
+public class CategoryCreateResponse
+        implements Serializable {
+
+    private static final long serialVersionUID = -4046749450173287200L;
 
     @XmlElement(name = "category")
     @ApiModelProperty
@@ -20,7 +24,10 @@ public class CategoryCreateResponse {
     @Data
     @XmlRootElement(name = "category")
     @ApiModel(description = "商品情報")
-    public class CategoryRes {
+    public class CategoryRes
+            implements Serializable {
+
+        private static final long serialVersionUID = 8760313668825469222L;
 
         @XmlElement(name = "id")
         @Range(min = 0, max = 999999999)

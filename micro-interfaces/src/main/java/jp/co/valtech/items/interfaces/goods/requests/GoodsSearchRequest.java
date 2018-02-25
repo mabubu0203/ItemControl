@@ -11,11 +11,15 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 @Data
 @XmlRootElement(name = "request")
 @ApiModel(description = "リクエスト情報")
-public class GoodsSearchRequest {
+public class GoodsSearchRequest
+        implements Serializable {
+
+    private static final long serialVersionUID = -2087871968180022094L;
 
     @Valid
     @XmlElement(name = "condition", required = true)
@@ -26,7 +30,10 @@ public class GoodsSearchRequest {
     @Data
     @XmlRootElement(name = "condition")
     @ApiModel(description = "商品情報検索")
-    public class Goods {
+    public class Goods
+            implements Serializable {
+
+        private static final long serialVersionUID = 4548750832966381796L;
 
         @XmlElement(name = "goodsCode")
         @Length(min = 1, max = 10)
