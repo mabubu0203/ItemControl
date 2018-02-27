@@ -28,33 +28,33 @@ buildscript {
             url "http://repo.spring.io/release"
         }
     }
+
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("gradle.plugin.nl.javadude.gradle.plugins:license-gradle-plugin:0.13.1")
     }
+
 }
 
 plugins {
     id "com.github.ben-manes.versions" version "0.17.0"
     id "org.sonarqube" version "2.6.2"
-}
-
-sonarqube {
-    properties {
-        property "sonar.host.url", "http://localhost:9000/"
-        property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
-        property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
-    }
+    id "com.github.spotbugs" version "1.6.0"
 }
 
 allprojects {
 
     apply plugin: 'application'
+    apply plugin: 'checkstyle'
     apply plugin: 'com.github.ben-manes.versions'
+    apply plugin: 'com.github.hierynomus.license'
+    apply plugin: 'com.github.spotbugs'
     apply plugin: 'idea'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'jacoco'
     apply plugin: 'java'
     apply plugin: 'org.springframework.boot'
+    apply plugin: 'pmd'
     apply plugin: 'war'
 
     repositories {
@@ -71,8 +71,10 @@ allprojects {
         }
     }
 
-    task('default') {
-        dependsOn 'clean', 'check'
+    checkstyle {
+        toolVersion = '8.8'
+        configFile file('downloaded_google_checks.xml')
+        showViolations = true
     }
 
     dependencies {
@@ -98,9 +100,44 @@ allprojects {
         compile("io.springfox:springfox-swagger2:$springfoxVersion")
     }
 
+    pmd {
+        toolVersion = "6.0.1"
+        ignoreFailures = true
+        consoleOutput = true
+        ruleSetFiles = rootProject.files("/config/pmd/pmd-project-rulesets.xml")
+        ruleSets = [
+                'java-braces',
+                'java-codesize',
+        ]
+    }
+
+    sonarqube {
+        properties {
+            property "sonar.host.url", "http://localhost:9000/"
+            property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
+            property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
+        }
+    }
+
+    spotbugs {
+        toolVersion = '3.1.1'
+    }
+
+    task('default') {
+        dependsOn 'clean', 'check'
+    }
+
+    tasks.withType(Checkstyle) {
+        reports {
+            xml.enabled false
+            html.enabled true
+            html.stylesheet resources.text.fromFile('config/xsl/checkstyle-custom.xsl')
+        }
+    }
+
     tasks.withType(JavaCompile) {
         doFirst {
-            it.options.encoding = defaultEncoding
+            options.encoding = defaultEncoding
             sourceCompatibility = jdkVersion
             targetCompatibility = jdkVersion
             options.compilerArgs = [
@@ -114,8 +151,15 @@ allprojects {
 
     tasks.withType(Javadoc) {
         doFirst {
-            options.addStringOption('-add-modules', 'java.xml.bind')
-            options.addStringOption('-add-modules', 'java.xml.ws.annotation')
+            options.addStringOption('-add-modules', 'java.xml.bind,java.xml.ws.annotation')
+            options.encoding = defaultEncoding
+        }
+    }
+
+    tasks.withType(com.github.spotbugs.SpotBugsTask) {
+        reports {
+            xml.enabled = false
+            html.enabled = true
         }
     }
 
