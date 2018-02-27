@@ -2,6 +2,10 @@ plugins {
     id "org.flywaydb.flyway" version "5.0.7"
 }
 
+bootJar {
+    mainClassName = 'jp.co.valtech.items.api.ApiApp'
+}
+
 dependencies {
 
     // SpringBoot projects
@@ -47,6 +51,7 @@ flyway {
 
 springBoot {
     buildInfo()
+    mainClassName = 'jp.co.valtech.items.api.ApiApp'
 }
 
 test {
@@ -57,6 +62,3 @@ test {
 war {
     archiveName = 'Api.war'
 }
-
-mainClassName = 'jp.co.valtech.items.api.ApiApp'
-
