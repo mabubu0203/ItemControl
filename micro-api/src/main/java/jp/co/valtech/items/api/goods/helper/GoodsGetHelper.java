@@ -26,6 +26,10 @@ public class GoodsGetHelper {
 
     private final GoodsService gService;
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     public ResponseEntity<GoodsGetResponse> execute() {
 
         List<GoodsTbl> entities = gService.getAll();

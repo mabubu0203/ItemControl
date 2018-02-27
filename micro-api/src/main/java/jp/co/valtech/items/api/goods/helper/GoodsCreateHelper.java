@@ -15,8 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -33,6 +31,10 @@ public class GoodsCreateHelper {
     private final CategoryService cService;
     private final GoodsService gService;
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     public ResponseEntity<GoodsCreateResponse> execute(
             final GoodsCreateRequest request
     ) throws ConflictException, NotFoundException {
@@ -56,7 +58,6 @@ public class GoodsCreateHelper {
 
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     private void create(final GoodsTbl entity) {
         gService.insert(entity);
     }

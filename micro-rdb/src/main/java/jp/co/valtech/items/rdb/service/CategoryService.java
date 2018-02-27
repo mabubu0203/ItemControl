@@ -6,6 +6,8 @@ import jp.co.valtech.items.rdb.repository.CategoryRepository;
 import jp.co.valtech.items.rdb.repository.CategoryStatusRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -34,10 +36,18 @@ public class CategoryService {
     @PersistenceContext
     EntityManager entityManager;
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     public Optional<CategoryTbl> findByCode(final String code) {
         return Optional.ofNullable(master.findByCode(code));
     }
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     public Optional<CategoryTbl> findById(final long id) {
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
@@ -52,6 +62,10 @@ public class CategoryService {
 
     }
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     public List<CategoryTbl> getAll() {
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
@@ -65,10 +79,16 @@ public class CategoryService {
 
     }
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void insert(final CategoryTbl masterEntity) {
         master.saveAndFlush(masterEntity);
         CategoryStatusTbl statusEntity = new CategoryStatusTbl();
         statusEntity.setCategoryId(masterEntity.getId());
         status.saveAndFlush(statusEntity);
     }
+
 }

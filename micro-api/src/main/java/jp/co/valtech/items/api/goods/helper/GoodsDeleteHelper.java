@@ -10,8 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author uratamanabu
@@ -25,6 +23,10 @@ public class GoodsDeleteHelper {
 
     private final GoodsService gService;
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     public ResponseEntity execute(
             final Long id,
             final Integer version
@@ -37,7 +39,6 @@ public class GoodsDeleteHelper {
 
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     private void delete(GoodsTbl entity) {
         gService.delete(entity);
     }

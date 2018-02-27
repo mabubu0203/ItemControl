@@ -27,6 +27,10 @@ public class CategoryFindHelper {
     private final CategoryService service;
     private final ModelMapper modelMapper;
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     public ResponseEntity<CategoryFindResponse> execute(
             final Long id
     ) throws NotFoundException {

@@ -7,6 +7,8 @@ import jp.co.valtech.items.rdb.repository.GoodsStatusRepository;
 import jp.co.valtech.items.rdb.service.conditions.GoodsConditionBean;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -35,6 +37,11 @@ public class GoodsService {
     @PersistenceContext
     EntityManager entityManager;
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void delete(final GoodsTbl masterEntity) {
 
         GoodsStatusTbl statusEntity = status.findByGoodsId(masterEntity.getId());
@@ -44,10 +51,18 @@ public class GoodsService {
 
     }
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     public Optional<GoodsTbl> findByCode(final String code) {
         return Optional.ofNullable(master.findByCode(code));
     }
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     public Optional<GoodsTbl> findById(final Long id) {
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
@@ -62,6 +77,10 @@ public class GoodsService {
 
     }
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     public List<GoodsTbl> getAll() {
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
@@ -75,6 +94,11 @@ public class GoodsService {
 
     }
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void insert(final GoodsTbl masterEntity) {
 
         master.saveAndFlush(masterEntity);
@@ -84,6 +108,10 @@ public class GoodsService {
 
     }
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     public List<GoodsTbl> search(final GoodsConditionBean condtion) {
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
@@ -105,6 +133,11 @@ public class GoodsService {
 
     }
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void update(final GoodsTbl masterEntity) {
 
         master.saveAndFlush(masterEntity);

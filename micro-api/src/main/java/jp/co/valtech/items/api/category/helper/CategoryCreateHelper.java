@@ -12,8 +12,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -30,6 +28,10 @@ public class CategoryCreateHelper {
     private final CategoryService service;
     private final ModelMapper modelMapper;
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     public ResponseEntity<CategoryCreateResponse> execute(
             final CategoryCreateRequest request
     ) throws ConflictException {
@@ -51,7 +53,6 @@ public class CategoryCreateHelper {
 
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     private void create(final CategoryTbl entity) {
         service.insert(entity);
     }

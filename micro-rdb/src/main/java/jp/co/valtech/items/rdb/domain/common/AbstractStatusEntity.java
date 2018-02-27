@@ -54,6 +54,10 @@ public class AbstractStatusEntity
     )
     private LocalDateTime updateDatetime;
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     @PrePersist
     @Override
     public void onPrePersist() {
@@ -63,12 +67,20 @@ public class AbstractStatusEntity
         updateDatetime = LocalDateTime.now();
     }
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     @PreUpdate
     @Override
     public void onPreUpdate() {
         updateDatetime = LocalDateTime.now();
     }
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     @Override
     public void addVersion() {
         version++;

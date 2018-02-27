@@ -20,6 +20,10 @@ import java.util.Optional;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class GoodsUtil {
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     public static void duplicationGoodsCodeCheck(
             final GoodsService service,
             final String goodsCode
@@ -32,6 +36,10 @@ public class GoodsUtil {
 
     }
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     public static void exclusionCheck(
             final GoodsStatusTbl entity,
             final Integer version
@@ -43,6 +51,10 @@ public class GoodsUtil {
 
     }
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     public static void entityToResponse(
             final GoodsTbl entity,
             final GoodsRes goodsRes
@@ -56,6 +68,10 @@ public class GoodsUtil {
 
     }
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     public static GoodsTbl findById(
             final GoodsService service,
             final Long id
@@ -66,6 +82,10 @@ public class GoodsUtil {
 
     }
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     public static void requestToEntity(
             final GoodsReq goodsReq,
             final GoodsTbl entity

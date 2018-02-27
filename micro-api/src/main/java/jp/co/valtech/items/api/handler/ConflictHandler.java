@@ -18,6 +18,10 @@ import java.util.List;
 @RestControllerAdvice
 public class ConflictHandler {
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     @ExceptionHandler({ConflictException.class})
     public final ResponseEntity<Object> handleException(
             final ConflictException ex

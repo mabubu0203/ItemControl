@@ -18,6 +18,10 @@ import java.util.List;
 @RestControllerAdvice
 public class NotFoundHandler {
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     @ExceptionHandler({NotFoundException.class})
     public final ResponseEntity<Object> handleException(
             final NotFoundException ex

@@ -27,6 +27,10 @@ public class CategoryGetHelper {
     private final CategoryService service;
     private final ModelMapper modelMapper;
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     public ResponseEntity<CategoryGetResponse> execute() {
 
         List<CategoryTbl> entities = service.getAll();

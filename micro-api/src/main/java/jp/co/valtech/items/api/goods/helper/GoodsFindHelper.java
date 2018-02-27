@@ -24,6 +24,10 @@ public class GoodsFindHelper {
 
     private final GoodsService gService;
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     public ResponseEntity<GoodsFindResponse> execute(
             final Long id
     ) throws NotFoundException {

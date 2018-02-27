@@ -16,6 +16,10 @@ import java.util.Optional;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CategoryUtil {
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     public static void duplicationCategoryCodeCheck(
             final CategoryService service,
             final String categoryCode

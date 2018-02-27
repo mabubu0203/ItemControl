@@ -49,6 +49,10 @@ public class BadRequestHandler extends ResponseEntityExceptionHandler {
 
     }
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     @ExceptionHandler({ConstraintViolationException.class})
     public final ResponseEntity<Object> handleException(
             ConstraintViolationException ex

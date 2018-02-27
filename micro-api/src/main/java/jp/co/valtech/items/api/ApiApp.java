@@ -24,7 +24,6 @@ public class ApiApp extends SpringBootServletInitializer {
 
     /**
      * @author uratamanabu
-     * @version 1.0
      * @since 1.0
      */
     public static void main(final String[] args) {
@@ -36,6 +35,10 @@ public class ApiApp extends SpringBootServletInitializer {
         return builder.sources(ApiApp.class);
     }
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     @Configuration
     public class JacksonConfiguration {
         @Bean

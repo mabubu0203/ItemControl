@@ -13,7 +13,6 @@ public class ModelMapperAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(ModelMapperFactoryBean.class)
     public ModelMapperFactoryBean modelMapperFactoryBean() {
-
         return new ModelMapperFactoryBean();
     }
 

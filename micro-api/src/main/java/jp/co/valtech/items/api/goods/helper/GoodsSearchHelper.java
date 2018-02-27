@@ -30,6 +30,10 @@ public class GoodsSearchHelper {
     private final GoodsService gService;
     private final ModelMapper modelMapper;
 
+    /**
+     * @author uratamanabu
+     * @since 1.0
+     */
     public ResponseEntity<GoodsSearchResponse> execute(
             final GoodsSearchRequest request
     ) {

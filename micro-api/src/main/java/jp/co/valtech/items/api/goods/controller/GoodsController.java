@@ -51,7 +51,7 @@ import javax.validation.Valid;
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE
 )
 @RequiredArgsConstructor
-@Api(description = "商品を扱います。")
+@Api(tags = {"商品を扱います。"})
 public class GoodsController {
     private final GoodsCreateHelper create;
     private final GoodsDeleteHelper delete;
@@ -64,7 +64,6 @@ public class GoodsController {
      * 商品を1件登録します。
      *
      * @author uratamanabu
-     * @version 1.0
      * @since 1.0
      */
     @PostMapping(value = {"/"})
@@ -92,7 +91,6 @@ public class GoodsController {
      * 商品を1件削除します。
      *
      * @author uratamanabu
-     * @version 1.0
      * @since 1.0
      */
     @DeleteMapping(value = {"/{id}"})
@@ -122,7 +120,6 @@ public class GoodsController {
      * 商品を全件取得します。
      *
      * @author uratamanabu
-     * @version 1.0
      * @since 1.0
      */
     @GetMapping(value = {"/all"})
@@ -146,7 +143,6 @@ public class GoodsController {
      * 商品を1件取得します。
      *
      * @author uratamanabu
-     * @version 1.0
      * @since 1.0
      */
     @GetMapping(value = {"/{id}"})
@@ -174,7 +170,6 @@ public class GoodsController {
      * 商品を検索取得します。
      *
      * @author uratamanabu
-     * @version 1.0
      * @since 1.0
      */
     @PostMapping(value = {"/search"})
@@ -201,7 +196,6 @@ public class GoodsController {
      * 商品を1件更新します。
      *
      * @author uratamanabu
-     * @version 1.0
      * @since 1.0
      */
     @PutMapping(value = {"/{id}"})

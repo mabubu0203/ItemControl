@@ -43,7 +43,7 @@ import javax.validation.Valid;
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE
 )
 @RequiredArgsConstructor
-@Api(description = "カテゴリーを扱います。")
+@Api(tags = {"カテゴリーを扱います。"})
 public class CategoryController {
     private final CategoryCreateHelper create;
     private final CategoryFindHelper find;
@@ -53,7 +53,6 @@ public class CategoryController {
      * カテゴリーを1件登録します。
      *
      * @author uratamanabu
-     * @version 1.0
      * @since 1.0
      */
     @PostMapping(value = {"/"})
@@ -81,7 +80,6 @@ public class CategoryController {
      * カテゴリーを1件取得します。
      *
      * @author uratamanabu
-     * @version 1.0
      * @since 1.0
      */
     @GetMapping(value = {"/{id}"})
@@ -109,7 +107,6 @@ public class CategoryController {
      * カテゴリーを全件取得します。
      *
      * @author uratamanabu
-     * @version 1.0
      * @since 1.0
      */
     @GetMapping(value = {"/all"})
@@ -133,7 +130,6 @@ public class CategoryController {
      * 商品を検索取得します。
      *
      * @author uratamanabu
-     * @version 1.0
      * @since 1.0
      */
     @PostMapping(value = {"/search"})
