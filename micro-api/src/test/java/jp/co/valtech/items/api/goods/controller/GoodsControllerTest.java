@@ -60,6 +60,7 @@ class GoodsControllerTest {
             GoodsCreateRequest request = new GoodsCreateRequest();
             GoodsReq goodsReq = new GoodsReq();
             goodsReq.setGoodsCode("AAAAA");
+            goodsReq.setCategoryCode("CODEC1");
             goodsReq.setName("aaa");
             goodsReq.setPrice(1);
             goodsReq.setNote("aaa");
@@ -79,13 +80,10 @@ class GoodsControllerTest {
         void success() throws Exception {
             String id = "4";
             String url = "http://localhost:" + port + "/goods/{id}";
-
-            Map<String, String> uriParams = new HashMap<String, String>();
+            Map<String, String> uriParams = new HashMap<>();
             uriParams.put("id", id);
-
             UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
                     .queryParam("version", 0);
-
             ResponseEntity<Void> entity = testRestTemplate
                     .exchange(
                             builder.buildAndExpand(uriParams).toUri(),
@@ -93,8 +91,8 @@ class GoodsControllerTest {
                             HttpEntity.EMPTY,
                             Void.class);
             Assertions.assertEquals(entity.getStatusCode(), HttpStatus.NO_CONTENT);
-
         }
+
     }
 
     @Nested
@@ -104,7 +102,6 @@ class GoodsControllerTest {
         @Test
         void success() throws Exception {
             String url = "http://localhost:" + port + "/goods/all";
-
             ResponseEntity<GoodsGetResponse> entity = testRestTemplate.getForEntity(url, GoodsGetResponse.class);
             Assertions.assertEquals(entity.getStatusCode(), HttpStatus.OK);
             GoodsGetResponse response = entity.getBody();
@@ -112,6 +109,7 @@ class GoodsControllerTest {
             List<GoodsRes> goodsList = response.getGoodsList();
             Assertions.assertTrue(goodsList.size() > 0);
         }
+
     }
 
     @Nested
@@ -119,15 +117,15 @@ class GoodsControllerTest {
     class findGoodsTest {
         @FlywayTest
         @Test
-        void findGoodsTest() throws Exception {
+        void success() throws Exception {
             String id = "1";
             String url = "http://localhost:" + port + "/goods/{id}";
-
             ResponseEntity<GoodsFindResponse> entity = testRestTemplate.getForEntity(url, GoodsFindResponse.class, id);
             Assertions.assertEquals(entity.getStatusCode(), HttpStatus.OK);
             GoodsFindResponse response = entity.getBody();
             Assertions.assertNotNull(response);
         }
+
     }
 
     @Nested
@@ -135,37 +133,33 @@ class GoodsControllerTest {
     class updateGoodsTest {
         @FlywayTest
         @Test
-        void updateGoodsTest() throws Exception {
+        void success() throws Exception {
             String id = "3";
             String url = "http://localhost:" + port + "/goods/{id}";
-
             Map<String, String> uriParams = new HashMap<>();
             uriParams.put("id", id);
-
             UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
-
             GoodsUpdateRequest request = new GoodsUpdateRequest();
             GoodsReq goodsReq = new GoodsReq();
             goodsReq.setGoodsCode("ACCCA");
+            goodsReq.setCategoryCode("CODEC1");
             goodsReq.setName("aaa");
             goodsReq.setPrice(1);
             goodsReq.setNote("aaa");
             request.setGoods(goodsReq);
             request.setVersion(0);
-
             URI uri = builder.buildAndExpand(uriParams).toUri();
             RequestEntity<GoodsUpdateRequest> requestEntity = RequestEntity.put(uri).body(request);
-
             ResponseEntity<GoodsUpdateResponse> entity = testRestTemplate
                     .exchange(
                             uri,
                             HttpMethod.PUT,
                             requestEntity,
                             GoodsUpdateResponse.class);
-
             Assertions.assertEquals(entity.getStatusCode(), HttpStatus.OK);
             Assertions.assertNotNull(entity.getBody().getGoods().getId());
         }
+
     }
 
 }
