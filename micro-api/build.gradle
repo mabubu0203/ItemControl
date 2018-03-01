@@ -56,7 +56,11 @@ springBoot {
 
 test {
     flywayMigrate.enabled = false
-    //useJunitPlatform()
+    useJUnitPlatform {
+        includeEngines 'junit-jupiter'
+    }
+
+    failFast = true
 }
 
 war {

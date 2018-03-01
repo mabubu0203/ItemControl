@@ -100,8 +100,13 @@ allprojects {
         compile("io.springfox:springfox-swagger2:$springfoxVersion")
     }
 
+    jacoco {
+        toolVersion = "0.8.0"
+        reportsDir = file("$buildDir/customJacocoReportDir")
+    }
+
     pmd {
-        toolVersion = "6.0.1"
+        toolVersion = "6.1.0"
         ignoreFailures = true
         consoleOutput = true
         ruleSetFiles = rootProject.files("/config/pmd/pmd-project-rulesets.xml")
@@ -120,7 +125,7 @@ allprojects {
     }
 
     spotbugs {
-        toolVersion = '3.1.1'
+        toolVersion = '3.1.2'
     }
 
     task('default') {
