@@ -31,15 +31,15 @@ buildscript {
 
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath("gradle.plugin.nl.javadude.gradle.plugins:license-gradle-plugin:0.13.1")
     }
 
 }
 
 plugins {
     id "com.github.ben-manes.versions" version "0.17.0"
-    id "org.sonarqube" version "2.6.2"
+    id 'com.github.hierynomus.license' version '0.14.0'
     id "com.github.spotbugs" version "1.6.0"
+    id "org.sonarqube" version "2.6.2"
 }
 
 allprojects {
@@ -73,7 +73,7 @@ allprojects {
 
     checkstyle {
         toolVersion = '8.8'
-        configFile file('downloaded_google_checks.xml')
+        configFile = rootProject.file('config/checkstyle/google_checks.xml')
         showViolations = true
     }
 
@@ -100,28 +100,31 @@ allprojects {
         compile("io.springfox:springfox-swagger2:$springfoxVersion")
     }
 
-    jacoco {
-        toolVersion = "0.8.0"
-        reportsDir = file("$buildDir/customJacocoReportDir")
+    license {
+        include "**/*.java"
+        header = rootProject.file('config/license/license.template')
+        strictCheck = true
+        skipExistingHeaders = true
+        ext {
+            copyright_range = Calendar.getInstance().get(Calendar.YEAR)
+            name = "urata"
+        }
+        mapping {
+            java = 'DOUBLESLASH_STYLE'
+        }
+        licenseMain.enabled = false
+        licenseTest.enabled = false
     }
 
     pmd {
         toolVersion = "6.1.0"
         ignoreFailures = true
         consoleOutput = true
-        ruleSetFiles = rootProject.files("/config/pmd/pmd-project-rulesets.xml")
+        ruleSetFiles = rootProject.files("/config/pmd/all-java.xml")
         ruleSets = [
                 'java-braces',
                 'java-codesize',
         ]
-    }
-
-    sonarqube {
-        properties {
-            property "sonar.host.url", "http://localhost:9000/"
-            property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
-            property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
-        }
     }
 
     spotbugs {
@@ -134,9 +137,9 @@ allprojects {
 
     tasks.withType(Checkstyle) {
         reports {
-            xml.enabled false
-            html.enabled true
-            html.stylesheet resources.text.fromFile('config/xsl/checkstyle-custom.xsl')
+            xml.enabled = false
+            html.enabled = true
+            html.stylesheet = resources.text.fromFile(rootProject.file('config/checkstyle/checkstyle-custom.xsl'))
         }
     }
 
@@ -168,6 +171,26 @@ allprojects {
         }
     }
 
+}
+
+idea {
+    project {
+        languageLevel = jdkVersion
+        vcs = 'Git'
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.0"
+    reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+sonarqube {
+    properties {
+        property "sonar.host.url", "http://localhost:9000/"
+        property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
+        property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
+    }
 }
 
 project(':micro-api') {
