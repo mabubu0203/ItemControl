@@ -16,21 +16,7 @@ buildscript {
     }
 
     repositories {
-        mavenCentral()
         jcenter()
-        maven {
-            url "https://repo.spring.io/snapshot"
-        }
-        maven {
-            url "https://repo.spring.io/milestone"
-        }
-        maven {
-            url "http://repo.spring.io/release"
-        }
-    }
-
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 
 }
@@ -38,7 +24,8 @@ buildscript {
 plugins {
     id "com.github.ben-manes.versions" version "0.17.0"
     id 'com.github.hierynomus.license' version '0.14.0'
-    id "com.github.spotbugs" version "1.6.0"
+    id "com.github.spotbugs" version "1.6.1"
+    id "org.springframework.boot" version "2.0.0.RELEASE"
     id "org.sonarqube" version "2.6.2"
 }
 
@@ -58,17 +45,7 @@ allprojects {
     apply plugin: 'war'
 
     repositories {
-        mavenCentral()
         jcenter()
-        maven {
-            url "https://repo.spring.io/snapshot"
-        }
-        maven {
-            url "https://repo.spring.io/milestone"
-        }
-        maven {
-            url "http://repo.spring.io/release"
-        }
     }
 
     checkstyle {
@@ -100,9 +77,14 @@ allprojects {
         compile("io.springfox:springfox-swagger2:$springfoxVersion")
     }
 
+    jacoco {
+        toolVersion = "0.8.0"
+        reportsDir = file("$buildDir/customJacocoReportDir")
+    }
+
     license {
         include "**/*.java"
-        header = rootProject.file('config/license/license.template')
+        header = rootProject.file("config/license/license.template")
         strictCheck = true
         skipExistingHeaders = true
         ext {
@@ -110,7 +92,7 @@ allprojects {
             name = "urata"
         }
         mapping {
-            java = 'DOUBLESLASH_STYLE'
+            java = "DOUBLESLASH_STYLE"
         }
         licenseMain.enabled = false
         licenseTest.enabled = false
@@ -120,7 +102,7 @@ allprojects {
         toolVersion = "6.1.0"
         ignoreFailures = true
         consoleOutput = true
-        ruleSetFiles = rootProject.files("/config/pmd/all-java.xml")
+        ruleSetFiles = rootProject.files({"/config/pmd/all-java.xml"})
         ruleSets = [
                 'java-braces',
                 'java-codesize',
@@ -139,7 +121,7 @@ allprojects {
         reports {
             xml.enabled = false
             html.enabled = true
-            html.stylesheet = resources.text.fromFile(rootProject.file('config/checkstyle/checkstyle-custom.xsl'))
+            html.stylesheet = resources.text.fromFile(rootProject.file("config/checkstyle/checkstyle-custom.xsl"))
         }
     }
 
@@ -176,13 +158,8 @@ allprojects {
 idea {
     project {
         languageLevel = jdkVersion
-        vcs = 'Git'
+        vcs = "Git"
     }
-}
-
-jacoco {
-    toolVersion = "0.8.0"
-    reportsDir = file("$buildDir/customJacocoReportDir")
 }
 
 sonarqube {
