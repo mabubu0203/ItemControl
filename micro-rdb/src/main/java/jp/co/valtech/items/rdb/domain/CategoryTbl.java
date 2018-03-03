@@ -9,11 +9,13 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author uratamanabu
@@ -59,6 +61,9 @@ public class CategoryTbl
     )
     @CategoryNoteField
     private String note;
+
+    @OneToMany(mappedBy = "categoryTbl")
+    private List<GoodsTbl> goodsTblList;
 
     @OneToOne(targetEntity = CategoryStatusTbl.class)
     @PrimaryKeyJoinColumn

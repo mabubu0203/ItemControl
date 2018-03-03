@@ -126,6 +126,15 @@ class GoodsControllerTest {
             Assertions.assertNotNull(response);
         }
 
+        @FlywayTest
+        @Test
+        void fail() throws Exception {
+            String id = "111111";
+            String url = "http://localhost:" + port + "/goods/{id}";
+            ResponseEntity<GoodsFindResponse> entity = testRestTemplate.getForEntity(url, GoodsFindResponse.class, id);
+            Assertions.assertEquals(entity.getStatusCode(), HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @Nested

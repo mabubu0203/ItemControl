@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -73,7 +74,11 @@ public class GoodsService {
         predicates.add(builder.equal(join1.get("deleteFlag"), false));
         predicates.add(builder.equal(root.get("id"), id));
         query.select(root).where(builder.and(predicates.toArray(new Predicate[]{})));
-        return Optional.ofNullable(entityManager.createQuery(query).getSingleResult());
+        try {
+            return Optional.of(entityManager.createQuery(query).getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
 
     }
 
@@ -127,7 +132,6 @@ public class GoodsService {
         name.ifPresent(str -> predicates.add(builder.like(root.get("name"), "%" + str + "%")));
         Optional<String> note = Optional.ofNullable(condtion.getNote());
         note.ifPresent(str -> predicates.add(builder.like(root.get("note"), "%" + str + "%")));
-
         query.select(root).where(builder.and(predicates.toArray(new Predicate[]{})));
         return entityManager.createQuery(query).getResultList();
 

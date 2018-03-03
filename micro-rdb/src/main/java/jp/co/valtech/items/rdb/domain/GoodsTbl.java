@@ -10,6 +10,8 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -77,6 +79,14 @@ public class GoodsTbl
     )
     @GoodsNoteField
     private String note;
+
+    @ManyToOne(targetEntity = CategoryTbl.class)
+    @JoinColumn(
+            name = "category_id",
+            insertable = false,
+            updatable = false
+    )
+    private CategoryTbl categoryTbl;
 
     @OneToOne(targetEntity = GoodsStatusTbl.class)
     @PrimaryKeyJoinColumn

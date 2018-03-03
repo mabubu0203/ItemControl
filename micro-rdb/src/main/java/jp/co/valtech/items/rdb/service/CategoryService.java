@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -48,7 +49,7 @@ public class CategoryService {
      * @author uratamanabu
      * @since 1.0
      */
-    public Optional<CategoryTbl> findById(final long id) {
+    public Optional<CategoryTbl> findById(final Long id) {
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<CategoryTbl> query = builder.createQuery(CategoryTbl.class);
@@ -58,7 +59,11 @@ public class CategoryService {
         predicates.add(builder.equal(join1.get("deleteFlag"), false));
         predicates.add(builder.equal(root.get("id"), id));
         query.select(root).where(builder.and(predicates.toArray(new Predicate[]{})));
-        return Optional.ofNullable(entityManager.createQuery(query).getSingleResult());
+        try {
+            return Optional.of(entityManager.createQuery(query).getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
 
     }
 
