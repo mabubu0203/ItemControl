@@ -31,7 +31,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+
 /**
+ * カテゴリーのエンドポイントを制御します。
+ *
  * @author uratamanabu
  * @version 1.0
  * @since 1.0
@@ -52,6 +55,7 @@ public class CategoryController {
     /**
      * カテゴリーを1件登録します。
      *
+     * @param request PostのRequestBody
      * @author uratamanabu
      * @since 1.0
      */
@@ -79,6 +83,7 @@ public class CategoryController {
     /**
      * カテゴリーを1件取得します。
      *
+     * @param id カテゴリーの識別キー
      * @author uratamanabu
      * @since 1.0
      */
@@ -129,6 +134,7 @@ public class CategoryController {
     /**
      * 商品を検索取得します。
      *
+     * @param request PostのRequestBody
      * @author uratamanabu
      * @since 1.0
      */

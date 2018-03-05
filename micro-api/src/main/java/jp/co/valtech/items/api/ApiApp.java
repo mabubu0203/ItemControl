@@ -1,18 +1,18 @@
 package jp.co.valtech.items.api;
 
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jp.co.valtech.items.common.config.swagger.SwaggerCore;
 import jp.co.valtech.items.rdb.RdbCore;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 /**
+ * SpringBoot起動クラスです。
+ * RdbCoreとSwaggerCoreをimportしています。
+ *
  * @author uratamanabu
  * @version 1.0
  * @since 1.0
@@ -23,6 +23,9 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 public class ApiApp extends SpringBootServletInitializer {
 
     /**
+     * SpringBoot起動methodです。
+     *
+     * @param args
      * @author uratamanabu
      * @since 1.0
      */
@@ -35,15 +38,4 @@ public class ApiApp extends SpringBootServletInitializer {
         return builder.sources(ApiApp.class);
     }
 
-    /**
-     * @author uratamanabu
-     * @since 1.0
-     */
-    @Configuration
-    public class JacksonConfiguration {
-        @Bean
-        public JavaTimeModule javaTimeModule() {
-            return new JavaTimeModule();
-        }
-    }
 }

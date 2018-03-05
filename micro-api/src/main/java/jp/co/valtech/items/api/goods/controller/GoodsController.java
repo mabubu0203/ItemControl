@@ -63,6 +63,7 @@ public class GoodsController {
     /**
      * 商品を1件登録します。
      *
+     * @param request PostのRequestBody
      * @author uratamanabu
      * @since 1.0
      */
@@ -90,6 +91,8 @@ public class GoodsController {
     /**
      * 商品を1件削除します。
      *
+     * @param id
+     * @param version
      * @author uratamanabu
      * @since 1.0
      */
@@ -142,6 +145,7 @@ public class GoodsController {
     /**
      * 商品を1件取得します。
      *
+     * @param id
      * @author uratamanabu
      * @since 1.0
      */
@@ -169,6 +173,7 @@ public class GoodsController {
     /**
      * 商品を検索取得します。
      *
+     * @param request PostのRequestBody
      * @author uratamanabu
      * @since 1.0
      */
@@ -195,6 +200,8 @@ public class GoodsController {
     /**
      * 商品を1件更新します。
      *
+     * @param id
+     * @param request PutのRequestBody
      * @author uratamanabu
      * @since 1.0
      */
