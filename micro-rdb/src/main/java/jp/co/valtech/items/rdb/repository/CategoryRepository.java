@@ -12,8 +12,8 @@ public interface CategoryRepository
         extends JpaRepository<CategoryTbl, Long> {
 
     /**
-     * @param code
-     * @return
+     * @param code カテゴリーコード
+     * @return CategoryTbl
      */
     CategoryTbl findByCode(final String code);
 

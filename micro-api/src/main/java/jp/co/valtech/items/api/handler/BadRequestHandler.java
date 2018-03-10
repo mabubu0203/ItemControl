@@ -50,6 +50,7 @@ public class BadRequestHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
+     * @param ex
      * @author uratamanabu
      * @since 1.0
      */

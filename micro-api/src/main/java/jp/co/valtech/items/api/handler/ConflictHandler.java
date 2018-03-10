@@ -19,6 +19,7 @@ import java.util.List;
 public class ConflictHandler {
 
     /**
+     * @param ex
      * @author uratamanabu
      * @since 1.0
      */

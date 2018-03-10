@@ -24,6 +24,9 @@ public class GoodsDeleteHelper {
     private final GoodsService gService;
 
     /**
+     * @param id
+     * @param version
+     * @return
      * @author uratamanabu
      * @since 1.0
      */

@@ -21,6 +21,12 @@ import java.util.Optional;
 public class GoodsUtil {
 
     /**
+     * 商品コードの重複チェックを実施します。
+     * 商品コードが存在する時、ConflictExceptionを発行します。
+     *
+     * @param service   サービス
+     * @param goodsCode 商品コード
+     * @throws ConflictException 重複時
      * @author uratamanabu
      * @since 1.0
      */
@@ -37,6 +43,12 @@ public class GoodsUtil {
     }
 
     /**
+     * 楽観排他を実施します。
+     * 排他が取れない時、ConflictExceptionを発行します。
+     *
+     * @param entity  Entity
+     * @param version 排他用
+     * @throws ConflictException 排他エラー時
      * @author uratamanabu
      * @since 1.0
      */
@@ -52,6 +64,10 @@ public class GoodsUtil {
     }
 
     /**
+     * Entity -> Responseに変換します。
+     *
+     * @param entity   Entity
+     * @param goodsRes Response
      * @author uratamanabu
      * @since 1.0
      */
@@ -69,6 +85,13 @@ public class GoodsUtil {
     }
 
     /**
+     * 商品IDから商品を１件取得します。
+     * 取得できない時、NotFoundExceptionを発行します。
+     *
+     * @param service サービス
+     * @param id      商品識別key
+     * @return
+     * @throws NotFoundException 存在しない時
      * @author uratamanabu
      * @since 1.0
      */
@@ -83,6 +106,10 @@ public class GoodsUtil {
     }
 
     /**
+     * Request -> Entityに変換します。
+     *
+     * @param entity   Entity
+     * @param goodsReq Request
      * @author uratamanabu
      * @since 1.0
      */

@@ -28,6 +28,7 @@ public class CategoryGetHelper {
     private final ModelMapper modelMapper;
 
     /**
+     * @return
      * @author uratamanabu
      * @since 1.0
      */

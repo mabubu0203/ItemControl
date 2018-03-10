@@ -27,6 +27,7 @@ public class GoodsGetHelper {
     private final GoodsService gService;
 
     /**
+     * @return
      * @author uratamanabu
      * @since 1.0
      */

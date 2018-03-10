@@ -31,6 +31,8 @@ public class GoodsSearchHelper {
     private final ModelMapper modelMapper;
 
     /**
+     * @param request
+     * @return
      * @author uratamanabu
      * @since 1.0
      */

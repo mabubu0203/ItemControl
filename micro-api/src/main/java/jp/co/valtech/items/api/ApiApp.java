@@ -25,7 +25,7 @@ public class ApiApp extends SpringBootServletInitializer {
     /**
      * SpringBoot起動methodです。
      *
-     * @param args
+     * @param args 起動引数
      * @author uratamanabu
      * @since 1.0
      */

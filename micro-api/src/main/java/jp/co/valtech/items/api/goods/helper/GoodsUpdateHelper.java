@@ -32,6 +32,11 @@ public class GoodsUpdateHelper {
     private final GoodsService gService;
 
     /**
+     * @param id
+     * @param request
+     * @return
+     * @throws ConflictException
+     * @throws NotFoundException
      * @author uratamanabu
      * @since 1.0
      */

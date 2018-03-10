@@ -12,8 +12,8 @@ public interface GoodsRepository
         extends JpaRepository<GoodsTbl, Long> {
 
     /**
-     * @param code
-     * @return
+     * @param code 商品コード
+     * @return GoodsTbl
      */
     GoodsTbl findByCode(final String code);
 

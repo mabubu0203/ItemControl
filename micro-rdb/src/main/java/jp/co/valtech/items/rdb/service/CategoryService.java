@@ -38,6 +38,10 @@ public class CategoryService {
     EntityManager entityManager;
 
     /**
+     * カテゴリーコードを条件にEntityのOptionalを返却します。
+     *
+     * @param code カテゴリーコード
+     * @return
      * @author uratamanabu
      * @since 1.0
      */
@@ -46,6 +50,10 @@ public class CategoryService {
     }
 
     /**
+     * カテゴリーTblのPKを条件にEntityのOptionalを返却します。
+     *
+     * @param id カテゴリーの識別key
+     * @return
      * @author uratamanabu
      * @since 1.0
      */
@@ -68,6 +76,9 @@ public class CategoryService {
     }
 
     /**
+     * カテゴリーを全件抽出します。
+     *
+     * @return
      * @author uratamanabu
      * @since 1.0
      */
@@ -85,6 +96,9 @@ public class CategoryService {
     }
 
     /**
+     * カテゴリーを１件挿入します。
+     *
+     * @param masterEntity カテゴリー
      * @author uratamanabu
      * @since 1.0
      */

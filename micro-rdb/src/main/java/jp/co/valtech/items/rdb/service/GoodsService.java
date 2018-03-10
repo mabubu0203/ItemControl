@@ -39,6 +39,9 @@ public class GoodsService {
     EntityManager entityManager;
 
     /**
+     * 商品を１件削除します。
+     *
+     * @param masterEntity 商品
      * @author uratamanabu
      * @since 1.0
      */
@@ -53,6 +56,10 @@ public class GoodsService {
     }
 
     /**
+     * 商品コードを条件にEntityのOptionalを返却します。
+     *
+     * @param code 商品コード
+     * @return
      * @author uratamanabu
      * @since 1.0
      */
@@ -61,6 +68,10 @@ public class GoodsService {
     }
 
     /**
+     * 商品TblのPKを条件にEntityのOptionalを返却します。
+     *
+     * @param id 商品の識別key
+     * @return
      * @author uratamanabu
      * @since 1.0
      */
@@ -83,6 +94,9 @@ public class GoodsService {
     }
 
     /**
+     * 商品を全件抽出します。
+     *
+     * @return
      * @author uratamanabu
      * @since 1.0
      */
@@ -100,6 +114,9 @@ public class GoodsService {
     }
 
     /**
+     * 商品を１件挿入します。
+     *
+     * @param masterEntity 商品
      * @author uratamanabu
      * @since 1.0
      */
@@ -114,6 +131,8 @@ public class GoodsService {
     }
 
     /**
+     * @param condtion 検索条件
+     * @return
      * @author uratamanabu
      * @since 1.0
      */
@@ -138,6 +157,7 @@ public class GoodsService {
     }
 
     /**
+     * @param masterEntity Entity
      * @author uratamanabu
      * @since 1.0
      */

@@ -25,6 +25,9 @@ public class GoodsFindHelper {
     private final GoodsService gService;
 
     /**
+     * @param id
+     * @return
+     * @throws NotFoundException
      * @author uratamanabu
      * @since 1.0
      */

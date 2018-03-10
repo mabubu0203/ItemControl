@@ -32,6 +32,10 @@ public class GoodsCreateHelper {
     private final GoodsService gService;
 
     /**
+     * @param request
+     * @return
+     * @throws ConflictException
+     * @throws NotFoundException
      * @author uratamanabu
      * @since 1.0
      */

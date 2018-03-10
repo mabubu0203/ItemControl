@@ -13,8 +13,8 @@ public interface CategoryStatusRepository
         extends JpaRepository<CategoryStatusTbl, Long> {
 
     /**
-     * @param categoryId
-     * @return
+     * @param categoryId カテゴリーID
+     * @return GoodsStatusTbl
      */
     GoodsStatusTbl findByCategoryId(final Long categoryId);
 

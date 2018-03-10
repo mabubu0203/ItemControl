@@ -14,6 +14,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class NotFoundException
         extends Exception {
-    private String KeyName;
-    private String Message;
+    private String keyName;
+    private String message;
 }

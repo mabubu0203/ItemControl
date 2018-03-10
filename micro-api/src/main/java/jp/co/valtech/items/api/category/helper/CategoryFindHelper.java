@@ -28,6 +28,9 @@ public class CategoryFindHelper {
     private final ModelMapper modelMapper;
 
     /**
+     * @param id
+     * @return
+     * @throws NotFoundException
      * @author uratamanabu
      * @since 1.0
      */

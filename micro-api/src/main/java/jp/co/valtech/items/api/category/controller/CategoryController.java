@@ -56,6 +56,8 @@ public class CategoryController {
      * カテゴリーを1件登録します。
      *
      * @param request PostのRequestBody
+     * @return
+     * @throws ConflictException
      * @author uratamanabu
      * @since 1.0
      */
@@ -72,7 +74,8 @@ public class CategoryController {
             }
     )
     public ResponseEntity<CategoryCreateResponse> createCategory(
-            @RequestBody @Valid final CategoryCreateRequest request
+            @RequestBody
+            @Valid final CategoryCreateRequest request
     ) throws ConflictException {
 
         log.info("create");
@@ -84,6 +87,8 @@ public class CategoryController {
      * カテゴリーを1件取得します。
      *
      * @param id カテゴリーの識別キー
+     * @return
+     * @throws NotFoundException
      * @author uratamanabu
      * @since 1.0
      */
@@ -100,7 +105,9 @@ public class CategoryController {
             }
     )
     public ResponseEntity<CategoryFindResponse> findGoods(
-            @PathVariable(name = "id") @Range(min = 0, max = 999999999) @ApiParam(example = "1", value = "${CategoryController.findCategory.request.id.value}") final Long id
+            @PathVariable(name = "id")
+            @Range(min = 0, max = 999999999)
+            @ApiParam(example = "1", value = "${CategoryController.findCategory.request.id.value}") final Long id
     ) throws NotFoundException {
 
         log.info("find");
@@ -111,6 +118,7 @@ public class CategoryController {
     /**
      * カテゴリーを全件取得します。
      *
+     * @return
      * @author uratamanabu
      * @since 1.0
      */
@@ -135,6 +143,7 @@ public class CategoryController {
      * 商品を検索取得します。
      *
      * @param request PostのRequestBody
+     * @return
      * @author uratamanabu
      * @since 1.0
      */
@@ -150,10 +159,12 @@ public class CategoryController {
             }
     )
     public ResponseEntity<CategorySearchResponse> searchCategory(
-            @RequestBody @Valid final CategorySearchRequest request
+            @RequestBody
+            @Valid final CategorySearchRequest request
     ) {
 
         log.info("search");
+        // TODO:
         return null;
 
     }

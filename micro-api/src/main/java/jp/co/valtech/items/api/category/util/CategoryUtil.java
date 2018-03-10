@@ -17,6 +17,12 @@ import java.util.Optional;
 public class CategoryUtil {
 
     /**
+     * カテゴリーコードの重複チェックを実施します。
+     * カテゴリーコードが存在する時、ConflictExceptionを発行します。
+     *
+     * @param service      サービス
+     * @param categoryCode カテゴリーコード
+     * @throws ConflictException 重複時
      * @author uratamanabu
      * @since 1.0
      */

@@ -12,8 +12,8 @@ public interface GoodsStatusRepository
         extends JpaRepository<GoodsStatusTbl, Long> {
 
     /**
-     * @param goodsId
-     * @return
+     * @param goodsId 商品ID
+     * @return GoodsStatusTbl
      */
     GoodsStatusTbl findByGoodsId(final Long goodsId);
 
