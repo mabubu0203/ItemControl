@@ -64,7 +64,7 @@ public class GoodsUtil {
     }
 
     /**
-     * Entity -> Responseに変換します。
+     * Entity → Responseに変換します。
      *
      * @param entity   Entity
      * @param goodsRes Response
@@ -106,7 +106,7 @@ public class GoodsUtil {
     }
 
     /**
-     * Request -> Entityに変換します。
+     * Request → Entityに変換します。
      *
      * @param entity   Entity
      * @param goodsReq Request

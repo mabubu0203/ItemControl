@@ -82,6 +82,24 @@ allprojects {
         reportsDir = file("$buildDir/customJacocoReportDir")
     }
 
+    javadoc {
+        options {
+            addStringOption("-add-modules", "java.xml.bind,java.xml.ws.annotation")
+            author = true
+            charSet = defaultEncoding
+            docEncoding = defaultEncoding
+            encoding = defaultEncoding
+            links(
+                "https://docs.oracle.com/javase/9/docs/api/",
+                "https://docs.spring.io/spring-boot/docs/current/api/"
+            )
+            linkSource = true
+            noHelp = true
+            setMemberLevel(JavadocMemberLevel.PUBLIC)
+            setNoQualifiers(["all"])
+        }
+    }
+
     license {
         include "**/*.java"
         header = rootProject.file("config/license/license.template")
@@ -136,13 +154,6 @@ allprojects {
                     '--add-modules', 'java.xml.ws.annotation',
                     '--add-exports', 'java.xml.bind/com.sun.istack.internal=ALL-UNNAMED'
             ]
-        }
-    }
-
-    tasks.withType(Javadoc) {
-        doFirst {
-            options.addStringOption('-add-modules', 'java.xml.bind,java.xml.ws.annotation')
-            options.encoding = defaultEncoding
         }
     }
 
