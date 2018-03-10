@@ -14,6 +14,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class ConflictException
         extends Exception {
-    private String keyName;
-    private String message;
+    private final String keyName;
+    private final String message;
 }
