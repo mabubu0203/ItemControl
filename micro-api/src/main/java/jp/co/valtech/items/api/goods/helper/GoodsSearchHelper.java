@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * @author uratamanabu
@@ -31,8 +32,8 @@ public class GoodsSearchHelper {
     private final ModelMapper modelMapper;
 
     /**
-     * @param request
-     * @return
+     * @param request 　Request
+     * @return ResponseEntity
      * @author uratamanabu
      * @since 1.0
      */
@@ -43,12 +44,13 @@ public class GoodsSearchHelper {
         GoodsSearchRequest.Goods condition = request.getCondition();
         GoodsConditionBean conditionBean = modelMapper.map(condition, GoodsConditionBean.class);
         conditionBean.setCode(condition.getGoodsCode());
-        List<GoodsTbl> entities = gService.search(conditionBean);
         List<GoodsRes> goodsList = new ArrayList<>();
-        for (GoodsTbl entity : entities) {
-            GoodsRes goodsRes = new GoodsRes();
-            GoodsUtil.entityToResponse(entity, goodsRes);
-            goodsList.add(goodsRes);
+        try (Stream<GoodsTbl> stream = gService.search(conditionBean)) {
+            stream.forEach(entity -> {
+                GoodsRes goodsRes = new GoodsRes();
+                GoodsUtil.entityToResponse(entity, goodsRes);
+                goodsList.add(goodsRes);
+            });
         }
         GoodsSearchResponse response = new GoodsSearchResponse();
         response.setGoodsList(goodsList);

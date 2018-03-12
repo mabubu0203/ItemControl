@@ -16,8 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 /**
  * @author uratamanabu
  * @version 1.0
@@ -32,11 +30,11 @@ public class GoodsUpdateHelper {
     private final GoodsService gService;
 
     /**
-     * @param id
-     * @param request
-     * @return
-     * @throws ConflictException
-     * @throws NotFoundException
+     * @param id      商品の識別key
+     * @param request Request
+     * @return ResponseEntity
+     * @throws ConflictException 更新先商品コードにおいて、重複エラー発生時
+     * @throws NotFoundException カテゴリーコードが存在しない場合
      * @author uratamanabu
      * @since 1.0
      */
@@ -54,8 +52,9 @@ public class GoodsUpdateHelper {
             GoodsUtil.duplicationGoodsCodeCheck(gService, goodsCode);
         }
         String categoryCode = goodsReq.getCategoryCode();
-        Optional<CategoryTbl> optionalCode = cService.findByCode(categoryCode);
-        CategoryTbl categoryTbl = optionalCode.orElseThrow(() -> new NotFoundException("code", "CODEが存在しません。"));
+        CategoryTbl categoryTbl = cService
+                .findByCode(categoryCode)
+                .orElseThrow(() -> new NotFoundException("code", "CODEが存在しません。"));
         GoodsUtil.requestToEntity(goodsReq, entity);
         entity.setCategory_id(categoryTbl.getId());
         entity.setCode(goodsCode);

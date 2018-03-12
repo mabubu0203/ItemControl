@@ -25,9 +25,9 @@ public class GoodsFindHelper {
     private final GoodsService gService;
 
     /**
-     * @param id
-     * @return
-     * @throws NotFoundException
+     * @param id 商品の識別key
+     * @return ResponseEntity
+     * @throws NotFoundException 商品が取得できない時
      * @author uratamanabu
      * @since 1.0
      */
@@ -37,18 +37,17 @@ public class GoodsFindHelper {
 
         GoodsTbl entity = GoodsUtil.findById(gService, id);
         GoodsFindResponse response = new GoodsFindResponse();
-        GoodsFindResponse.GoodsDetail goods = response.new GoodsDetail();
-        entityToResponse(entity, goods);
-        response.setGoods(goods);
+        entityToResponse(entity, response);
         return new ResponseEntity<>(response, HttpStatus.OK);
 
     }
 
     private void entityToResponse(
             final GoodsTbl entity,
-            final GoodsFindResponse.GoodsDetail goods
+            final GoodsFindResponse response
     ) {
 
+        GoodsFindResponse.GoodsDetail goods = response.new GoodsDetail();
         GoodsUtil.entityToResponse(entity, goods);
         goods.setGoodsCode(entity.getCode());
         goods.setCategoryCode("");
@@ -56,6 +55,7 @@ public class GoodsFindHelper {
         GoodsStatusTbl statusTbl = entity.getStatusTbl();
         goods.setCreateDatetime(statusTbl.getCreateDatetime());
         goods.setUpdateDatetime(statusTbl.getUpdateDatetime());
+        response.setGoods(goods);
 
     }
 }

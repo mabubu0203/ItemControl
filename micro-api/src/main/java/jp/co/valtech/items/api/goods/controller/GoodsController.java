@@ -53,6 +53,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @Api(tags = {"商品を扱います。"})
 public class GoodsController {
+
     private final GoodsCreateHelper create;
     private final GoodsDeleteHelper delete;
     private final GoodsFindHelper find;
@@ -64,7 +65,7 @@ public class GoodsController {
      * 商品を1件登録します。
      *
      * @param request PostのRequestBody
-     * @return
+     * @return ResponseEntity
      * @throws ConflictException
      * @throws NotFoundException
      * @author uratamanabu
@@ -83,8 +84,8 @@ public class GoodsController {
             }
     )
     public ResponseEntity<GoodsCreateResponse> createGoods(
-            @RequestBody
-            @Valid final GoodsCreateRequest request
+            @Valid
+            @RequestBody final GoodsCreateRequest request
     ) throws ConflictException, NotFoundException {
 
         log.info("create");
@@ -97,7 +98,7 @@ public class GoodsController {
      *
      * @param id      商品の識別key
      * @param version 排他用
-     * @return
+     * @return ResponseEntity
      * @throws ConflictException
      * @throws NotFoundException
      * @author uratamanabu
@@ -132,7 +133,7 @@ public class GoodsController {
     /**
      * 商品を全件取得します。
      *
-     * @return
+     * @return ResponseEntity
      * @author uratamanabu
      * @since 1.0
      */
@@ -157,7 +158,7 @@ public class GoodsController {
      * 商品を1件取得します。
      *
      * @param id 商品の識別key
-     * @return
+     * @return ResponseEntity
      * @throws NotFoundException
      * @author uratamanabu
      * @since 1.0
@@ -189,7 +190,7 @@ public class GoodsController {
      * 商品を検索取得します。
      *
      * @param request PostのRequestBody
-     * @return
+     * @return ResponseEntity
      * @author uratamanabu
      * @since 1.0
      */
@@ -205,8 +206,8 @@ public class GoodsController {
             }
     )
     public ResponseEntity<GoodsSearchResponse> searchGoods(
-            @RequestBody
-            @Valid final GoodsSearchRequest request
+            @Valid
+            @RequestBody final GoodsSearchRequest request
     ) {
 
         log.info("search");
@@ -219,7 +220,7 @@ public class GoodsController {
      *
      * @param id      商品の識別key
      * @param request PutのRequestBody
-     * @return
+     * @return ResponseEntity
      * @throws ConflictException
      * @throws NotFoundException
      * @author uratamanabu
@@ -242,8 +243,8 @@ public class GoodsController {
             @PathVariable(name = "id")
             @Range(min = 0, max = 999999999)
             @ApiParam(example = "1", value = "${GoodsController.updateGoods.request.id.value}") final Long id,
-            @RequestBody
-            @Valid final GoodsUpdateRequest request
+            @Valid
+            @RequestBody final GoodsUpdateRequest request
     ) throws ConflictException, NotFoundException {
 
         log.info("update");

@@ -10,6 +10,7 @@ import jp.co.valtech.items.rdb.service.GoodsService;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.NoResultException;
 import java.util.Optional;
 
 /**
@@ -43,27 +44,6 @@ public class GoodsUtil {
     }
 
     /**
-     * 楽観排他を実施します。
-     * 排他が取れない時、ConflictExceptionを発行します。
-     *
-     * @param entity  Entity
-     * @param version 排他用
-     * @throws ConflictException 排他エラー時
-     * @author uratamanabu
-     * @since 1.0
-     */
-    public static void exclusionCheck(
-            final GoodsStatusTbl entity,
-            final Integer version
-    ) throws ConflictException {
-
-        if (entity.getVersion().compareTo(version) != 0) {// 楽観排他
-            throw new ConflictException("id", "排他エラー");
-        }
-
-    }
-
-    /**
      * Entity → Responseに変換します。
      *
      * @param entity   Entity
@@ -85,12 +65,33 @@ public class GoodsUtil {
     }
 
     /**
+     * 楽観排他を実施します。
+     * 排他が取れない時、ConflictExceptionを発行します。
+     *
+     * @param entity  Entity
+     * @param version 排他用
+     * @throws ConflictException 排他エラー時
+     * @author uratamanabu
+     * @since 1.0
+     */
+    public static void exclusionCheck(
+            final GoodsStatusTbl entity,
+            final Integer version
+    ) throws ConflictException {
+
+        if (entity.getVersion().compareTo(version) != 0) {// 楽観排他
+            throw new ConflictException("id", "排他エラー");
+        }
+
+    }
+
+    /**
      * 商品IDから商品を１件取得します。
      * 取得できない時、NotFoundExceptionを発行します。
      *
      * @param service サービス
      * @param id      商品識別key
-     * @return
+     * @return GoodsTbl
      * @throws NotFoundException 存在しない時
      * @author uratamanabu
      * @since 1.0
@@ -100,9 +101,11 @@ public class GoodsUtil {
             final Long id
     ) throws NotFoundException {
 
-        Optional<GoodsTbl> optionalId = service.findById(id);
-        return optionalId.orElseThrow(() -> new NotFoundException("id", "IDが存在しません。"));
-
+        try {
+            return service.findById(id);
+        } catch (NoResultException e) {
+            throw new NotFoundException("id", "IDが存在しません。");
+        }
     }
 
     /**

@@ -24,16 +24,18 @@ public class GoodsDeleteHelper {
     private final GoodsService gService;
 
     /**
-     * @param id
-     * @param version
-     * @return
+     * @param id      商品の識別key
+     * @param version 排他用
+     * @return ResponseEntity
+     * @throws ConflictException 楽観排他エラー
+     * @throws NotFoundException 商品が取得できない場合
      * @author uratamanabu
      * @since 1.0
      */
     public ResponseEntity execute(
             final Long id,
             final Integer version
-    ) throws NotFoundException, ConflictException {
+    ) throws ConflictException, NotFoundException {
 
         GoodsTbl entity = GoodsUtil.findById(gService, id);
         GoodsUtil.exclusionCheck(entity.getStatusTbl(), version);

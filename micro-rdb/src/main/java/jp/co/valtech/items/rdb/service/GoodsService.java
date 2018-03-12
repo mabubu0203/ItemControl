@@ -6,6 +6,7 @@ import jp.co.valtech.items.rdb.repository.GoodsRepository;
 import jp.co.valtech.items.rdb.repository.GoodsStatusRepository;
 import jp.co.valtech.items.rdb.service.conditions.GoodsConditionBean;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,11 +18,13 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * @author uratamanabu
@@ -59,7 +62,7 @@ public class GoodsService {
      * 商品コードを条件にEntityのOptionalを返却します。
      *
      * @param code 商品コード
-     * @return
+     * @return Optional
      * @author uratamanabu
      * @since 1.0
      */
@@ -68,14 +71,15 @@ public class GoodsService {
     }
 
     /**
-     * 商品TblのPKを条件にEntityのOptionalを返却します。
+     * 商品TblのPKを条件にEntityを1件返却します。
+     * 商品が取得できない時NoResultExceptionを発生します。
      *
      * @param id 商品の識別key
-     * @return
+     * @return GoodsTbl
      * @author uratamanabu
      * @since 1.0
      */
-    public Optional<GoodsTbl> findById(final Long id) {
+    public GoodsTbl findById(final Long id) throws NoResultException {
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<GoodsTbl> query = builder.createQuery(GoodsTbl.class);
@@ -85,22 +89,18 @@ public class GoodsService {
         predicates.add(builder.equal(join1.get("deleteFlag"), false));
         predicates.add(builder.equal(root.get("id"), id));
         query.select(root).where(builder.and(predicates.toArray(new Predicate[]{})));
-        try {
-            return Optional.of(entityManager.createQuery(query).getSingleResult());
-        } catch (NoResultException e) {
-            return Optional.empty();
-        }
+        return entityManager.createQuery(query).getSingleResult();
 
     }
 
     /**
      * 商品を全件抽出します。
      *
-     * @return
+     * @return Stream
      * @author uratamanabu
      * @since 1.0
      */
-    public List<GoodsTbl> getAll() {
+    public Stream<GoodsTbl> getAll() {
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<GoodsTbl> query = builder.createQuery(GoodsTbl.class);
@@ -108,8 +108,9 @@ public class GoodsService {
         Join<GoodsTbl, GoodsStatusTbl> join1 = root.join("statusTbl", JoinType.INNER);
         List<Predicate> predicates = new ArrayList<>();
         predicates.add(builder.equal(join1.get("deleteFlag"), false));
-        query.select(root).where(builder.and(predicates.toArray(new Predicate[]{})));
-        return entityManager.createQuery(query).getResultList();
+        Order order = builder.asc(root.get("id"));
+        query.select(root).where(builder.and(predicates.toArray(new Predicate[]{}))).orderBy(order);
+        return entityManager.createQuery(query).unwrap(Query.class).stream();
 
     }
 
@@ -131,12 +132,14 @@ public class GoodsService {
     }
 
     /**
-     * @param condtion 検索条件
-     * @return
+     * 商品を検索して抽出します。
+     *
+     * @param condition 検索条件
+     * @return Stream
      * @author uratamanabu
      * @since 1.0
      */
-    public List<GoodsTbl> search(final GoodsConditionBean condtion) {
+    public Stream<GoodsTbl> search(final GoodsConditionBean condition) {
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<GoodsTbl> query = builder.createQuery(GoodsTbl.class);
@@ -145,19 +148,22 @@ public class GoodsService {
         List<Predicate> predicates = new ArrayList<>();
         predicates.add(builder.equal(join1.get("deleteFlag"), false));
         // 検索条件設定
-        Optional<String> code = Optional.ofNullable(condtion.getCode());
-        code.ifPresent(str -> predicates.add(builder.like(root.get("code"), "%" + str + "%")));
-        Optional<String> name = Optional.ofNullable(condtion.getName());
-        name.ifPresent(str -> predicates.add(builder.like(root.get("name"), "%" + str + "%")));
-        Optional<String> note = Optional.ofNullable(condtion.getNote());
-        note.ifPresent(str -> predicates.add(builder.like(root.get("note"), "%" + str + "%")));
+        Optional
+                .ofNullable(condition.getCode())
+                .ifPresent(str -> predicates.add(builder.like(root.get("code"), "%" + str + "%")));
+        Optional
+                .ofNullable(condition.getName())
+                .ifPresent(str -> predicates.add(builder.like(root.get("name"), "%" + str + "%")));
+        Optional
+                .ofNullable(condition.getNote())
+                .ifPresent(str -> predicates.add(builder.like(root.get("note"), "%" + str + "%")));
         query.select(root).where(builder.and(predicates.toArray(new Predicate[]{})));
-        return entityManager.createQuery(query).getResultList();
+        return entityManager.createQuery(query).unwrap(Query.class).stream();
 
     }
 
     /**
-     * @param masterEntity Entity
+     * @param masterEntity 商品
      * @author uratamanabu
      * @since 1.0
      */

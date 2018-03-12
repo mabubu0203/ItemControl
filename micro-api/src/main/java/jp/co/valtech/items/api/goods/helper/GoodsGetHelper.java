@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * @author uratamanabu
@@ -27,18 +28,19 @@ public class GoodsGetHelper {
     private final GoodsService gService;
 
     /**
-     * @return
+     * @return ResponseEntity
      * @author uratamanabu
      * @since 1.0
      */
     public ResponseEntity<GoodsGetResponse> execute() {
 
-        List<GoodsTbl> entities = gService.getAll();
         List<GoodsRes> goodsList = new ArrayList<>();
-        for (GoodsTbl entity : entities) {
-            GoodsRes goodsRes = new GoodsRes();
-            GoodsUtil.entityToResponse(entity, goodsRes);
-            goodsList.add(goodsRes);
+        try (Stream<GoodsTbl> stream = gService.getAll()) {
+            stream.forEach(entity -> {
+                GoodsRes goodsRes = new GoodsRes();
+                GoodsUtil.entityToResponse(entity, goodsRes);
+                goodsList.add(goodsRes);
+            });
         }
         GoodsGetResponse response = new GoodsGetResponse();
         response.setGoodsList(goodsList);
