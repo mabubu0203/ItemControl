@@ -186,6 +186,10 @@ management:
       enabled: false
     web:
       enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: auditevents,beans,conditions,configprops,env,flyway,health,heapdump,info,jolokia,logfile,loggers,mappings,metrics,web
   health:
     db:
       enabled: true
