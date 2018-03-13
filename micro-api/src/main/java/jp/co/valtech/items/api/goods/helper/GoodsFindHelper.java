@@ -50,7 +50,7 @@ public class GoodsFindHelper {
         GoodsFindResponse.GoodsDetail goods = response.new GoodsDetail();
         GoodsUtil.entityToResponse(entity, goods);
         goods.setGoodsCode(entity.getCode());
-        goods.setCategoryCode("");
+        goods.setCategoryCode(entity.getCategoryTbl().getCode());
         goods.setNote(entity.getNote());
         GoodsStatusTbl statusTbl = entity.getStatusTbl();
         goods.setCreateDatetime(statusTbl.getCreateDatetime());

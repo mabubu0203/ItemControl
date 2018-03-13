@@ -1,5 +1,6 @@
 package jp.co.valtech.items.api.goods.helper;
 
+import jp.co.valtech.items.api.category.util.CategoryUtil;
 import jp.co.valtech.items.api.goods.util.GoodsUtil;
 import jp.co.valtech.items.common.exception.ConflictException;
 import jp.co.valtech.items.common.exception.NotFoundException;
@@ -43,21 +44,19 @@ public class GoodsUpdateHelper {
             final GoodsUpdateRequest request
     ) throws ConflictException, NotFoundException {
 
+        GoodsReq goodsReq = request.getGoods();
         GoodsTbl entity = GoodsUtil.findById(gService, id);
         Integer version = request.getVersion();
         GoodsUtil.exclusionCheck(entity.getStatusTbl(), version);
-        GoodsReq goodsReq = request.getGoods();
+        GoodsUtil.requestToEntity(goodsReq, entity);
         String goodsCode = goodsReq.getGoodsCode();
         if (!entity.getCode().equals(goodsCode)) {// Codeの更新あり
             GoodsUtil.duplicationGoodsCodeCheck(gService, goodsCode);
         }
-        String categoryCode = goodsReq.getCategoryCode();
-        CategoryTbl categoryTbl = cService
-                .findByCode(categoryCode)
-                .orElseThrow(() -> new NotFoundException("code", "CODEが存在しません。"));
-        GoodsUtil.requestToEntity(goodsReq, entity);
-        entity.setCategory_id(categoryTbl.getId());
         entity.setCode(goodsCode);
+        CategoryTbl categoryTbl = CategoryUtil
+                .findByCategoryCode(cService, goodsReq.getCategoryCode());
+        entity.setCategoryId(categoryTbl.getId());
         update(entity);
         GoodsUpdateResponse response = new GoodsUpdateResponse();
         GoodsUpdateResponse.Goods goods = response.new Goods();
@@ -67,7 +66,7 @@ public class GoodsUpdateHelper {
 
     }
 
-    private void update(final GoodsTbl entity) {
+    private void update(final GoodsTbl entity) throws NotFoundException {
         gService.update(entity);
     }
 

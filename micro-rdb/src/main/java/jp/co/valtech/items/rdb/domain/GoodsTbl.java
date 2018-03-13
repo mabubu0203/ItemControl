@@ -1,5 +1,6 @@
 package jp.co.valtech.items.rdb.domain;
 
+import io.swagger.annotations.ApiModel;
 import jp.co.valtech.items.interfaces.validator.constraint.GoodsCodeField;
 import jp.co.valtech.items.interfaces.validator.constraint.GoodsNameField;
 import jp.co.valtech.items.interfaces.validator.constraint.GoodsNoteField;
@@ -23,6 +24,7 @@ import java.io.Serializable;
  * @version 1.0
  * @since 1.0
  */
+@ApiModel("GoodsTbl")
 @Entity(name = "GoodsTbl")
 @Table(
         name = "GOODS_TBL",
@@ -52,7 +54,7 @@ public class GoodsTbl
             length = 10,
             columnDefinition = "BIGINT"
     )
-    private Long category_id;
+    private Long categoryId;
 
     @Column(
             name = "NAME",

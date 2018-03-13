@@ -1,5 +1,6 @@
 package jp.co.valtech.items.rdb.domain;
 
+import io.swagger.annotations.ApiModel;
 import jp.co.valtech.items.rdb.domain.common.AbstractStatusEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,6 +20,7 @@ import java.io.Serializable;
  * @version 1.0
  * @since 1.0
  */
+@ApiModel("CategoryStatusTbl")
 @Entity(name = "CategoryStatusTbl")
 @Table(
         name = "CATEGORY_STATUS_TBL",

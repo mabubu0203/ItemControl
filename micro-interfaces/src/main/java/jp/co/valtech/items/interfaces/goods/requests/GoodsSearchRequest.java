@@ -56,15 +56,15 @@ public class GoodsSearchRequest
         @ApiModelProperty(example = "明石焼き", value = "NAME")
         private String name;
 
-        @XmlElement(name = "price_from")
+        @XmlElement(name = "priceFrom")
         @Range(min = 0, max = 9999)
-        @ApiModelProperty(example = "200", value = "PRICE")
-        private Integer price_from;
+        @ApiModelProperty(example = "200", value = "PRICE_FROM")
+        private Integer priceFrom;
 
-        @XmlElement(name = "price_to")
+        @XmlElement(name = "priceTo")
         @Range(min = 0, max = 9999)
-        @ApiModelProperty(example = "200", value = "PRICE")
-        private Integer price_to;
+        @ApiModelProperty(example = "200", value = "PRICE_TO")
+        private Integer priceTo;
 
         @XmlElement(name = "note")
         @Length(min = 1, max = 64)

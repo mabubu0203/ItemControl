@@ -9,6 +9,7 @@ import jp.co.valtech.items.rdb.domain.GoodsTbl;
 import jp.co.valtech.items.rdb.service.GoodsService;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.NoResultException;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import java.util.Optional;
  * @version 1.0
  * @since 1.0
  */
+@Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class GoodsUtil {
 
@@ -104,6 +106,7 @@ public class GoodsUtil {
         try {
             return service.findById(id);
         } catch (NoResultException e) {
+            log.info(e.toString());
             throw new NotFoundException("id", "IDが存在しません。");
         }
     }

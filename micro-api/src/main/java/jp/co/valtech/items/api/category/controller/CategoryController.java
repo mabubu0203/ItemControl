@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiResponses;
 import jp.co.valtech.items.api.category.helper.CategoryCreateHelper;
 import jp.co.valtech.items.api.category.helper.CategoryFindHelper;
 import jp.co.valtech.items.api.category.helper.CategoryGetHelper;
+import jp.co.valtech.items.api.category.helper.CategorySearchHelper;
 import jp.co.valtech.items.common.exception.ConflictException;
 import jp.co.valtech.items.common.exception.NotFoundException;
 import jp.co.valtech.items.interfaces.category.requests.CategoryCreateRequest;
@@ -48,16 +49,18 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @Api(tags = {"カテゴリーを扱います。"})
 public class CategoryController {
+
     private final CategoryCreateHelper create;
     private final CategoryFindHelper find;
     private final CategoryGetHelper get;
+    private final CategorySearchHelper search;
 
     /**
      * カテゴリーを1件登録します。
      *
      * @param request PostのRequestBody
-     * @return
-     * @throws ConflictException
+     * @return ResponseEntity
+     * @throws ConflictException カテゴリーコード重複時
      * @author uratamanabu
      * @since 1.0
      */
@@ -74,8 +77,8 @@ public class CategoryController {
             }
     )
     public ResponseEntity<CategoryCreateResponse> createCategory(
-            @RequestBody
-            @Valid final CategoryCreateRequest request
+            @Valid
+            @RequestBody final CategoryCreateRequest request
     ) throws ConflictException {
 
         log.info("create");
@@ -87,7 +90,7 @@ public class CategoryController {
      * カテゴリーを1件取得します。
      *
      * @param id カテゴリーの識別キー
-     * @return
+     * @return ResponseEntity
      * @throws NotFoundException
      * @author uratamanabu
      * @since 1.0
@@ -118,7 +121,7 @@ public class CategoryController {
     /**
      * カテゴリーを全件取得します。
      *
-     * @return
+     * @return ResponseEntity
      * @author uratamanabu
      * @since 1.0
      */
@@ -143,7 +146,7 @@ public class CategoryController {
      * 商品を検索取得します。
      *
      * @param request PostのRequestBody
-     * @return
+     * @return ResponseEntity
      * @author uratamanabu
      * @since 1.0
      */
@@ -159,13 +162,12 @@ public class CategoryController {
             }
     )
     public ResponseEntity<CategorySearchResponse> searchCategory(
-            @RequestBody
-            @Valid final CategorySearchRequest request
+            @Valid
+            @RequestBody final CategorySearchRequest request
     ) {
 
         log.info("search");
-        // TODO:
-        return null;
+        return search.execute(request);
 
     }
 

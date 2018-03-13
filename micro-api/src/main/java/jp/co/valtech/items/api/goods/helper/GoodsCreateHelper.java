@@ -1,5 +1,6 @@
 package jp.co.valtech.items.api.goods.helper;
 
+import jp.co.valtech.items.api.category.util.CategoryUtil;
 import jp.co.valtech.items.api.goods.util.GoodsUtil;
 import jp.co.valtech.items.common.exception.ConflictException;
 import jp.co.valtech.items.common.exception.NotFoundException;
@@ -42,16 +43,14 @@ public class GoodsCreateHelper {
     ) throws ConflictException, NotFoundException {
 
         GoodsReq goodsReq = request.getGoods();
-        String goodsCode = goodsReq.getGoodsCode();
-        GoodsUtil.duplicationGoodsCodeCheck(gService, goodsCode);
-        String categoryCode = goodsReq.getCategoryCode();
-        CategoryTbl categoryTbl = cService
-                .findByCode(categoryCode)
-                .orElseThrow(() -> new NotFoundException("code", "CODEが存在しません。"));
         GoodsTbl entity = new GoodsTbl();
         GoodsUtil.requestToEntity(goodsReq, entity);
-        entity.setCategory_id(categoryTbl.getId());
+        String goodsCode = goodsReq.getGoodsCode();
+        GoodsUtil.duplicationGoodsCodeCheck(gService, goodsCode);
         entity.setCode(goodsCode);
+        CategoryTbl categoryTbl = CategoryUtil
+                .findByCategoryCode(cService, goodsReq.getCategoryCode());
+        entity.setCategoryId(categoryTbl.getId());
         create(entity);
         GoodsCreateResponse response = new GoodsCreateResponse();
         GoodsCreateResponse.Goods goods = response.new Goods();

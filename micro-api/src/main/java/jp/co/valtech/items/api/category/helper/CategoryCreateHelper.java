@@ -1,5 +1,6 @@
 package jp.co.valtech.items.api.category.helper;
 
+import jp.co.valtech.items.api.category.util.CategoryUtil;
 import jp.co.valtech.items.common.exception.ConflictException;
 import jp.co.valtech.items.interfaces.category.requests.CategoryCreateRequest;
 import jp.co.valtech.items.interfaces.category.responses.CategoryCreateResponse;
@@ -13,8 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 /**
  * @author uratamanabu
  * @version 1.0
@@ -25,13 +24,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CategoryCreateHelper {
 
-    private final CategoryService service;
+    private final CategoryService cService;
     private final ModelMapper modelMapper;
 
     /**
-     * @param request
-     * @return
-     * @throws ConflictException
+     * @param request Request
+     * @return ResponseEntity
+     * @throws ConflictException カテゴリーコード重複時
      * @author uratamanabu
      * @since 1.0
      */
@@ -40,12 +39,9 @@ public class CategoryCreateHelper {
     ) throws ConflictException {
 
         CategoryReq categoryReq = request.getCategory();
-        String categoryCode = categoryReq.getCategoryCode();
-        Optional<CategoryTbl> optionalCode = service.findByCode(categoryCode);
-        if (optionalCode.isPresent()) {// categoryCode(unique制約)の存在チェック
-            throw new ConflictException("categoryCode", "CODEが重複しています。");
-        }
         CategoryTbl entity = modelMapper.map(categoryReq, CategoryTbl.class);
+        String categoryCode = categoryReq.getCategoryCode();
+        CategoryUtil.duplicationCategoryCodeCheck(cService, categoryCode);
         entity.setCode(categoryCode);
         create(entity);
         CategoryCreateResponse response = new CategoryCreateResponse();
@@ -57,6 +53,6 @@ public class CategoryCreateHelper {
     }
 
     private void create(final CategoryTbl entity) {
-        service.insert(entity);
+        cService.insert(entity);
     }
 }

@@ -44,7 +44,7 @@ public class GoodsDeleteHelper {
 
     }
 
-    private void delete(GoodsTbl entity) {
+    private void delete(GoodsTbl entity) throws NotFoundException {
         gService.delete(entity);
     }
 }

@@ -1,5 +1,8 @@
 package jp.co.valtech.items.rdb.service;
 
+import jp.co.valtech.items.common.exception.NotFoundException;
+import jp.co.valtech.items.rdb.domain.CategoryStatusTbl;
+import jp.co.valtech.items.rdb.domain.CategoryTbl;
 import jp.co.valtech.items.rdb.domain.GoodsStatusTbl;
 import jp.co.valtech.items.rdb.domain.GoodsTbl;
 import jp.co.valtech.items.rdb.repository.GoodsRepository;
@@ -45,13 +48,16 @@ public class GoodsService {
      * 商品を１件削除します。
      *
      * @param masterEntity 商品
+     * @throws NotFoundException
      * @author uratamanabu
      * @since 1.0
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void delete(final GoodsTbl masterEntity) {
+    public void delete(final GoodsTbl masterEntity) throws NotFoundException {
 
-        GoodsStatusTbl statusEntity = status.findByGoodsId(masterEntity.getId());
+        GoodsStatusTbl statusEntity = status
+                .findByGoodsId(masterEntity.getId())
+                .orElseThrow(() -> new NotFoundException("id", "IDが存在しません。"));
         statusEntity.setDeleteFlag(true);
         statusEntity.addVersion();
         status.saveAndFlush(statusEntity);
@@ -67,7 +73,7 @@ public class GoodsService {
      * @since 1.0
      */
     public Optional<GoodsTbl> findByCode(final String code) {
-        return Optional.ofNullable(master.findByCode(code));
+        return master.findByCode(code);
     }
 
     /**
@@ -85,9 +91,12 @@ public class GoodsService {
         CriteriaQuery<GoodsTbl> query = builder.createQuery(GoodsTbl.class);
         Root<GoodsTbl> root = query.from(GoodsTbl.class);
         Join<GoodsTbl, GoodsStatusTbl> join1 = root.join("statusTbl", JoinType.INNER);
+        Join<GoodsTbl, CategoryTbl> join2 = root.join("categoryTbl", JoinType.INNER);
+        Join<CategoryTbl, CategoryStatusTbl> join3 = join2.join("statusTbl", JoinType.INNER);
         List<Predicate> predicates = new ArrayList<>();
-        predicates.add(builder.equal(join1.get("deleteFlag"), false));
         predicates.add(builder.equal(root.get("id"), id));
+        predicates.add(builder.equal(join1.get("deleteFlag"), false));
+        predicates.add(builder.equal(join3.get("deleteFlag"), false));
         query.select(root).where(builder.and(predicates.toArray(new Predicate[]{})));
         return entityManager.createQuery(query).getSingleResult();
 
@@ -157,21 +166,25 @@ public class GoodsService {
         Optional
                 .ofNullable(condition.getNote())
                 .ifPresent(str -> predicates.add(builder.like(root.get("note"), "%" + str + "%")));
-        query.select(root).where(builder.and(predicates.toArray(new Predicate[]{})));
+        Order order = builder.asc(root.get("id"));
+        query.select(root).where(builder.and(predicates.toArray(new Predicate[]{}))).orderBy(order);
         return entityManager.createQuery(query).unwrap(Query.class).stream();
 
     }
 
     /**
      * @param masterEntity 商品
+     * @throws NotFoundException
      * @author uratamanabu
      * @since 1.0
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void update(final GoodsTbl masterEntity) {
+    public void update(final GoodsTbl masterEntity) throws NotFoundException {
 
         master.saveAndFlush(masterEntity);
-        GoodsStatusTbl statusEntity = status.findByGoodsId(masterEntity.getId());
+        GoodsStatusTbl statusEntity = status
+                .findByGoodsId(masterEntity.getId())
+                .orElseThrow(() -> new NotFoundException("id", "IDが存在しません。"));
         statusEntity.addVersion();
         status.saveAndFlush(statusEntity);
 

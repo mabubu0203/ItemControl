@@ -19,7 +19,8 @@ import java.io.Serializable;
 @Data
 @XmlRootElement(name = "request")
 @ApiModel(description = "リクエスト情報")
-public class GoodsCreateRequest implements Serializable {
+public class GoodsCreateRequest
+        implements Serializable {
 
     private static final long serialVersionUID = 191785731994911194L;
 

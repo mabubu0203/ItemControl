@@ -1,9 +1,11 @@
 package jp.co.valtech.items.api.category.helper;
 
-import jp.co.valtech.items.interfaces.category.responses.CategoryGetResponse;
+import jp.co.valtech.items.interfaces.category.requests.CategorySearchRequest;
+import jp.co.valtech.items.interfaces.category.responses.CategorySearchResponse;
 import jp.co.valtech.items.interfaces.definitions.responses.CategoryRes;
 import jp.co.valtech.items.rdb.domain.CategoryTbl;
 import jp.co.valtech.items.rdb.service.CategoryService;
+import jp.co.valtech.items.rdb.service.conditions.CategoryConditionBean;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -23,27 +25,33 @@ import java.util.stream.Stream;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CategoryGetHelper {
+public class CategorySearchHelper {
 
     private final CategoryService cService;
     private final ModelMapper modelMapper;
 
     /**
+     * @param request 　Request
      * @return ResponseEntity
      * @author uratamanabu
      * @since 1.0
      */
-    public ResponseEntity<CategoryGetResponse> execute() {
+    public ResponseEntity<CategorySearchResponse> execute(
+            final CategorySearchRequest request
+    ) {
 
+        CategorySearchRequest.Category condition = request.getCondition();
+        CategoryConditionBean conditionBean = modelMapper.map(condition, CategoryConditionBean.class);
+        conditionBean.setCode(condition.getCategoryCode());
         List<CategoryRes> categoryList = new ArrayList<>();
-        try (Stream<CategoryTbl> stream = cService.getAll()) {
+        try (Stream<CategoryTbl> stream = cService.search(conditionBean)) {
             stream.forEach(entity -> {
                 CategoryRes categoryRes = modelMapper.map(entity, CategoryRes.class);
                 modelMapper.map(entity.getStatusTbl(), categoryRes);
                 categoryList.add(categoryRes);
             });
         }
-        CategoryGetResponse response = new CategoryGetResponse();
+        CategorySearchResponse response = new CategorySearchResponse();
         response.setCategoryList(categoryList);
         return new ResponseEntity<>(response, HttpStatus.OK);
 

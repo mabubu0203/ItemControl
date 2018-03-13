@@ -1,5 +1,6 @@
 package jp.co.valtech.items.rdb.domain;
 
+import io.swagger.annotations.ApiModel;
 import jp.co.valtech.items.interfaces.validator.constraint.CategoryCodeField;
 import jp.co.valtech.items.interfaces.validator.constraint.CategoryNameField;
 import jp.co.valtech.items.interfaces.validator.constraint.CategoryNoteField;
@@ -22,6 +23,7 @@ import java.util.List;
  * @version 1.0
  * @since 1.0
  */
+@ApiModel("CategoryTbl")
 @Entity(name = "CategoryTbl")
 @Table(
         name = "CATEGORY_TBL",
