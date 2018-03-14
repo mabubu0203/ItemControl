@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 /**
  * @author uratamanabu
@@ -122,11 +123,13 @@ public class GoodsController {
             @Range(min = 0, max = 999999999)
             @ApiParam(example = "1", value = "${GoodsController.deleteGoods.request.id.value}") final Long id,
             @RequestParam(name = "version")
-            @ApiParam(example = "1", value = "${GoodsController.deleteGoods.request.version.value}") final Integer version
+            @Range(min = 0, max = 99999)
+            @ApiParam(example = "1", value = "${GoodsController.deleteGoods.request.version.value}") final Optional<Integer> version
     ) throws ConflictException, NotFoundException {
 
         log.info("delete");
-        return delete.execute(id, version);
+        // TODO:例外変更
+        return delete.execute(id, version.orElseThrow(() -> new ConflictException("a", "a")));
 
     }
 

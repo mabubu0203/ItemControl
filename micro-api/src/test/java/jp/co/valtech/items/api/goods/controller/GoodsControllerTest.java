@@ -10,7 +10,9 @@ import jp.co.valtech.items.interfaces.goods.responses.GoodsGetResponse;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsUpdateResponse;
 import org.flywaydb.test.FlywayTestExecutionListener;
 import org.flywaydb.test.annotation.FlywayTest;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -30,10 +32,15 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import java.net.URI;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -50,14 +57,25 @@ class GoodsControllerTest {
     @LocalServerPort
     private int port;
 
+    private Validator validator;
+
+    @BeforeEach
+    public void setUp() {
+        validator = Validation.buildDefaultValidatorFactory().getValidator();
+    }
+
     @Nested
     @DisplayName("登録")
     class createGoodsTest {
-        @FlywayTest
-        @Test
-        void success() throws Exception {
-            String url = "http://localhost:" + port + "/goods/";
-            GoodsCreateRequest request = new GoodsCreateRequest();
+
+        private GoodsCreateRequest request;
+
+        private Set<ConstraintViolation<GoodsCreateRequest>> violationSet;
+
+        @BeforeEach
+        void before() {
+
+            request = new GoodsCreateRequest();
             GoodsReq goodsReq = new GoodsReq();
             goodsReq.setGoodsCode("AAAAA");
             goodsReq.setCategoryCode("CODEC1");
@@ -65,9 +83,73 @@ class GoodsControllerTest {
             goodsReq.setPrice(1);
             goodsReq.setNote("aaa");
             request.setGoods(goodsReq);
-            ResponseEntity<GoodsCreateResponse> entity = testRestTemplate.postForEntity(url, request, GoodsCreateResponse.class);
+
+        }
+
+        @AfterEach
+        void after() {
+            violationSet = new HashSet<>();
+        }
+
+        @FlywayTest
+        @Test
+        void goodsCodeValidate() throws Exception {
+
+            request.getGoods().setGoodsCode("");
+            violationSet = validator.validate(request);
+            Assertions.assertTrue(violationSet.size() > 0);
+
+            request.getGoods().setGoodsCode("あああああああああああああああ");
+            violationSet = validator.validate(request);
+            Assertions.assertTrue(violationSet.size() > 0);
+
+        }
+
+        @FlywayTest
+        @Test
+        void NameValidate() throws Exception {
+
+            request.getGoods().setName("");
+            violationSet = validator.validate(request);
+            Assertions.assertTrue(violationSet.size() > 0);
+
+            request.getGoods().setName("ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ");
+            violationSet = validator.validate(request);
+            Assertions.assertTrue(violationSet.size() > 0);
+
+        }
+
+        @FlywayTest
+        @Test
+        void PriceValidate() throws Exception {
+
+            request.getGoods().setPrice(null);
+            violationSet = validator.validate(request);
+            Assertions.assertTrue(violationSet.size() > 0);
+
+            request.getGoods().setPrice(99999);
+            violationSet = validator.validate(request);
+            Assertions.assertTrue(violationSet.size() > 0);
+
+        }
+
+        @FlywayTest
+        @Test
+        void CreateSuccess() throws Exception {
+
+            violationSet = validator.validate(request);
+            Assertions.assertTrue(violationSet.size() == 0);
+            ResponseEntity<GoodsCreateResponse> entity = post(request);
             Assertions.assertEquals(entity.getStatusCode(), HttpStatus.CREATED);
             Assertions.assertNotNull(entity.getBody().getGoods().getId());
+
+        }
+
+        private ResponseEntity<GoodsCreateResponse> post(GoodsCreateRequest request) {
+
+            String url = "http://localhost:" + port + "/goods/";
+            return testRestTemplate.postForEntity(url, request, GoodsCreateResponse.class);
+
         }
 
     }
@@ -75,22 +157,58 @@ class GoodsControllerTest {
     @Nested
     @DisplayName("削除")
     class deleteGoodsTest {
+
         @FlywayTest
         @Test
-        void success() throws Exception {
+        void VersionValidate() throws Exception {
             String id = "4";
+            Integer version = null;
+            ResponseEntity<Void> entity = delete(id, version);
+            Assertions.assertEquals(entity.getStatusCode(), HttpStatus.CONFLICT);
+        }
+
+        @FlywayTest
+        @Test
+        void DeleteNotFound() throws Exception {
+            String id = "90";
+            Integer version = 0;
+            ResponseEntity<Void> entity = delete(id, version);
+            Assertions.assertEquals(entity.getStatusCode(), HttpStatus.NOT_FOUND);
+        }
+
+        @FlywayTest
+        @Test
+        void DeleteConflict() throws Exception {
+            String id = "4";
+            Integer version = 23;
+            ResponseEntity<Void> entity = delete(id, version);
+            Assertions.assertEquals(entity.getStatusCode(), HttpStatus.CONFLICT);
+        }
+
+        @FlywayTest
+        @Test
+        void DeleteSuccess() throws Exception {
+            String id = "4";
+            Integer version = 0;
+            ResponseEntity<Void> entity = delete(id, version);
+            Assertions.assertEquals(entity.getStatusCode(), HttpStatus.NO_CONTENT);
+        }
+
+        private ResponseEntity<Void> delete(String id, Integer version) {
+
             String url = "http://localhost:" + port + "/goods/{id}";
+            UriComponentsBuilder builder = UriComponentsBuilder
+                    .fromHttpUrl(url)
+                    .queryParam("version", version);
             Map<String, String> uriParams = new HashMap<>();
             uriParams.put("id", id);
-            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
-                    .queryParam("version", 0);
-            ResponseEntity<Void> entity = testRestTemplate
+            return testRestTemplate
                     .exchange(
                             builder.buildAndExpand(uriParams).toUri(),
                             HttpMethod.DELETE,
                             HttpEntity.EMPTY,
                             Void.class);
-            Assertions.assertEquals(entity.getStatusCode(), HttpStatus.NO_CONTENT);
+
         }
 
     }
@@ -100,9 +218,10 @@ class GoodsControllerTest {
     class getGoodsTest {
         @FlywayTest
         @Test
-        void success() throws Exception {
+        void GetSuccess() throws Exception {
             String url = "http://localhost:" + port + "/goods/all";
-            ResponseEntity<GoodsGetResponse> entity = testRestTemplate.getForEntity(url, GoodsGetResponse.class);
+            ResponseEntity<GoodsGetResponse> entity = testRestTemplate
+                    .getForEntity(url, GoodsGetResponse.class);
             Assertions.assertEquals(entity.getStatusCode(), HttpStatus.OK);
             GoodsGetResponse response = entity.getBody();
             Assertions.assertNotNull(response);
@@ -115,24 +234,30 @@ class GoodsControllerTest {
     @Nested
     @DisplayName("1件取得")
     class findGoodsTest {
+
         @FlywayTest
         @Test
-        void success() throws Exception {
+        void FindFail() throws Exception {
+            String id = "111111";
+            ResponseEntity<GoodsFindResponse> entity = get(id);
+            Assertions.assertEquals(entity.getStatusCode(), HttpStatus.NOT_FOUND);
+        }
+
+        @FlywayTest
+        @Test
+        void FindSuccess() throws Exception {
             String id = "1";
-            String url = "http://localhost:" + port + "/goods/{id}";
-            ResponseEntity<GoodsFindResponse> entity = testRestTemplate.getForEntity(url, GoodsFindResponse.class, id);
+            ResponseEntity<GoodsFindResponse> entity = get(id);
             Assertions.assertEquals(entity.getStatusCode(), HttpStatus.OK);
             GoodsFindResponse response = entity.getBody();
             Assertions.assertNotNull(response);
         }
 
-        @FlywayTest
-        @Test
-        void fail() throws Exception {
-            String id = "111111";
+        private ResponseEntity<GoodsFindResponse> get(String id) {
+
             String url = "http://localhost:" + port + "/goods/{id}";
-            ResponseEntity<GoodsFindResponse> entity = testRestTemplate.getForEntity(url, GoodsFindResponse.class, id);
-            Assertions.assertEquals(entity.getStatusCode(), HttpStatus.NOT_FOUND);
+            return testRestTemplate.getForEntity(url, GoodsFindResponse.class, id);
+
         }
 
     }
@@ -140,15 +265,13 @@ class GoodsControllerTest {
     @Nested
     @DisplayName("更新")
     class updateGoodsTest {
-        @FlywayTest
-        @Test
-        void success() throws Exception {
-            String id = "3";
-            String url = "http://localhost:" + port + "/goods/{id}";
-            Map<String, String> uriParams = new HashMap<>();
-            uriParams.put("id", id);
-            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
-            GoodsUpdateRequest request = new GoodsUpdateRequest();
+
+        private GoodsUpdateRequest request;
+
+        @BeforeEach
+        void before() {
+
+            request = new GoodsUpdateRequest();
             GoodsReq goodsReq = new GoodsReq();
             goodsReq.setGoodsCode("ACCCA");
             goodsReq.setCategoryCode("CODEC1");
@@ -157,16 +280,33 @@ class GoodsControllerTest {
             goodsReq.setNote("aaa");
             request.setGoods(goodsReq);
             request.setVersion(0);
+
+        }
+
+        @FlywayTest
+        @Test
+        void UpdateSuccess() throws Exception {
+            String id = "3";
+            ResponseEntity<GoodsUpdateResponse> entity = update(id, request);
+            Assertions.assertEquals(entity.getStatusCode(), HttpStatus.OK);
+            Assertions.assertNotNull(entity.getBody().getGoods().getId());
+        }
+
+        private ResponseEntity<GoodsUpdateResponse> update(String id, GoodsUpdateRequest request) {
+
+            String url = "http://localhost:" + port + "/goods/{id}";
+            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+            Map<String, String> uriParams = new HashMap<>();
+            uriParams.put("id", id);
             URI uri = builder.buildAndExpand(uriParams).toUri();
             RequestEntity<GoodsUpdateRequest> requestEntity = RequestEntity.put(uri).body(request);
-            ResponseEntity<GoodsUpdateResponse> entity = testRestTemplate
+            return testRestTemplate
                     .exchange(
                             uri,
                             HttpMethod.PUT,
                             requestEntity,
                             GoodsUpdateResponse.class);
-            Assertions.assertEquals(entity.getStatusCode(), HttpStatus.OK);
-            Assertions.assertNotNull(entity.getBody().getGoods().getId());
+
         }
 
     }
