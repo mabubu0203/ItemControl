@@ -3,6 +3,7 @@ include(
         'micro-api',
         'micro-common',
         'micro-interfaces',
-        'micro-rdb'
+        'micro-rdb',
+        'micro-test'
 )
 

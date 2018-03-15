@@ -1,0 +1,9 @@
+dependencies {
+    compile("org.apache.commons:commons-lang3")
+}
+
+jar {
+    baseName = 'micro-test'
+    version = '1.0'
+    enabled = true
+}

@@ -200,6 +200,9 @@ project(':micro-common') {
 
 project(':micro-interfaces') {
     ext.moduleName = 'jp.co.valtech.items.interfaces'
+    dependencies {
+        compile project(':micro-test')
+    }
 }
 
 project(':micro-rdb') {
@@ -207,6 +210,9 @@ project(':micro-rdb') {
     dependencies {
         compile project(':micro-common'), project(':micro-interfaces')
     }
+}
+project(':micro-test') {
+    ext.moduleName = 'jp.co.valtech.items.test'
 }
 
 task wrapper(type: Wrapper) {
