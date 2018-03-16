@@ -15,11 +15,6 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web") {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
     }
-    testCompile("org.springframework.boot:spring-boot-starter-test") {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
-        exclude group: 'junit', module: 'junit'
-    }
-    testCompile("org.springframework.restdocs:spring-restdocs-mockmvc")
 
     // JDBC Drivers
     runtime("mysql:mysql-connector-java")
@@ -33,17 +28,6 @@ dependencies {
 
     // SpringFox
     runtimeOnly("io.springfox:springfox-swagger-ui:$springfoxVersion")
-
-    // Junit 5
-    testCompile("org.junit.platform:junit-platform-launcher:1.1.0")
-    testRuntimeOnly("org.junit.platform:junit-platform-engine:1.1.0")
-    testImplementation("org.junit.jupiter:junit-jupiter-api")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.1.0") {
-        exclude group: 'org.junit.jupiter', module: 'junit-jupiter-api'
-    }
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine") {
-        exclude group: 'org.junit.jupiter', module: 'junit-jupiter-api'
-    }
 
 }
 

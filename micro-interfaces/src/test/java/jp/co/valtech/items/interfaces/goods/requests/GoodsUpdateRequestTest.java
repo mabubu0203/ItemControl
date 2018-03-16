@@ -13,13 +13,13 @@ import javax.validation.ConstraintViolation;
 import java.util.HashSet;
 import java.util.Set;
 
-@DisplayName("商品登録")
-class GoodsCreateRequestTest
+@DisplayName("商品更新")
+public class GoodsUpdateRequestTest
         extends AbstractRequestTest {
 
-    private GoodsCreateRequest request;
+    private GoodsUpdateRequest request;
 
-    private Set<ConstraintViolation<GoodsCreateRequest>> violationSet;
+    private Set<ConstraintViolation<GoodsUpdateRequest>> violationSet;
 
     @BeforeEach
     @Override
@@ -27,14 +27,15 @@ class GoodsCreateRequestTest
 
         super.before();
 
-        request = new GoodsCreateRequest();
+        request = new GoodsUpdateRequest();
         GoodsReq goodsReq = new GoodsReq();
-        goodsReq.setGoodsCode("AAAAA");
+        goodsReq.setGoodsCode("ACCCA");
         goodsReq.setCategoryCode("CODEC1");
         goodsReq.setName("aaa");
         goodsReq.setPrice(1);
         goodsReq.setNote("aaa");
         request.setGoods(goodsReq);
+        request.setVersion(0);
 
     }
 
