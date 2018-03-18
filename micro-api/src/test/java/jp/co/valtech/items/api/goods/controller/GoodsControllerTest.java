@@ -188,7 +188,7 @@ class GoodsControllerTest {
         @FlywayTest
         @Test
         void DeleteSuccess() throws Exception {
-            String id = "4";
+            String id = "5";
             Integer version = 0;
             ResponseEntity<Void> entity = delete(id, version);
             Assertions.assertEquals(entity.getStatusCode(), HttpStatus.NO_CONTENT);
