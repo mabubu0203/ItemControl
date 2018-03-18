@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @ComponentScan
-@EntityScan("jp.co.valtech.items.rdb.domain")
-@EnableJpaRepositories("jp.co.valtech.items.rdb.repository")
-@EnableTransactionManagement
+@EntityScan(basePackages = {"jp.co.valtech.items.rdb.domain"})
+@EnableJpaRepositories(basePackages = {"jp.co.valtech.items.rdb.repository"})
+@EnableTransactionManagement(proxyTargetClass = true)
 public class RdbCore {
 }

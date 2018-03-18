@@ -25,9 +25,11 @@ public class CategoryFindHelper {
     private final CategoryService cService;
 
     /**
+     * カテゴリーを1件取得します。
+     *
      * @param id カテゴリーの識別key
      * @return ResponseEntity
-     * @throws NotFoundException 　カテゴリーが取得できない時
+     * @throws NotFoundException カテゴリーが取得できない時
      * @author uratamanabu
      * @since 1.0
      */

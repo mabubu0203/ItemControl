@@ -36,7 +36,9 @@ public class CategorySearchHelper {
     private final EntityManager entityManager;
 
     /**
-     * @param request 　Request
+     * 商品を検索取得します。
+     *
+     * @param request PostのRequestBody
      * @return ResponseEntity
      * @author uratamanabu
      * @since 1.0

@@ -34,6 +34,8 @@ public class CategoryGetHelper {
     private final EntityManager entityManager;
 
     /**
+     * カテゴリーを全件取得します。
+     *
      * @return ResponseEntity
      * @author uratamanabu
      * @since 1.0

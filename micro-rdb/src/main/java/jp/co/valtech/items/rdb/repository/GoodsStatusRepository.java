@@ -23,6 +23,8 @@ public interface GoodsStatusRepository
         extends JpaRepository<GoodsStatusTbl, Long> {
 
     /**
+     * 商品IDから商品を１件取得します。
+     *
      * @param goodsId 商品ID
      * @return Optional
      */

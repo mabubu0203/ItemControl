@@ -23,6 +23,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+/**
+ * @author uratamanabu
+ * @version 1.0
+ * @since 1.0
+ */
 public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
 
     @PersistenceContext

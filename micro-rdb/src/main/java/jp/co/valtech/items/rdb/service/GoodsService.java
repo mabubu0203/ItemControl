@@ -6,7 +6,6 @@ import jp.co.valtech.items.rdb.service.conditions.GoodsConditionBean;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.NoResultException;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -47,7 +46,7 @@ public interface GoodsService {
      * @author uratamanabu
      * @since 1.0
      */
-    GoodsTbl findById(final Long id) throws NoResultException;
+    GoodsTbl findById(final Long id);
 
     /**
      * 商品を全件抽出します。

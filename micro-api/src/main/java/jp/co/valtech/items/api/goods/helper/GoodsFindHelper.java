@@ -25,9 +25,11 @@ public class GoodsFindHelper {
     private final GoodsService gService;
 
     /**
+     * 商品を1件取得します。
+     *
      * @param id 商品の識別key
      * @return ResponseEntity
-     * @throws NotFoundException 商品が取得できない時
+     * @throws NotFoundException 商品が取得できない場合
      * @author uratamanabu
      * @since 1.0
      */

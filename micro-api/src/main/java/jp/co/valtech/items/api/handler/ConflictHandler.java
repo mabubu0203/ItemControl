@@ -19,7 +19,10 @@ import java.util.List;
 public class ConflictHandler {
 
     /**
+     * 重複エラー発生時、409を返却します。
+     *
      * @param ex
+     * @return ResponseEntity
      * @author uratamanabu
      * @since 1.0
      */

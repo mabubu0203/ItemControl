@@ -10,7 +10,6 @@ import jp.co.valtech.items.rdb.service.conditions.GoodsConditionBean;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.NoResultException;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -45,7 +44,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public GoodsTbl findById(final Long id) throws NoResultException {
+    public GoodsTbl findById(final Long id) {
         return master.findByIdJoinStatus(id);
     }
 

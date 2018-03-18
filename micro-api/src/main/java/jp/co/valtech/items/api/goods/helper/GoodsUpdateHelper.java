@@ -31,8 +31,10 @@ public class GoodsUpdateHelper {
     private final GoodsService gService;
 
     /**
+     * 商品を1件更新します。
+     *
      * @param id      商品の識別key
-     * @param request Request
+     * @param request PutのRequestBody
      * @return ResponseEntity
      * @throws ConflictException 更新先商品コードにおいて、重複エラー発生時
      * @throws NotFoundException カテゴリーコードが存在しない場合

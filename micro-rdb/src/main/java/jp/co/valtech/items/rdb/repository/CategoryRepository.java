@@ -24,6 +24,8 @@ public interface CategoryRepository
         extends JpaRepository<CategoryTbl, Long>, CategoryRepositoryCustom {
 
     /**
+     * カテゴリーコードからカテゴリーを１件取得します。
+     *
      * @param code カテゴリーコード
      * @return Optional
      */

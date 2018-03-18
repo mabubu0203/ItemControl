@@ -67,8 +67,8 @@ public class GoodsController {
      *
      * @param request PostのRequestBody
      * @return ResponseEntity
-     * @throws ConflictException
-     * @throws NotFoundException
+     * @throws ConflictException 商品コード重複時
+     * @throws NotFoundException カテゴリーコードが存在しない場合
      * @author uratamanabu
      * @since 1.0
      */
@@ -100,8 +100,8 @@ public class GoodsController {
      * @param id      商品の識別key
      * @param version 排他用
      * @return ResponseEntity
-     * @throws ConflictException
-     * @throws NotFoundException
+     * @throws ConflictException 楽観排他エラー
+     * @throws NotFoundException 商品が取得できない場合
      * @author uratamanabu
      * @since 1.0
      */
@@ -162,7 +162,7 @@ public class GoodsController {
      *
      * @param id 商品の識別key
      * @return ResponseEntity
-     * @throws NotFoundException
+     * @throws NotFoundException 商品が取得できない時
      * @author uratamanabu
      * @since 1.0
      */
@@ -224,8 +224,8 @@ public class GoodsController {
      * @param id      商品の識別key
      * @param request PutのRequestBody
      * @return ResponseEntity
-     * @throws ConflictException
-     * @throws NotFoundException
+     * @throws ConflictException 更新先商品コードにおいて、重複エラー発生時
+     * @throws NotFoundException カテゴリーコードが存在しない場合
      * @author uratamanabu
      * @since 1.0
      */

@@ -31,7 +31,9 @@ public class GoodsCreateHelper {
     private final GoodsService gService;
 
     /**
-     * @param request Request
+     * 商品を1件登録します。
+     *
+     * @param request PostのRequestBody
      * @return ResponseEntity
      * @throws ConflictException 商品コード重複時
      * @throws NotFoundException カテゴリーコードが存在しない場合

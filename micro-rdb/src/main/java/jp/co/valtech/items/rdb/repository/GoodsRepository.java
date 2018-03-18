@@ -24,6 +24,8 @@ public interface GoodsRepository
         extends JpaRepository<GoodsTbl, Long>, GoodsRepositoryCustom {
 
     /**
+     * 商品コードから商品を１件取得します。
+     *
      * @param code 商品コード
      * @return GoodsTbl
      */

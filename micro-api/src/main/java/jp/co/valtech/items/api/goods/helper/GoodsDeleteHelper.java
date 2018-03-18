@@ -24,6 +24,8 @@ public class GoodsDeleteHelper {
     private final GoodsService gService;
 
     /**
+     * 商品を1件削除します。
+     *
      * @param id      商品の識別key
      * @param version 排他用
      * @return ResponseEntity

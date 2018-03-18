@@ -19,7 +19,10 @@ import java.util.List;
 public class NotFoundHandler {
 
     /**
+     * 404エラーを返却します。
+     *
      * @param ex
+     * @return ResponseEntity
      * @author uratamanabu
      * @since 1.0
      */

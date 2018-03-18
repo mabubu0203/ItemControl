@@ -83,15 +83,19 @@ public class CategoryUtil {
         try {
             return service.findById(id);
         } catch (NoResultException e) {
-            log.info(e.toString());
+            log.info(e.getMessage());
             throw new NotFoundException("id", "IDが存在しません。");
         }
     }
 
     /**
+     * カテゴリーコードからカテゴリーを１件取得します。
+     * 取得できない時、NotFoundExceptionを発行します。
+     *
      * @param service      サービス
      * @param categoryCode カテゴリーコード
-     * @throws NotFoundException
+     * @return CategoryTbl
+     * @throws NotFoundException 存在しない時
      * @author uratamanabu
      * @since 1.0
      */

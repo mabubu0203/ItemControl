@@ -50,7 +50,11 @@ public class BadRequestHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
+     * 入力チェックバリデーションエラー発生時、
+     * エラー発生箇所と原因をレスポンスに設定します。
+     *
      * @param ex
+     * @return ResponseEntity
      * @author uratamanabu
      * @since 1.0
      */

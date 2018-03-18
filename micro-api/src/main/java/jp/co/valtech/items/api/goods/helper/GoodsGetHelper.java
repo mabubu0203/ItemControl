@@ -33,6 +33,8 @@ public class GoodsGetHelper {
     private final EntityManager entityManager;
 
     /**
+     * 商品を全件取得します。
+     *
      * @return ResponseEntity
      * @author uratamanabu
      * @since 1.0

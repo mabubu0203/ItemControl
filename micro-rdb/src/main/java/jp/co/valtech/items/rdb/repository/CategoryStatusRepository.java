@@ -4,7 +4,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import jp.co.valtech.items.rdb.domain.CategoryStatusTbl;
-import jp.co.valtech.items.rdb.domain.GoodsStatusTbl;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -22,10 +21,12 @@ public interface CategoryStatusRepository
         extends JpaRepository<CategoryStatusTbl, Long> {
 
     /**
+     * カテゴリーIDからカテゴリーを１件取得します。
+     *
      * @param categoryId カテゴリーID
-     * @return GoodsStatusTbl
+     * @return CategoryStatusTbl
      */
     @ApiOperation("find by categoryId")
-    GoodsStatusTbl findByCategoryId(@Param("categoryId") @ApiParam(value = "categoryId") final Long categoryId);
+    CategoryStatusTbl findByCategoryId(@Param("categoryId") @ApiParam(value = "categoryId") final Long categoryId);
 
 }

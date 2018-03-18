@@ -89,9 +89,9 @@ public class CategoryController {
     /**
      * カテゴリーを1件取得します。
      *
-     * @param id カテゴリーの識別キー
+     * @param id カテゴリーの識別key
      * @return ResponseEntity
-     * @throws NotFoundException
+     * @throws NotFoundException カテゴリーが取得できない時
      * @author uratamanabu
      * @since 1.0
      */

@@ -28,7 +28,9 @@ public class CategoryCreateHelper {
     private final ModelMapper modelMapper;
 
     /**
-     * @param request Request
+     * カテゴリーを1件登録します。
+     *
+     * @param request PostのRequestBody
      * @return ResponseEntity
      * @throws ConflictException カテゴリーコード重複時
      * @author uratamanabu

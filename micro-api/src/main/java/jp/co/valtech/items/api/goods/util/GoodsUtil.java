@@ -106,7 +106,7 @@ public class GoodsUtil {
         try {
             return service.findById(id);
         } catch (NoResultException e) {
-            log.info(e.toString());
+            log.info(e.getMessage());
             throw new NotFoundException("id", "IDが存在しません。");
         }
     }
