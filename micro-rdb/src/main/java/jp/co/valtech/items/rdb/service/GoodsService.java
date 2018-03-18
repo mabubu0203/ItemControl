@@ -47,7 +47,7 @@ public interface GoodsService {
      * @author uratamanabu
      * @since 1.0
      */
-    GoodsTbl findByIdJoinStatus(final Long id) throws NoResultException;
+    GoodsTbl findById(final Long id) throws NoResultException;
 
     /**
      * 商品を全件抽出します。
@@ -56,7 +56,7 @@ public interface GoodsService {
      * @author uratamanabu
      * @since 1.0
      */
-    Stream<GoodsTbl> getAllJoinStatus();
+    Stream<GoodsTbl> getAll();
 
     /**
      * 商品を１件挿入します。
@@ -76,7 +76,7 @@ public interface GoodsService {
      * @author uratamanabu
      * @since 1.0
      */
-    Stream<GoodsTbl> searchJoinStatus(final GoodsConditionBean condition);
+    Stream<GoodsTbl> search(final GoodsConditionBean condition);
 
     /**
      * @param masterEntity 商品

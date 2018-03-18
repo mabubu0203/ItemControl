@@ -8,7 +8,6 @@ import jp.co.valtech.items.rdb.domain.CategoryTbl;
 import jp.co.valtech.items.rdb.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,6 @@ import org.springframework.stereotype.Service;
 public class CategoryFindHelper {
 
     private final CategoryService cService;
-    private final ModelMapper modelMapper;
 
     /**
      * @param id カテゴリーの識別key

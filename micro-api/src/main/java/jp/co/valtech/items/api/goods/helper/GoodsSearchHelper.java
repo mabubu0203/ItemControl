@@ -50,7 +50,7 @@ public class GoodsSearchHelper {
         GoodsConditionBean conditionBean = modelMapper.map(condition, GoodsConditionBean.class);
         conditionBean.setCode(condition.getGoodsCode());
         List<GoodsRes> goodsList = new ArrayList<>();
-        try (Stream<GoodsTbl> stream = gService.searchJoinStatus(conditionBean)) {
+        try (Stream<GoodsTbl> stream = gService.search(conditionBean)) {
             stream.forEach(entity -> {
                 GoodsRes goodsRes = new GoodsRes();
                 GoodsUtil.entityToResponse(entity, goodsRes);

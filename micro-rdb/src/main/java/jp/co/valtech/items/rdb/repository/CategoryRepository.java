@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import jp.co.valtech.items.rdb.domain.CategoryTbl;
+import jp.co.valtech.items.rdb.repository.custom.CategoryRepositoryCustom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -20,7 +21,7 @@ import java.util.Optional;
 @Repository
 @RepositoryRestResource(path = "category")
 public interface CategoryRepository
-        extends JpaRepository<CategoryTbl, Long> {
+        extends JpaRepository<CategoryTbl, Long>, CategoryRepositoryCustom {
 
     /**
      * @param code カテゴリーコード

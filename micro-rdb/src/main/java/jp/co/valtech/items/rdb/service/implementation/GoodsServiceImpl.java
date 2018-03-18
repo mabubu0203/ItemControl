@@ -45,12 +45,12 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public GoodsTbl findByIdJoinStatus(final Long id) throws NoResultException {
+    public GoodsTbl findById(final Long id) throws NoResultException {
         return master.findByIdJoinStatus(id);
     }
 
     @Override
-    public Stream<GoodsTbl> getAllJoinStatus() {
+    public Stream<GoodsTbl> getAll() {
         return master.getAllJoinStatus();
     }
 
@@ -65,7 +65,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public Stream<GoodsTbl> searchJoinStatus(final GoodsConditionBean condition) {
+    public Stream<GoodsTbl> search(final GoodsConditionBean condition) {
         return master.searchJoinStatus(condition);
     }
 

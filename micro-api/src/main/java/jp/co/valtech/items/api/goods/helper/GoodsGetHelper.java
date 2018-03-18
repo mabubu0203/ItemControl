@@ -40,7 +40,7 @@ public class GoodsGetHelper {
     public ResponseEntity<GoodsGetResponse> execute() {
 
         List<GoodsRes> goodsList = new ArrayList<>();
-        try (Stream<GoodsTbl> stream = gService.getAllJoinStatus()) {
+        try (Stream<GoodsTbl> stream = gService.getAll()) {
             stream.forEach(entity -> {
                 GoodsRes goodsRes = new GoodsRes();
                 GoodsUtil.entityToResponse(entity, goodsRes);

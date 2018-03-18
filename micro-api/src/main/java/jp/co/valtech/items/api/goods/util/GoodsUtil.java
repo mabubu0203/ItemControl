@@ -104,7 +104,7 @@ public class GoodsUtil {
     ) throws NotFoundException {
 
         try {
-            return service.findByIdJoinStatus(id);
+            return service.findById(id);
         } catch (NoResultException e) {
             log.info(e.toString());
             throw new NotFoundException("id", "IDが存在しません。");

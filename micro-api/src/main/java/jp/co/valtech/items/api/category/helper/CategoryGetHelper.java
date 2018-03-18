@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -28,6 +30,9 @@ public class CategoryGetHelper {
     private final CategoryService cService;
     private final ModelMapper modelMapper;
 
+    @PersistenceContext
+    private final EntityManager entityManager;
+
     /**
      * @return ResponseEntity
      * @author uratamanabu
@@ -40,6 +45,7 @@ public class CategoryGetHelper {
             stream.forEach(entity -> {
                 CategoryRes categoryRes = modelMapper.map(entity, CategoryRes.class);
                 modelMapper.map(entity.getStatusTbl(), categoryRes);
+                entityManager.detach(entity);
                 categoryList.add(categoryRes);
             });
         }
