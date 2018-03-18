@@ -8,6 +8,7 @@ import jp.co.valtech.items.rdb.domain.GoodsStatusTbl;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author uratamanabu
@@ -15,6 +16,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  * @since 1.0
  */
 @Api(tags = "CategoryStatusTbl Entity")
+@Repository
 @RepositoryRestResource(path = "category")
 public interface CategoryStatusRepository
         extends JpaRepository<CategoryStatusTbl, Long> {

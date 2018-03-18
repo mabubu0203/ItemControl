@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -31,6 +33,9 @@ public class GoodsSearchHelper {
     private final GoodsService gService;
     private final ModelMapper modelMapper;
 
+    @PersistenceContext
+    private final EntityManager entityManager;
+
     /**
      * @param request 　Request
      * @return ResponseEntity
@@ -45,10 +50,11 @@ public class GoodsSearchHelper {
         GoodsConditionBean conditionBean = modelMapper.map(condition, GoodsConditionBean.class);
         conditionBean.setCode(condition.getGoodsCode());
         List<GoodsRes> goodsList = new ArrayList<>();
-        try (Stream<GoodsTbl> stream = gService.search(conditionBean)) {
+        try (Stream<GoodsTbl> stream = gService.searchJoinStatus(conditionBean)) {
             stream.forEach(entity -> {
                 GoodsRes goodsRes = new GoodsRes();
                 GoodsUtil.entityToResponse(entity, goodsRes);
+                entityManager.detach(entity);
                 goodsList.add(goodsRes);
             });
         }
