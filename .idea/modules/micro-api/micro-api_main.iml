@@ -25,6 +25,7 @@
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-web:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.flywaydb:flyway-core:5.0.7" level="project" />
     <orderEntry type="library" name="Gradle: javax.xml.bind:jaxb-api:2.3.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.micrometer:micrometer-registry-prometheus:1.0.2" level="project" />
     <orderEntry type="library" name="Gradle: org.modelmapper:modelmapper:1.1.2" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-actuator-autoconfigure:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: mysql:mysql-connector-java:5.1.45" level="project" />
@@ -76,6 +77,7 @@
     <orderEntry type="library" name="Gradle: io.swagger:swagger-annotations:1.5.14" level="project" />
     <orderEntry type="library" name="Gradle: org.mapstruct:mapstruct:1.2.0.Final" level="project" />
     <orderEntry type="library" name="Gradle: io.micrometer:micrometer-core:1.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.prometheus:simpleclient_common:0.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-jcl:5.0.4.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.4" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.module:jackson-module-parameter-names:2.9.4" level="project" />
@@ -93,6 +95,7 @@
     <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-websocket:8.5.28" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-core:8.5.28" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-el:8.5.28" level="project" />
+    <orderEntry type="library" name="Gradle: io.prometheus:simpleclient:0.2.0" level="project" />
     <orderEntry type="library" name="Gradle: ch.qos.logback:logback-core:1.2.3" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-api:2.10.0" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.4" level="project" />
