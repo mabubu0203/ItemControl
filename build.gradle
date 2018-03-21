@@ -209,6 +209,7 @@ project(':micro-api') {
     ext.moduleName = 'jp.co.valtech.items.api'
     dependencies {
         compile project(':micro-common'), project(':micro-interfaces'), project(':micro-rdb')
+        testCompile project(':micro-test')
     }
 }
 
@@ -219,7 +220,7 @@ project(':micro-common') {
 project(':micro-interfaces') {
     ext.moduleName = 'jp.co.valtech.items.interfaces'
     dependencies {
-        compile project(':micro-test')
+        testCompile project(':micro-test')
     }
 }
 
@@ -227,6 +228,7 @@ project(':micro-rdb') {
     ext.moduleName = 'jp.co.valtech.items.rdb'
     dependencies {
         compile project(':micro-common'), project(':micro-interfaces')
+        testCompile project(':micro-test')
     }
 }
 project(':micro-test') {
