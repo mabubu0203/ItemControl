@@ -12,26 +12,29 @@ ItemControl
     `$ docker-compose -f docker-compose.yml up -d`  
 3. GradleタスクよりbootRun(`:micro-api -> Tasks -> application -> bootRun`)
 
-## 終了方法
+## 停止方法
 
 1. bootRunの停止  
 2. docker-composeより停止  
     `$ cd docker`  
     `$ docker-compose -f docker-compose.yml stop`
     
-## Project
+## 構成
 
-Gradle のマルチプロジェクト構成をとっています。
+Gradleのマルチプロジェクト構成をとっています。
 
 ```
-ItemControl
+ItemControl                           … rootプロジェクト
 - config                              … build.gradleから使用するTool群の設定ファイル格納フォルダ
 - docker                              … docker-compose格納フォルダ
-- - docker-compose.yaml               … mysql起動ファイル
-- micro-api                           … RestApi起動プロジェクト
+- - grafana                           … 
+- - mysql                             … 
+- - prometheus                        … 
+- - docker-compose.yaml               … dockerコンテナ起動ファイル
+- micro-api                           … RestApiプロジェクト
 - micro-common                        … 共通ライブラリプロジェクト
 - micro-interfaces                    … RestApiのI/Oを定義したプロジェクト
-- micro-rdb                           … Databaseアクセスプロジェクト
+- micro-rdb                           … RDBアクセスプロジェクト
 - micro-test                          … Testツールを格納したプロジェクト
 - build.gradle                        … Gradle プロジェクト定義
 - settings.gradle                     … Gradle プロジェクト設定
@@ -43,17 +46,22 @@ ItemControl
 [Prometheus][]  
 [ItemControl][]  
 
-## Middleware
+## 環境
+
+### Middleware
 
 | name              | version
 | :---------------- | :-------
 | OracleJdk         | 1.9
 | DockerCompose     | 1.18
-| MySql             | 5.7.x
+| MySql             | 5.7.21
 | Gradle            | 4.6 
 | SonarQube         | 7.0
+| Grafana           | 5.x
+| Prometheus        | 2.x
 
-## Library
+
+### Library
 
 | name               | version
 | :----------------- | :------
@@ -62,7 +70,6 @@ ItemControl
 | SpringFox          | 2.x
 | Lombok             | 1.x
 
-## End
 [Grafana]: http://localhost:3000        "Grafana"
 [Prometheus]: http://localhost:9090     "Prometheus"
 [ItemControl]: http://localhost:8085/swagger-ui.html     "ItemControl"
