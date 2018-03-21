@@ -27,7 +27,7 @@ spring:
     enabled: true
     encoding: UTF-8
     locations: classpath:db/migration/mysql
-    #password:
+    password: root
     sql-migration-prefix: M
     sql-migration-suffix: .sql
     url: jdbc:mysql://localhost:3306/ITEMS?useSSL=false
@@ -50,7 +50,7 @@ spring:
     driverClassName: com.mysql.jdbc.Driver
     generate-unique-name: false
     jmx-enabled: true
-    #password:
+    password: root
     sql-script-encoding: UTF-8
     url: jdbc:mysql://localhost:3306/ITEMS?useSSL=false
     username: root
@@ -173,7 +173,7 @@ management:
     metrics:
       enabled: true
     prometheus:
-      enabled: false
+      enabled: true
     scheduledtasks:
       enabled: false
     sessions:
@@ -189,7 +189,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: auditevents,beans,conditions,configprops,env,flyway,health,heapdump,info,jolokia,logfile,loggers,mappings,metrics,web
+        include: auditevents,beans,conditions,configprops,env,flyway,health,heapdump,info,jolokia,logfile,loggers,mappings,metrics,prometheus,web
   health:
     db:
       enabled: true

@@ -1,0 +1,12 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+  external_labels:
+      monitor: 'spring-boot'
+
+scrape_configs:
+  - job_name: 'spring-boot'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:8085']
+    metrics_path: /actuator/prometheus

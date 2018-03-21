@@ -1,0 +1,48 @@
+version: '3.5'
+
+volumes:
+    prometheus_data: {}
+    grafana_data: {}
+
+services:
+
+  mysql:
+    image: mysql:5.7.21
+    container_name: mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql:/etc/mysql
+      - ./mysql/docker-entrypoint-initdb.d:/etc/mysql/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_DATABASE: ITEMS
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: root
+    command: mysqld --lower_case_table_names=1 --skip-ssl
+    restart: always
+
+  prometheus:
+    image: prom/prometheus:v2.2.1
+    container_name: prometheus
+    ports:
+          - 9090:9090
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    restart: always
+
+  grafana:
+    image: grafana/grafana:5.0.3
+    container_name: grafana
+    depends_on:
+      - prometheus
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana/:/etc/grafana/
+      - grafana_data:/grafana
+    env_file:
+      - grafana/config.monitoring
+    restart: always
