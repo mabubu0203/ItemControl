@@ -7,16 +7,16 @@ ItemControl
 
 1. 当プロジェクトをIntelliJ IDEAにGradleProjectとしてclone  
 2. docker-composeよりmysqlを起動  
-    `$ cd docker`
-    `$ docker-compose -f docker-compose.yml build`
-    `$ docker-compose -f docker-compose.yml up -d`
-3. GradleタスクよりbootRun(`:micro-api -> Tasks -> application -> bootRun`)  
+    `$ cd docker`  
+    `$ docker-compose -f docker-compose.yml build`  
+    `$ docker-compose -f docker-compose.yml up -d`  
+3. GradleタスクよりbootRun(`:micro-api -> Tasks -> application -> bootRun`)
 
 ## 終了方法
 
 1. bootRunの停止  
 2. docker-composeより停止  
-    `$ cd docker`
+    `$ cd docker`  
     `$ docker-compose -f docker-compose.yml stop`
     
 ## Project
