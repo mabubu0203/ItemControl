@@ -25,6 +25,8 @@
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-test:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.restdocs:spring-restdocs-mockmvc:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.platform:junit-platform-launcher:1.1.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.flywaydb.flyway-test-extensions:flyway-spring-test:5.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: javax.xml.bind:jaxb-api:2.3.0" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.1.0" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-params:5.1.0" level="project" />
     <orderEntry type="library" name="Gradle: org.modelmapper:modelmapper:1.1.2" level="project" />
@@ -33,6 +35,7 @@
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-autoconfigure:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-test:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot:2.0.0.RELEASE" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.h2database:h2:1.4.196" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-logging:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-web:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-tomcat:2.0.0.RELEASE" level="project" />
@@ -51,14 +54,14 @@
     <orderEntry type="library" name="Gradle: org.springframework.plugin:spring-plugin-metadata:1.2.0.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-context:5.0.4.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-jdbc:2.0.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-orm:5.0.4.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-jdbc:5.0.4.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-json:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.restdocs:spring-restdocs-core:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-web:5.0.4.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-aop:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-aop:5.0.4.RELEASE" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-jdbc:2.0.0.RELEASE" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework:spring-orm:5.0.4.RELEASE" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework:spring-jdbc:5.0.4.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.data:spring-data-commons:2.0.5.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-tx:5.0.4.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-beans:5.0.4.RELEASE" level="project" />
@@ -92,6 +95,8 @@
     <orderEntry type="library" name="Gradle: org.junit.platform:junit-platform-commons:1.1.0" level="project" />
     <orderEntry type="library" name="Gradle: org.apiguardian:apiguardian-api:1.0.0" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.commons:commons-lang3:3.7" level="project" />
+    <orderEntry type="library" name="Gradle: org.flywaydb:flyway-core:5.0.7" level="project" />
+    <orderEntry type="library" name="Gradle: commons-dbcp:commons-dbcp:1.4" level="project" />
     <orderEntry type="library" name="Gradle: org.opentest4j:opentest4j:1.0.0" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-jcl:5.0.4.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.4" level="project" />
@@ -113,6 +118,7 @@
     <orderEntry type="library" name="Gradle: net.bytebuddy:byte-buddy-agent:1.7.10" level="project" />
     <orderEntry type="library" name="Gradle: org.objenesis:objenesis:2.6" level="project" />
     <orderEntry type="library" name="Gradle: com.vaadin.external.google:android-json:0.0.20131108.vaadin1" level="project" />
+    <orderEntry type="library" name="Gradle: commons-pool:commons-pool:1.6" level="project" />
     <orderEntry type="library" name="Gradle: ch.qos.logback:logback-core:1.2.3" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-api:2.10.0" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.4" level="project" />

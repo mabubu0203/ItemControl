@@ -4,6 +4,12 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-jpa") {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
     }
+    testRuntimeOnly("com.h2database:h2")
+    // Flyway
+    testCompile("org.flywaydb.flyway-test-extensions:flyway-spring-test:5.0.0")
+
+    // required jaxb
+    testCompile("javax.xml.bind:jaxb-api")
 
 }
 
@@ -13,3 +19,9 @@ jar {
     enabled = true
 }
 
+test {
+    useJUnitPlatform {
+        includeEngines 'junit-jupiter'
+    }
+    failFast = true
+}
