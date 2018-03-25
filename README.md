@@ -30,6 +30,7 @@ ItemControl                           … rootプロジェクト
 - - grafana                           … 
 - - mysql                             … 
 - - prometheus                        … 
+- - sonarqube                         … 
 - - docker-compose.yaml               … dockerコンテナ起動ファイル
 - micro-api                           … RestApiプロジェクト
 - micro-common                        … 共通ライブラリプロジェクト
@@ -44,6 +45,7 @@ ItemControl                           … rootプロジェクト
 
 [Grafana][]  
 [Prometheus][]  
+[SonarQube][]  
 [ItemControl][]  
 
 ## 環境
@@ -70,6 +72,7 @@ ItemControl                           … rootプロジェクト
 | SpringFox          | 2.x
 | Lombok             | 1.x
 
-[Grafana]: http://localhost:3000        "Grafana"
-[Prometheus]: http://localhost:9090     "Prometheus"
+[Grafana]: http://localhost:3000/      "Grafana"
 [ItemControl]: http://localhost:8085/swagger-ui.html     "ItemControl"
+[SonarQube]: http://localhost:9000/sonarqube/     "SonarQube"
+[Prometheus]: http://localhost:9090/     "Prometheus"

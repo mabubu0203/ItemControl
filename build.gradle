@@ -194,9 +194,12 @@ idea {
 sonarqube {
     properties {
         property "sonar.github.repository", "mabubu0203/ItemControl"
-        property "sonar.host.url", "http://localhost:9000/"
+        property "sonar.host.url", "http://localhost:9000/sonarqube"
         property "sonar.jacoco.reportPaths", { "${project.buildDir}/jacoco/test.exec" }
         property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
+        property "sonar.jdbc.password", "sonar"
+        property "sonar.jdbc.url", "jdbc:mysql://localhost:3306/sonar?useUnicode=true&characterEncoding=utf8"
+        property "sonar.jdbc.username", "sonar"
         property "sonar.junit.reportsPaths", { "${project.buildDir}/test-results" }
         property "sonar.language", "java"
         property "sonar.links.issue", "https://github.com/mabubu0203/ItemControl/issues"

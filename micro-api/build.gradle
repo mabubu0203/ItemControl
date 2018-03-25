@@ -39,7 +39,7 @@ flyway {
     driver = 'com.mysql.jdbc.Driver'
     user = 'root'
     password = 'root'
-    url = 'jdbc:mysql://localhost:3306/ITEMS?useSSL=false'
+    url = 'jdbc:mysql://localhost:3306/items?useSSL=false'
     sqlMigrationPrefix = 'M'
 }
 

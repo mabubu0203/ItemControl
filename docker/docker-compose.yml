@@ -1,9 +1,5 @@
 version: '3.5'
 
-volumes:
-    prometheus_data: {}
-    grafana_data: {}
-
 services:
 
   mysql:
@@ -12,20 +8,19 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./mysql:/etc/mysql
-      - ./mysql/docker-entrypoint-initdb.d:/etc/mysql/docker-entrypoint-initdb.d
+      - ./mysql/init:/docker-entrypoint-initdb.d
+      - ./mysql/conf/:/etc/mysql/conf.d
+    networks:
+      - sonarnet
     environment:
-      MYSQL_DATABASE: ITEMS
-      MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: root
-    command: mysqld --lower_case_table_names=1 --skip-ssl
     restart: always
 
   prometheus:
     image: prom/prometheus:v2.2.1
     container_name: prometheus
     ports:
-          - 9090:9090
+      - 9090:9090
     volumes:
       - ./prometheus/:/etc/prometheus/
       - prometheus_data:/prometheus
@@ -46,3 +41,36 @@ services:
     env_file:
       - grafana/config.monitoring
     restart: always
+
+  sonarqube:
+    image: sonarqube:7.0
+    container_name: sonarqube
+    depends_on:
+      - mysql
+    volumes:
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+    networks:
+      - sonarnet
+    command: -Dsonar.web.context=/sonarqube
+    ports:
+      - 9000:9000
+      - 9092:9092
+    environment:
+      - SONAR_JDBC_USERNAME=sonar
+      - SONAR_JDBC_PASSWORD=sonar
+      - SONAR_JDBC_URL=jdbc:mysql://localhost:3306/sonar?useUnicode=true&characterEncoding=utf8
+    restart: always
+
+networks:
+  sonarnet:
+    driver: bridge
+volumes:
+  prometheus_data:
+  grafana_data:
+  sonarqube_conf:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_bundled-plugins:
