@@ -1,10 +1,10 @@
 package jp.co.valtech.items.rdb.domain;
 
 import io.swagger.annotations.ApiModel;
-import jp.co.valtech.items.interfaces.validator.constraint.CategoryCodeField;
-import jp.co.valtech.items.interfaces.validator.constraint.CategoryNameField;
-import jp.co.valtech.items.interfaces.validator.constraint.CategoryNoteField;
 import jp.co.valtech.items.rdb.domain.common.AbstractMasterEntity;
+import jp.co.valtech.items.validator.constraints.CategoryCodeField;
+import jp.co.valtech.items.validator.constraints.CategoryNameField;
+import jp.co.valtech.items.validator.constraints.CategoryNoteField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

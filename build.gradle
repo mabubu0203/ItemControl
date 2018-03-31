@@ -1,17 +1,20 @@
 buildscript {
     ext {
-        // ソースと実行ファイルのJava バージョン
+        // ソースと実行ファイルのJavaバージョン
         jdkVersion = jdkVersion
         defaultEncoding = defaultEncoding
 
         // SpringBoot
         springBootVersion = springbootVersion
 
-        // springfox
+        // SpringFox
         springfoxVersion = springfoxVersion
 
-        // Others
+        // ModelMapper
         modelmapperVersion = modelmapperVersion
+        // jUnit5
+        jupiterVersion = jupiterVersion
+        platformVersion = platformVersion
 
     }
 
@@ -52,47 +55,6 @@ allprojects {
         toolVersion = '8.8'
         configFile = rootProject.file('config/checkstyle/google_checks.xml')
         showViolations = true
-    }
-
-    dependencies {
-
-        // modelmapper
-        compile("org.modelmapper.extensions:modelmapper-spring:${modelmapperVersion}")
-        // lombok
-        compile("org.projectlombok:lombok")
-
-        // SpringBoot projects
-        compile("org.springframework.boot:spring-boot-starter")
-        compile('org.springframework.boot:spring-boot-starter-data-rest') {
-            exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
-        }
-        testCompile("org.springframework.boot:spring-boot-starter-test") {
-            exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
-            exclude group: 'junit', module: 'junit'
-        }
-
-        compile("org.springframework.boot:spring-boot-starter-validation") {
-            exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
-            exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-el'
-        }
-
-        testCompile("org.springframework.restdocs:spring-restdocs-mockmvc")
-
-        // SpringFox
-        compile("io.springfox:springfox-bean-validators:$springfoxVersion")
-        compile("io.springfox:springfox-data-rest:$springfoxVersion")
-        compile("io.springfox:springfox-swagger2:$springfoxVersion")
-
-        // Junit 5
-        testCompile("org.junit.platform:junit-platform-launcher:1.1.0")
-        testRuntimeOnly("org.junit.platform:junit-platform-engine:1.1.0")
-        testImplementation("org.junit.jupiter:junit-jupiter-api")
-        testImplementation("org.junit.jupiter:junit-jupiter-params:5.1.0") {
-            exclude group: 'org.junit.jupiter', module: 'junit-jupiter-api'
-        }
-        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine") {
-            exclude group: 'org.junit.jupiter', module: 'junit-jupiter-api'
-        }
     }
 
     jacoco {
@@ -211,7 +173,7 @@ sonarqube {
 project(':micro-api') {
     ext.moduleName = 'jp.co.valtech.items.api'
     dependencies {
-        compile project(':micro-common'), project(':micro-interfaces'), project(':micro-rdb')
+        compile project(':micro-common'), project(':micro-interfaces'), project(':micro-rdb'), project(':micro-validator')
         testCompile project(':micro-test')
     }
 }
@@ -223,6 +185,7 @@ project(':micro-common') {
 project(':micro-interfaces') {
     ext.moduleName = 'jp.co.valtech.items.interfaces'
     dependencies {
+        compile project(':micro-validator')
         testCompile project(':micro-test')
     }
 }
@@ -230,12 +193,17 @@ project(':micro-interfaces') {
 project(':micro-rdb') {
     ext.moduleName = 'jp.co.valtech.items.rdb'
     dependencies {
-        compile project(':micro-common'), project(':micro-interfaces')
+        compile project(':micro-common'), project(':micro-validator')
         testCompile project(':micro-test')
     }
 }
+
 project(':micro-test') {
     ext.moduleName = 'jp.co.valtech.items.test'
+}
+
+project(':micro-validator') {
+    ext.moduleName = 'jp.co.valtech.items.validator'
 }
 
 task wrapper(type: Wrapper) {

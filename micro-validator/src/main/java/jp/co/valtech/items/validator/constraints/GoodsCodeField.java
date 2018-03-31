@@ -1,4 +1,4 @@
-package jp.co.valtech.items.interfaces.validator.constraint;
+package jp.co.valtech.items.validator.constraints;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -24,9 +24,9 @@ import java.lang.annotation.Target;
 @ReportAsSingleViolation
 @Length(min = 1, max = 10)
 @Pattern(regexp = "[a-zA-Z0-9]+")
-public @interface CategoryCodeField {
+public @interface GoodsCodeField {
 
-    String message() default "CategoryCode is invalid";
+    String message() default "GoodsCode is invalid";
 
     Class<?>[] groups() default {};
 

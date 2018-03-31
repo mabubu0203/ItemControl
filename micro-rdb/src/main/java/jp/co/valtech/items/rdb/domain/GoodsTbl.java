@@ -1,11 +1,11 @@
 package jp.co.valtech.items.rdb.domain;
 
 import io.swagger.annotations.ApiModel;
-import jp.co.valtech.items.interfaces.validator.constraint.GoodsCodeField;
-import jp.co.valtech.items.interfaces.validator.constraint.GoodsNameField;
-import jp.co.valtech.items.interfaces.validator.constraint.GoodsNoteField;
-import jp.co.valtech.items.interfaces.validator.constraint.PriceField;
 import jp.co.valtech.items.rdb.domain.common.AbstractMasterEntity;
+import jp.co.valtech.items.validator.constraints.GoodsCodeField;
+import jp.co.valtech.items.validator.constraints.GoodsNameField;
+import jp.co.valtech.items.validator.constraints.GoodsNoteField;
+import jp.co.valtech.items.validator.constraints.PriceField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

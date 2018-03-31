@@ -1,6 +1,6 @@
-package jp.co.valtech.items.interfaces.validator.constraint;
+package jp.co.valtech.items.validator.constraints;
 
-import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -21,13 +21,11 @@ import java.lang.annotation.Target;
 @Documented
 @Constraint(validatedBy = {})
 @ReportAsSingleViolation
-@Length(min = 1, max = 64)
-public @interface GoodsNoteField {
-
-    String message() default "GoodsNote is invalid";
+@Range(min = 0, max = 9999)
+public @interface PriceField {
+    String message() default "Price is invalid";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
-
 }

@@ -1,4 +1,4 @@
-package jp.co.valtech.items.interfaces.validator.constraint;
+package jp.co.valtech.items.validator.constraints;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -21,10 +21,10 @@ import java.lang.annotation.Target;
 @Documented
 @Constraint(validatedBy = {})
 @ReportAsSingleViolation
-@Length(min = 1, max = 64)
-public @interface CategoryNoteField {
+@Length(min = 1, max = 25)
+public @interface GoodsNameField {
 
-    String message() default "CategoryNote is invalid";
+    String message() default "GoodsName is invalid";
 
     Class<?>[] groups() default {};
 

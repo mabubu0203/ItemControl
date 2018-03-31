@@ -9,11 +9,37 @@ bootJar {
 dependencies {
 
     // SpringBoot projects
+    compile("org.springframework.boot:spring-boot-starter") {
+        exclude group: 'org.springframework', module: 'spring-core'
+    }
     compile("org.springframework.boot:spring-boot-starter-actuator") {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
     }
-    compile("org.springframework.boot:spring-boot-starter-web") {
+    compile('org.springframework.boot:spring-boot-starter-data-rest') {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
+    }
+
+    // ModelMapper
+    compile("org.modelmapper.extensions:modelmapper-spring:${modelmapperVersion}")
+    // lombok
+    compile("org.projectlombok:lombok")
+
+    // Test
+    testCompile("org.springframework.boot:spring-boot-starter-test") {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
+        exclude group: 'junit', module: 'junit'
+    }
+    testCompile("org.springframework.restdocs:spring-restdocs-mockmvc")
+
+    // Junit 5
+    testCompile("org.junit.platform:junit-platform-launcher:${platformVersion}")
+    testRuntimeOnly("org.junit.platform:junit-platform-engine:${platformVersion}")
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:${jupiterVersion}") {
+        exclude group: 'org.junit.jupiter', module: 'junit-jupiter-api'
+    }
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine") {
+        exclude group: 'org.junit.jupiter', module: 'junit-jupiter-api'
     }
 
     // JDBC Drivers

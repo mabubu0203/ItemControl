@@ -6,16 +6,10 @@ dependencies {
         exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-el'
     }
 
-    // lombok
-    compile("org.projectlombok:lombok")
-
-    // Apache Commons
-    compile("org.apache.commons:commons-lang3")
-
 }
 
 jar {
-    baseName = 'micro-test'
+    baseName = 'micro-validators'
     version = '1.0'
     enabled = true
 }

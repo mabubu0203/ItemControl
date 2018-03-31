@@ -4,6 +4,7 @@ include(
         'micro-common',
         'micro-interfaces',
         'micro-rdb',
-        'micro-test'
+        'micro-test',
+        'micro-validator'
 )
 
