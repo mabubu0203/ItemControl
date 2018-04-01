@@ -1,0 +1,14 @@
+allprojects {
+    apply plugin: "pmd"
+}
+
+pmd {
+    toolVersion = "6.1.0"
+    ignoreFailures = true
+    consoleOutput = true
+    ruleSetFiles = rootProject.files({ "/config/pmd/all-java.xml" })
+    ruleSets = [
+            'java-braces',
+            'java-codesize',
+    ]
+}

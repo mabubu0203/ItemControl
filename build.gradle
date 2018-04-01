@@ -12,6 +12,7 @@ buildscript {
 
         // ModelMapper
         modelmapperVersion = modelmapperVersion
+
         // jUnit5
         jupiterVersion = jupiterVersion
         platformVersion = platformVersion
@@ -32,20 +33,33 @@ plugins {
     id "org.sonarqube" version "2.6.2"
 }
 
+apply from: "$rootDir/gradle/code-quality.gradle"
+apply from: "$rootDir/gradle/ide.gradle"
+
+sonarqube {
+    properties {
+        property "sonar.github.repository", "mabubu0203/ItemControl"
+        property "sonar.host.url", "http://localhost:9000/sonarqube"
+        property "sonar.jacoco.reportPaths", { "${project.buildDir}/jacoco/test.exec" }
+        property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
+        property "sonar.jdbc.password", "sonar"
+        property "sonar.jdbc.url", "jdbc:mysql://localhost:3306/sonar?useUnicode=true&characterEncoding=utf8"
+        property "sonar.jdbc.username", "sonar"
+        property "sonar.junit.reportsPaths", { "${project.buildDir}/test-results" }
+        property "sonar.language", "java"
+        property "sonar.links.issue", "https://github.com/mabubu0203/ItemControl/issues"
+        property "sonar.links.scm", "https://github.com/mabubu0203/ItemControl"
+        property "sonar.scm.provider", "git"
+    }
+}
+
 allprojects {
 
-    apply plugin: 'application'
     apply plugin: 'checkstyle'
     apply plugin: 'com.github.ben-manes.versions'
     apply plugin: 'com.github.hierynomus.license'
-    apply plugin: 'com.github.spotbugs'
-    apply plugin: 'idea'
-    apply plugin: 'io.spring.dependency-management'
     apply plugin: 'jacoco'
     apply plugin: 'java'
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'pmd'
-    apply plugin: 'war'
 
     repositories {
         jcenter()
@@ -55,29 +69,6 @@ allprojects {
         toolVersion = '8.8'
         configFile = rootProject.file('config/checkstyle/google_checks.xml')
         showViolations = true
-    }
-
-    jacoco {
-        toolVersion = "0.8.1"
-        reportsDir = file("$buildDir/customJacocoReportDir")
-    }
-
-    javadoc {
-        options {
-            addStringOption("-add-modules", "java.xml.bind,java.xml.ws.annotation")
-            author = true
-            charSet = defaultEncoding
-            docEncoding = defaultEncoding
-            encoding = defaultEncoding
-            links(
-                    "https://docs.oracle.com/javase/9/docs/api/",
-                    "https://docs.spring.io/spring-boot/docs/current/api/"
-            )
-            linkSource = true
-            noHelp = true
-            setMemberLevel(JavadocMemberLevel.PUBLIC)
-            setNoQualifiers(["all"])
-        }
     }
 
     license {
@@ -96,23 +87,34 @@ allprojects {
         licenseTest.enabled = false
     }
 
-    pmd {
-        toolVersion = "6.1.0"
-        ignoreFailures = true
-        consoleOutput = true
-        ruleSetFiles = rootProject.files({ "/config/pmd/all-java.xml" })
-        ruleSets = [
-                'java-braces',
-                'java-codesize',
-        ]
+    jacoco {
+        toolVersion = "0.8.1"
+        reportsDir = file("$buildDir/customJacocoReportDir")
     }
 
-    spotbugs {
-        toolVersion = '3.1.2'
+    jacocoTestReport {
+        reports {
+            xml.enabled = true
+            html.enabled = true
+        }
     }
 
-    task('default') {
-        dependsOn 'clean', 'check'
+    javadoc {
+        options {
+            addStringOption("-add-modules", "java.xml.bind,java.xml.ws.annotation")
+            author = true
+            charSet = defaultEncoding
+            docEncoding = defaultEncoding
+            encoding = defaultEncoding
+            links(
+                    "https://docs.oracle.com/javase/9/docs/api/",
+                    "https://docs.spring.io/spring-boot/docs/current/api/"
+            )
+            linkSource = true
+            noHelp = true
+            setMemberLevel(JavadocMemberLevel.PUBLIC)
+            setNoQualifiers(["all"])
+        }
     }
 
     tasks.withType(Checkstyle) {
@@ -137,6 +139,29 @@ allprojects {
         }
     }
 
+}
+
+subprojects{
+
+    apply plugin: 'application'
+    apply plugin: 'com.github.spotbugs'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.springframework.boot'
+
+    apply plugin: 'war'
+
+    repositories {
+        jcenter()
+    }
+
+    spotbugs {
+        toolVersion = '3.1.2'
+    }
+
+    task('default') {
+        dependsOn 'clean', 'check'
+    }
+
     tasks.withType(com.github.spotbugs.SpotBugsTask) {
         reports {
             xml.enabled = false
@@ -144,30 +169,6 @@ allprojects {
         }
     }
 
-}
-
-idea {
-    project {
-        languageLevel = jdkVersion
-        vcs = "Git"
-    }
-}
-
-sonarqube {
-    properties {
-        property "sonar.github.repository", "mabubu0203/ItemControl"
-        property "sonar.host.url", "http://localhost:9000/sonarqube"
-        property "sonar.jacoco.reportPaths", { "${project.buildDir}/jacoco/test.exec" }
-        property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
-        property "sonar.jdbc.password", "sonar"
-        property "sonar.jdbc.url", "jdbc:mysql://localhost:3306/sonar?useUnicode=true&characterEncoding=utf8"
-        property "sonar.jdbc.username", "sonar"
-        property "sonar.junit.reportsPaths", { "${project.buildDir}/test-results" }
-        property "sonar.language", "java"
-        property "sonar.links.issue", "https://github.com/mabubu0203/ItemControl/issues"
-        property "sonar.links.scm", "https://github.com/mabubu0203/ItemControl"
-        property "sonar.scm.provider", "git"
-    }
 }
 
 project(':micro-api') {
