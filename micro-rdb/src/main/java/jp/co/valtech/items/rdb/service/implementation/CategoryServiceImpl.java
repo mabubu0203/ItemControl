@@ -37,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Stream<CategoryTbl> getAll() {
-        return master.getAllJoinStatusAll();
+        return master.getAllJoinStatus();
     }
 
     @Override

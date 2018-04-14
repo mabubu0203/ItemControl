@@ -47,7 +47,7 @@ public class CategoryRepositoryImpl implements CategoryRepositoryCustom {
     }
 
     @Override
-    public Stream<CategoryTbl> getAllJoinStatusAll() {
+    public Stream<CategoryTbl> getAllJoinStatus() {
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<CategoryTbl> query = builder.createQuery(CategoryTbl.class);

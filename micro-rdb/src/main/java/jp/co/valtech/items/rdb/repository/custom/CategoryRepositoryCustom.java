@@ -23,7 +23,7 @@ public interface CategoryRepositoryCustom {
     /**
      * @return Stream
      */
-    Stream<CategoryTbl> getAllJoinStatusAll();
+    Stream<CategoryTbl> getAllJoinStatus();
 
     /**
      * @return Stream
