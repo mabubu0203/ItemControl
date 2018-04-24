@@ -1,9 +1,9 @@
-version: '3.5'
+version: '3.6'
 
 services:
 
   mysql:
-    image: mysql:5.7.21
+    image: mysql:5.7.22
     container_name: mysql
     ports:
       - 3306:3306
@@ -43,7 +43,7 @@ services:
     restart: always
 
   sonarqube:
-    image: sonarqube:7.0
+    image: sonarqube:7.1
     container_name: sonarqube
     depends_on:
       - mysql

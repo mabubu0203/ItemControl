@@ -55,13 +55,12 @@ ItemControl                           … rootプロジェクト
 | name              | version
 | :---------------- | :-------
 | OracleJdk         | 1.9
-| DockerCompose     | 1.18
-| MySql             | 5.7.21
-| Gradle            | 4.6 
-| SonarQube         | 7.0
+| DockerCompose     | 1.20
+| MySql             | 5.7.x
+| Gradle            | 4.7 
+| SonarQube         | 7.x
 | Grafana           | 5.x
 | Prometheus        | 2.x
-
 
 ### Library
 

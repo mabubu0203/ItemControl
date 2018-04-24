@@ -147,7 +147,6 @@ subprojects{
     apply plugin: 'com.github.spotbugs'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'org.springframework.boot'
-
     apply plugin: 'war'
 
     repositories {
@@ -155,7 +154,7 @@ subprojects{
     }
 
     spotbugs {
-        toolVersion = '3.1.2'
+        toolVersion = '3.1.3'
     }
 
     task('default') {

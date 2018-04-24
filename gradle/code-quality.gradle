@@ -3,7 +3,7 @@ allprojects {
 }
 
 pmd {
-    toolVersion = "6.1.0"
+    toolVersion = "6.2.0"
     ignoreFailures = true
     consoleOutput = true
     ruleSetFiles = rootProject.files({ "/config/pmd/all-java.xml" })
