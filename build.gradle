@@ -39,7 +39,7 @@ apply from: "$rootDir/gradle/ide.gradle"
 sonarqube {
     properties {
         property "sonar.github.repository", "mabubu0203/ItemControl"
-        property "sonar.host.url", "http://localhost:9000/sonarqube"
+        property "sonar.host.url", "http://localhost:9000/sonar"
         property "sonar.jacoco.reportPaths", { "${project.buildDir}/jacoco/test.exec" }
         property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
         property "sonar.jdbc.password", "sonar"

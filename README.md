@@ -55,7 +55,7 @@ ItemControl                           … rootプロジェクト
 | name              | version
 | :---------------- | :-------
 | OracleJdk         | 1.9
-| DockerCompose     | 1.20
+| DockerCompose     | 1.x
 | MySql             | 5.7.x
 | Gradle            | 4.7 
 | SonarQube         | 7.x
@@ -73,5 +73,5 @@ ItemControl                           … rootプロジェクト
 
 [Grafana]: http://localhost:3000/      "Grafana"
 [ItemControl]: http://localhost:8085/swagger-ui.html     "ItemControl"
-[SonarQube]: http://localhost:9000/sonarqube/     "SonarQube"
+[SonarQube]: http://localhost:9000/sonar/     "SonarQube"
 [Prometheus]: http://localhost:9090/     "Prometheus"

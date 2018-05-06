@@ -29,7 +29,7 @@ services:
     restart: always
 
   grafana:
-    image: grafana/grafana:5.0.4
+    image: grafana/grafana:5.1.0
     container_name: grafana
     depends_on:
       - prometheus
@@ -54,13 +54,11 @@ services:
       - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
     networks:
       - sonarnet
-    command: -Dsonar.web.context=/sonarqube
+    command: -Dsonar.web.context=/sonar
     ports:
       - 9000:9000
       - 9092:9092
     environment:
-      - SONAR_JDBC_USERNAME=sonar
-      - SONAR_JDBC_PASSWORD=sonar
       - SONAR_JDBC_URL=jdbc:mysql://localhost:3306/sonar?useUnicode=true&characterEncoding=utf8
     restart: always
 
