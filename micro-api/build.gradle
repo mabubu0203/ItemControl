@@ -56,7 +56,7 @@ dependencies {
     runtimeOnly("io.springfox:springfox-swagger-ui:$springfoxVersion")
 
     // micrometer-registry-prometheus
-    compile("io.micrometer:micrometer-registry-prometheus:1.0.3")
+    compile("io.micrometer:micrometer-registry-prometheus:1.0.4")
 
 }
 
