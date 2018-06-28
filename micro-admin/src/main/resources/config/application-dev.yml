@@ -8,9 +8,7 @@ spring:
     ignore: true
   boot:
     admin:
-      client:
-        enabled: true
-        url: http://localhost:8095/admin
+      context-path: /admin
   profiles: dev
   http:
     encoding:
@@ -26,57 +24,6 @@ spring:
 # ----------------------------------------
 # DATA PROPERTIES
 # ----------------------------------------
-  flyway:
-    baseline-version: 1.1
-    check-location: true
-    enabled: true
-    encoding: UTF-8
-    locations: classpath:db/migration/mysql
-    password: root
-    sql-migration-prefix: M
-    sql-migration-suffix: .sql
-    url: jdbc:mysql://localhost:3306/items?useSSL=false
-    user: root
-  liquibase:
-    enabled: false
-  data:
-    jpa:
-      repositories:
-        enabled: true
-    web:
-      pageable:
-        default-page-size: 20
-        page-parameter: page
-        size-parameter: size
-      sort:
-        sort-parameter: sort
-  datasource:
-    continue-on-error: false
-    driverClassName: com.mysql.jdbc.Driver
-    generate-unique-name: false
-    jmx-enabled: true
-    password: root
-    sql-script-encoding: UTF-8
-    url: jdbc:mysql://localhost:3306/items?useSSL=false
-    username: root
-  h2:
-    console:
-      enabled: false
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
-    generate-ddl: false
-    hibernate:
-      ddl-auto: none
-    open-in-view: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL57InnoDBDialect
-        id:
-          new_generator_mappings: false
-        format_sql: true
-    show-sql: false
-  jta:
-    enabled: true
 
 # ----------------------------------------
 # INTEGRATION PROPERTIES
@@ -104,8 +51,7 @@ spring:
 # WEB PROPERTIES
 # ----------------------------------------
 server:
-  port: 8085
-  context-path: /ItemsApi
+  port: 8095
   servlet:
     jsp:
       registered: false

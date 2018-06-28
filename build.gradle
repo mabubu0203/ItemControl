@@ -7,6 +7,9 @@ buildscript {
         // SpringBoot
         springBootVersion = springbootVersion
 
+        // SpringBootAdmin
+        springbootAdminVersion = springbootAdminVersion
+
         // SpringFox
         springfoxVersion = springfoxVersion
 
@@ -26,7 +29,7 @@ buildscript {
 }
 
 plugins {
-    id "com.github.ben-manes.versions" version "0.17.0"
+    id "com.github.ben-manes.versions" version "0.20.0"
     id 'com.github.hierynomus.license' version '0.14.0'
     id "com.github.spotbugs" version "1.6.2"
     id "org.springframework.boot" version "2.0.3.RELEASE"
@@ -168,6 +171,10 @@ subprojects{
         }
     }
 
+}
+
+project(':micro-admin') {
+    ext.moduleName = 'jp.co.valtech.items.admin'
 }
 
 project(':micro-api') {

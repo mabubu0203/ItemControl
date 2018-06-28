@@ -7,7 +7,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-jpa") {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
     }
-    compile('org.springframework.boot:spring-boot-starter-data-rest') {
+    compile("org.springframework.boot:spring-boot-starter-data-rest") {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
     }
     compile("org.springframework.boot:spring-boot-starter-validation") {
@@ -16,9 +16,9 @@ dependencies {
     }
 
     // SpringFox
-    compile("io.springfox:springfox-bean-validators:$springfoxVersion")
-    compile("io.springfox:springfox-data-rest:$springfoxVersion")
-    compile("io.springfox:springfox-swagger2:$springfoxVersion")
+    compile("io.springfox:springfox-bean-validators:${springfoxVersion}")
+    compile("io.springfox:springfox-data-rest:${springfoxVersion}")
+    compile("io.springfox:springfox-swagger2:${springfoxVersion}")
 
     // lombok
     compile("org.projectlombok:lombok")

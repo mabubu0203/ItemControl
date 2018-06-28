@@ -1,0 +1,31 @@
+# ----------------------------------------
+# CORE PROPERTIES
+# ----------------------------------------
+banner:
+  charset: UTF-8
+  location: classpath:banner.txt
+
+# ----------------------------------------
+# LOGGING PROPERTIES
+# ----------------------------------------
+logging:
+  config: classpath:logback-spring.xml
+  file: micro-api.log
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+      springframework: INFO
+  path: /var/log
+# spring.profiles.activeにデフォルトでアクティブなプロファイルを指定
+spring:
+  profiles:
+    active: dev
+#    active: production
+#    active: test
+    include: message
+

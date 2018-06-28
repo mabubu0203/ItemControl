@@ -1,5 +1,6 @@
 rootProject.name = 'ItemControl'
 include(
+        'micro-admin',
         'micro-api',
         'micro-common',
         'micro-interfaces',

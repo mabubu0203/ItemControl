@@ -1,0 +1,9 @@
+dependencies {
+
+    // SpringBoot projects
+    compile("org.springframework.boot:spring-boot-starter-web") {
+    }
+
+    compile("de.codecentric:spring-boot-admin-starter-server:${springbootAdminVersion}")
+
+}

@@ -1,7 +1,7 @@
 dependencies {
 
     // SpringBoot projects
-    compile('org.springframework.boot:spring-boot-starter-data-rest') {
+    compile("org.springframework.boot:spring-boot-starter-data-rest") {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
     }
     compile("org.springframework.boot:spring-boot-starter-validation") {
