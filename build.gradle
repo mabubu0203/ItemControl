@@ -69,7 +69,7 @@ allprojects {
     }
 
     checkstyle {
-        toolVersion = '8.10'
+        toolVersion = '8.11'
         configFile = rootProject.file('config/checkstyle/google_checks.xml')
         showViolations = true
     }
@@ -144,7 +144,7 @@ allprojects {
 
 }
 
-subprojects{
+subprojects {
 
     apply plugin: 'application'
     apply plugin: 'com.github.spotbugs'
