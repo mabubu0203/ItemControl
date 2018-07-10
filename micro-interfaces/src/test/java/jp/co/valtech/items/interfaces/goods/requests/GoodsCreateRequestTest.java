@@ -58,7 +58,16 @@ class GoodsCreateRequestTest
     }
 
     @Test
-    void NameValidate() throws Exception {
+    void categoryCodeValidate() throws Exception {
+
+        request.getGoods().setCategoryCode(CreateString.loopStr("あ", 11));
+        violationSet = validator.validate(request);
+        Assertions.assertTrue(violationSet.size() > 0);
+
+    }
+
+    @Test
+    void nameValidate() throws Exception {
 
         request.getGoods().setName("");
         violationSet = validator.validate(request);
@@ -71,13 +80,22 @@ class GoodsCreateRequestTest
     }
 
     @Test
-    void PriceValidate() throws Exception {
+    void priceValidate() throws Exception {
 
         request.getGoods().setPrice(null);
         violationSet = validator.validate(request);
         Assertions.assertTrue(violationSet.size() > 0);
 
         request.getGoods().setPrice(99999);
+        violationSet = validator.validate(request);
+        Assertions.assertTrue(violationSet.size() > 0);
+
+    }
+
+    @Test
+    void noteValidate() throws Exception {
+
+        request.getGoods().setNote(CreateString.loopStr("あ", 65));
         violationSet = validator.validate(request);
         Assertions.assertTrue(violationSet.size() > 0);
 

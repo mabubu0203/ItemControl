@@ -42,13 +42,35 @@ public class CategoryCreateRequestTest extends AbstractRequestTest {
     }
 
     @Test
-    void NameValidate() throws Exception {
+    void categoryCodeValidate() throws Exception {
+
+        request.getCategory().setCategoryCode("");
+        violationSet = validator.validate(request);
+        Assertions.assertTrue(violationSet.size() > 0);
+
+        request.getCategory().setCategoryCode(CreateString.loopStr("あ", 11));
+        violationSet = validator.validate(request);
+        Assertions.assertTrue(violationSet.size() > 0);
+
+    }
+
+    @Test
+    void nameValidate() throws Exception {
 
         request.getCategory().setName("");
         violationSet = validator.validate(request);
         Assertions.assertTrue(violationSet.size() > 0);
 
         request.getCategory().setName(CreateString.loopStr("あ", 26));
+        violationSet = validator.validate(request);
+        Assertions.assertTrue(violationSet.size() > 0);
+
+    }
+
+    @Test
+    void noteValidate() throws Exception {
+
+        request.getCategory().setNote(CreateString.loopStr("あ", 65));
         violationSet = validator.validate(request);
         Assertions.assertTrue(violationSet.size() > 0);
 
