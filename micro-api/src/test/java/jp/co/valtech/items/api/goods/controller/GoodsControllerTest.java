@@ -8,6 +8,7 @@ import jp.co.valtech.items.interfaces.goods.responses.GoodsCreateResponse;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsFindResponse;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsGetResponse;
 import jp.co.valtech.items.interfaces.goods.responses.GoodsUpdateResponse;
+import jp.co.valtech.items.test.function.CreateString;
 import org.flywaydb.test.FlywayTestExecutionListener;
 import org.flywaydb.test.annotation.FlywayTest;
 import org.junit.jupiter.api.AfterEach;
@@ -99,7 +100,7 @@ class GoodsControllerTest {
             violationSet = validator.validate(request);
             Assertions.assertTrue(violationSet.size() > 0);
 
-            request.getGoods().setGoodsCode("あああああああああああああああ");
+            request.getGoods().setGoodsCode(CreateString.loopStr("あ", 11));
             violationSet = validator.validate(request);
             Assertions.assertTrue(violationSet.size() > 0);
 
@@ -107,13 +108,13 @@ class GoodsControllerTest {
 
         @FlywayTest
         @Test
-        void NameValidate() throws Exception {
+        void nameValidate() throws Exception {
 
             request.getGoods().setName("");
             violationSet = validator.validate(request);
             Assertions.assertTrue(violationSet.size() > 0);
 
-            request.getGoods().setName("ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ");
+            request.getGoods().setName(CreateString.loopStr("あ", 26));
             violationSet = validator.validate(request);
             Assertions.assertTrue(violationSet.size() > 0);
 
@@ -121,7 +122,7 @@ class GoodsControllerTest {
 
         @FlywayTest
         @Test
-        void PriceValidate() throws Exception {
+        void priceValidate() throws Exception {
 
             request.getGoods().setPrice(null);
             violationSet = validator.validate(request);
@@ -160,7 +161,7 @@ class GoodsControllerTest {
 
         @FlywayTest
         @Test
-        void VersionValidate() throws Exception {
+        void versionValidate() throws Exception {
             String id = "4";
             Integer version = null;
             ResponseEntity<Void> entity = delete(id, version);
