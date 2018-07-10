@@ -28,7 +28,7 @@ public class CategoryCreateRequestTest extends AbstractRequestTest {
 
         request = new CategoryCreateRequest();
         CategoryReq categoryReq = new CategoryReq();
-        categoryReq.setCategoryCode("CODEC1");
+        categoryReq.setCategoryCode("CODEG1");
         categoryReq.setName("aaa");
         categoryReq.setNote("aaa");
         request.setCategory(categoryReq);
