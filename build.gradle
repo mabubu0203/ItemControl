@@ -31,8 +31,8 @@ buildscript {
 plugins {
     id "com.github.ben-manes.versions" version "0.20.0"
     id 'com.github.hierynomus.license' version '0.14.0'
-    id "com.github.spotbugs" version "1.6.2"
-    id "org.springframework.boot" version "2.0.3.RELEASE"
+    id "com.github.spotbugs" version "1.6.3"
+    id "org.springframework.boot" version "2.0.6.RELEASE"
     id "org.sonarqube" version "2.6.2"
 }
 
@@ -91,7 +91,7 @@ allprojects {
     }
 
     jacoco {
-        toolVersion = "0.8.1"
+        toolVersion = "0.8.2"
         reportsDir = file("$buildDir/customJacocoReportDir")
     }
 
@@ -157,7 +157,7 @@ subprojects {
     }
 
     spotbugs {
-        toolVersion = '3.1.5'
+        toolVersion = '3.1.6'
     }
 
     task('default') {
